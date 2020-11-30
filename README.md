@@ -1,5 +1,5 @@
 # Sckedio
-The marketplace for designs
+The marketplace for designs.
 
 ## About
 Sckedio is an online platform that connects designers, manufacturers, and buyers in a marketplace setting.
