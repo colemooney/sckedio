@@ -1,5 +1,4 @@
 # Sckedio
-<<<<<<< HEAD
 
 The marketplace for designs.
 
@@ -70,11 +69,3 @@ If you discover a security vulnerability within Laravel, please send an e-mail t
 ## License
 
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
-=======
-The marketplace for designs.
-
-## About
-Sckedio is an online platform that connects designers, manufacturers, and buyers in a marketplace setting.
-
-Sckedio provides designers with a way to easily monetize their creativity without the need of a large firm or manufacturing skillset, provides buyers with custom products, and provides manufacturers new customers at a low acquisition cost.
->>>>>>> a7377068e80b1350e9b55b912e4ee5fe28d22916

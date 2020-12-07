@@ -15,7 +15,7 @@ In editing the react js files open resources/js/components.
     <title>{{ config('app.name', 'Laravel') }}</title>
 
     <!-- Scripts -->
-    <
+    
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -25,7 +25,8 @@ In editing the react js files open resources/js/components.
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
 <body>
-    <div id="example"></div>
+    <!-- <div id="example"></div> -->
+    <div id="root"></div>
     <script src="{{ asset('js/app.js') }}" defer></script>
 </body>
 </html>
