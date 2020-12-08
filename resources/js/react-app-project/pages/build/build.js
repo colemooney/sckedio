@@ -1,13 +1,13 @@
 import React from 'react';
 import NavBar from '../../components/NavBar/Navbar';
 
-const Sell = () => {
-    return(
+const Build = () => {
+    return (
         <div>
             <NavBar />
-            <h1>Sell</h1>
+            <h1>Build Page</h1>
         </div>
     );
 };
 
-export default Sell;
+export default Build;
