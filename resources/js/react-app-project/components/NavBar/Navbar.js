@@ -31,6 +31,30 @@ const NavBar = (props) => {
     const theme = useTheme();
     const isMobile = useMediaQuery(theme.breakpoints.down('xs'));
     const [currentLocationURL, setCurrentLocationURL] = React.useState(location.pathname);
+    const [signedIn, setSignedIn] = React.useState(false);
+
+    const navItems = [
+        {
+            itemName: 'Home',
+            itemPath: '/'
+        },
+        {
+            itemName: 'Sell',
+            itemPath: '/sell'
+        },
+        {
+            itemName: 'Buy',
+            itemPath: '/buy'
+        },
+        {
+            itemName: 'Build',
+            itemPath: '/build'
+        },
+        {
+            itemName: 'About',
+            itemPath: '/about'
+        }
+    ];
 
     const handleMenu = (event) => {
         setAnchorEl(event.currentTarget);
@@ -82,80 +106,89 @@ const NavBar = (props) => {
                                     open={open}
                                     onClose={() => setAnchorEl(null)}
                                 >
-                                    <MenuItem onClick={() => handleMenuClick('/')}>
-                                        <Typography
-                                            color={currentLocationURL === '/' ? 'primary' : 'initial'}
-                                        >
-                                            Home
-                                        </Typography>
-                                    </MenuItem>
-                                    <MenuItem onClick={() => handleMenuClick('/sell')}>
-                                        <Typography
-                                            color={currentLocationURL === '/sell' ? 'primary' : 'initial'}
-                                        >
-                                            Sell
-                                        </Typography>
-                                    </MenuItem>
-                                    <MenuItem onClick={() => handleMenuClick('/buy')}>
-                                        <Typography
-                                            color={currentLocationURL === '/buy' ? 'primary' : 'initial'}
-                                        >
-                                            Buy
-                                        </Typography>
-                                    </MenuItem>
-                                    <MenuItem onClick={() => handleMenuClick('/build')}>
-                                        <Typography
-                                            color={currentLocationURL === '/build' ? 'primary' : 'initial'}
-                                        >
-                                            Build
-                                        </Typography>
-                                    </MenuItem>
+                                    {navItems.map((item, i) => (
+                                        <MenuItem key={i} onClick={() => handleMenuClick(item.itemPath)}>
+                                            <Typography
+                                                color={currentLocationURL === item.itemPath ? 'primary' : 'initial'}
+                                            >
+                                                {item.itemName}
+                                            </Typography>
+                                        </MenuItem>
+                                    ))}
+                                    {signedIn ?
+                                        (<MenuItem onClick={() => handleMenuClick('/profile')}>
+                                            <Typography
+                                                color={currentLocationURL === '/profile' ? 'primary' : 'initial'}
+                                            >
+                                                Profile
+                                            </Typography>
+                                        </MenuItem>) :
+                                        // (<MenuItem onClick={() => handleMenuClick('/signin')}>
+                                        //     <Typography
+                                        //         color={currentLocationURL === '/signin' ? 'primary' : 'initial'}
+                                        //     >
+                                        //         Sign In
+                                        //     </Typography>
+                                        // </MenuItem>)
+                                        (<MenuItem onClick={() => setSignedIn(true)}>
+                                            <Typography
+                                                color={currentLocationURL === '/signin' ? 'primary' : 'initial'}
+                                            >
+                                                Sign In
+                                            </Typography>
+                                        </MenuItem>)
+                                    }
                                 </Menu>
                             </div>
                         ) :
-                        (
-                            <div>
-                                <Button
-                                    onClick={() => handleButtonClick('/')}
-                                >
-                                    <Typography
-                                        color={currentLocationURL === '/' ? 'primary' : 'initial'}
-                                    >
-                                        Home
-                                    </Typography>
-                                </Button>
-                                <Button
-                                    color={currentLocationURL === '/sell' ? 'primary' : 'default'}
-                                    onClick={() => handleButtonClick('/sell')}
-                                >
-                                    <Typography
-                                        color={currentLocationURL === '/sell' ? 'primary' : 'initial'}
-                                    >
-                                        Sell
-                                    </Typography>
-                                </Button>
-                                <Button
-                                    color={currentLocationURL === '/buy' ? 'primary' : 'default'}
-                                    onClick={() => handleButtonClick('/buy')}
-                                >
-                                    <Typography
-                                        color={currentLocationURL === '/buy' ? 'primary' : 'initial'}
-                                    >
-                                        Buy
-                                    </Typography>
-                                </Button>
-                                <Button
-                                    color={currentLocationURL === '/build' ? 'primary' : 'default'}
-                                    onClick={() => handleButtonClick('/build')}
-                                >
-                                    <Typography
-                                        color={currentLocationURL === '/build' ? 'primary' : 'initial'}
-                                    >
-                                        Build
-                                    </Typography>
-                                </Button>
-                            </div>
-                        )}
+                            (
+                                <div>
+                                    {navItems.map((item, i) => (
+                                        <Button
+                                            key={i}
+                                            onClick={() => handleButtonClick(item.itemPath)}
+                                        >
+                                            <Typography
+                                                color={currentLocationURL === item.itemPath ? 'primary' : 'initial'}
+                                            >
+                                                {item.itemName}
+                                            </Typography>
+                                        </Button>
+                                    ))}
+                                    {signedIn ? (
+                                        <Button
+                                            onClick={() => handleButtonClick('/profile')}
+                                        >
+                                            <Typography
+                                                color={currentLocationURL === '/profile' ? 'primary' : 'initial'}
+                                            >
+                                                Profile
+                                            </Typography>
+                                        </Button>
+                                    ) :
+                                        (
+                                            // <Button
+                                            //     onClick={() => handleButtonClick('/signin')}
+                                            // >
+                                            //     <Typography
+                                            //         color={currentLocationURL === '/signin' ? 'primary' : 'initial'}
+                                            //     >
+                                            //         Sign In
+                                            // </Typography>
+                                            // </Button>
+                                            <Button
+                                                onClick={() => setSignedIn(true)}
+                                            >
+                                                <Typography
+                                                    color={currentLocationURL === '/signin' ? 'primary' : 'initial'}
+                                                >
+                                                    Sign In
+                                            </Typography>
+                                            </Button>
+                                        )}
+                                </div>
+                            )
+                        }
                     </div>
                 </Toolbar>
             </AppBar>
