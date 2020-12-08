@@ -51984,8 +51984,8 @@ var Sell = function Sell() {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\Users\jarre\Desktop\sckedio\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\Users\jarre\Desktop\sckedio\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\xampp\htdocs\sckedio\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\xampp\htdocs\sckedio\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })
