@@ -24,13 +24,13 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const NavBar = (props) => {
-    const { history, location } = props;
     const classes = useStyles();
+    const { history, location } = props;
     const [anchorEl, setAnchorEl] = React.useState(null);
     const open = Boolean(anchorEl);
     const theme = useTheme();
     const isMobile = useMediaQuery(theme.breakpoints.down('xs'));
-    const [currentLocationURL, setCurrentLocationURL] = React.useState(location.pathname); 
+    const [currentLocationURL, setCurrentLocationURL] = React.useState(location.pathname);
 
     const handleMenu = (event) => {
         setAnchorEl(event.currentTarget);
@@ -47,9 +47,12 @@ const NavBar = (props) => {
 
     return (
         <div className={classes.root}>
-            <AppBar position="static">
+            <AppBar
+                position="static"
+                color="transparent"
+            >
                 <Toolbar>
-                    <Typography variant="h6" className={classes.title}>
+                    <Typography variant="h5" className={classes.title}>
                         Sckedio
                     </Typography>
                     <div>
@@ -80,39 +83,79 @@ const NavBar = (props) => {
                                     onClose={() => setAnchorEl(null)}
                                 >
                                     <MenuItem onClick={() => handleMenuClick('/')}>
-                                        <Typography 
-                                            color={currentLocationURL==='/' ? 'secondary' : 'initial'}
+                                        <Typography
+                                            color={currentLocationURL === '/' ? 'primary' : 'initial'}
                                         >
                                             Home
                                         </Typography>
                                     </MenuItem>
                                     <MenuItem onClick={() => handleMenuClick('/sell')}>
-                                        <Typography 
-                                            color={currentLocationURL==='/sell' ? 'secondary' : 'initial'}
+                                        <Typography
+                                            color={currentLocationURL === '/sell' ? 'primary' : 'initial'}
                                         >
                                             Sell
+                                        </Typography>
+                                    </MenuItem>
+                                    <MenuItem onClick={() => handleMenuClick('/buy')}>
+                                        <Typography
+                                            color={currentLocationURL === '/buy' ? 'primary' : 'initial'}
+                                        >
+                                            Buy
+                                        </Typography>
+                                    </MenuItem>
+                                    <MenuItem onClick={() => handleMenuClick('/build')}>
+                                        <Typography
+                                            color={currentLocationURL === '/build' ? 'primary' : 'initial'}
+                                        >
+                                            Build
                                         </Typography>
                                     </MenuItem>
                                 </Menu>
                             </div>
                         ) :
-                            (
-                                <div>
+                        (
+                            <div>
                                 <Button
-                                    color={currentLocationURL==='/' ? 'secondary' : 'default'}
-                                    onClick={()=>handleButtonClick('/')}
+                                    onClick={() => handleButtonClick('/')}
                                 >
-                                    Home
+                                    <Typography
+                                        color={currentLocationURL === '/' ? 'primary' : 'initial'}
+                                    >
+                                        Home
+                                    </Typography>
                                 </Button>
                                 <Button
-                                    color={currentLocationURL==='/sell' ? 'secondary' : 'default'}
-                                    onClick={()=>handleButtonClick('/sell')}
+                                    color={currentLocationURL === '/sell' ? 'primary' : 'default'}
+                                    onClick={() => handleButtonClick('/sell')}
                                 >
-                                    Sell
+                                    <Typography
+                                        color={currentLocationURL === '/sell' ? 'primary' : 'initial'}
+                                    >
+                                        Sell
+                                    </Typography>
                                 </Button>
-                                </div>
-                            )}
-
+                                <Button
+                                    color={currentLocationURL === '/buy' ? 'primary' : 'default'}
+                                    onClick={() => handleButtonClick('/buy')}
+                                >
+                                    <Typography
+                                        color={currentLocationURL === '/buy' ? 'primary' : 'initial'}
+                                    >
+                                        Buy
+                                    </Typography>
+                                </Button>
+                                <Button
+                                    color={currentLocationURL === '/build' ? 'primary' : 'default'}
+                                    onClick={() => handleButtonClick('/build')}
+                                >
+                                    <Typography
+                                        color={currentLocationURL === '/build' ? 'primary' : 'initial'}
+                                    >
+                                        Build
+                                    </Typography>
+                                </Button>
+                            </div>
+                        )}
                     </div>
                 </Toolbar>
             </AppBar>
