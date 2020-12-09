@@ -16,11 +16,13 @@ const userInfo = {
     profilePhoto: 'https://thumbs.dreamstime.com/b/default-avatar-photo-placeholder-profile-picture-default-avatar-photo-placeholder-profile-picture-eps-file-easy-to-edit-125707135.jpg'
 };
 
+
+
 const Profile = () => {
     return(
         <div>
             <NavBar />
-            <Container fixed>
+            <Container >
                 <h1>Profile</h1>
                 <ProfileInfoDisplay user={userInfo} />
             </Container>
