@@ -8,6 +8,9 @@ import Home from './pages/home/Home';
 import Profile from './pages/profile/Profile';
 import Sell from './pages/sell/Sell';
 
+/* Anything that has register is temporary */
+import Register from './pages/register/register';
+
 
 const App = () => {
     return (
@@ -20,6 +23,8 @@ const App = () => {
                 <Route exact path='/build' component={Build} />
                 <Route exact path='/about' component={About} />
                 <Route exact path='/profile' component={Profile} />
+
+                <Route exact path='/register' component={Register} />
             </Router>
         </React.Fragment>
     );
