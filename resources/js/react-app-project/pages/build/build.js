@@ -1,5 +1,5 @@
 import React from 'react';
-import NavBar from '../../components/navBar/Navbar';
+import NavBar from '../../components/navBar/NavBar';
 
 const Build = () => {
     return (

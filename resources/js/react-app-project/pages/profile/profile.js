@@ -1,6 +1,6 @@
 import React from 'react';
 import Container from '@material-ui/core/Container';
-import NavBar from '../../components/navBar/Navbar';
+import NavBar from '../../components/navBar/NavBar';
 import ProfileInfoDisplay from '../../components/ProfileInfoDisplay/ProfileInfoDisplay';
 
 const userInfo = {

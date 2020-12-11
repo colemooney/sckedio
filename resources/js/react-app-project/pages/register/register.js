@@ -2,7 +2,7 @@
 import React from 'react';
 import {Link, withRouter} from 'react-router-dom';
 import ReactDOM from 'react-dom';
-import NavBar from '../../components/NavBar/Navbar';
+import NavBar from '../../components/navBar/NavBar';
 import RegisterContainer from './RegisterContainer';
 
 // class Register extends Component {
