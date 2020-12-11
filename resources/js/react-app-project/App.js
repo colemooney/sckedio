@@ -9,7 +9,7 @@ import Profile from './pages/profile/Profile';
 import Sell from './pages/sell/Sell';
 
 /* Anything that has register is temporary */
-import Register from './pages/register/register';
+import Register from './pages/register/Register';
 
 
 const App = () => {

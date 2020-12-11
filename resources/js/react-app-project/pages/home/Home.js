@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import NavBar from '../../components/navBar/Navbar';
+import NavBar from '../../components/navBar/NavBar';
 import axios from 'axios';
 
 const Home = () => {
