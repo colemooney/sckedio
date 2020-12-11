@@ -22,8 +22,12 @@ const CreateAccountForm = (props) => {
         signUpPasswordCon,
         setSignUpPasswordCon,
         signUpEmail,
-        setSignUpEmail
+        setSignUpEmail,
+        handleSubmit,
+        signUpInstructions
     } = props;
+
+    const errorTest = false;
 
     return (
         <div className={classes.flexGrow}>
@@ -36,6 +40,9 @@ const CreateAccountForm = (props) => {
                         <Grid item container xs={12} justify='center'>
                             <Typography variant='h5'>Create Account</Typography>
                         </Grid>
+                        {/* <Grid item container xs={12} justify='center'>
+                            <Typography variant='subtitle1'>{signUpInstructions}</Typography>
+                        </Grid> */}
                         <Grid item xs={12}>
                             <TextField
                                 id='username-input'
@@ -44,6 +51,8 @@ const CreateAccountForm = (props) => {
                                 fullWidth
                                 value={signUpUsername}
                                 onChange={event => setSignUpUsername(event.target.value)}
+                                error={errorTest ? true : false}
+                                helperText={errorTest && 'something here'}
                             />
                         </Grid>
                         <Grid item xs={12}>
@@ -79,7 +88,10 @@ const CreateAccountForm = (props) => {
                             />
                         </Grid>
                         <Grid item container xs={12} justify='center'>
-                            <Button variant="contained" color="primary">
+                            <Button 
+                                variant="contained" color="primary"
+                                onClick={handleSubmit}
+                            >
                                 Create Account
                             </Button>
                         </Grid>

@@ -94883,7 +94883,10 @@ var CreateAccountForm = function CreateAccountForm(props) {
       signUpPasswordCon = props.signUpPasswordCon,
       setSignUpPasswordCon = props.setSignUpPasswordCon,
       signUpEmail = props.signUpEmail,
-      setSignUpEmail = props.setSignUpEmail;
+      setSignUpEmail = props.setSignUpEmail,
+      handleSubmit = props.handleSubmit,
+      signUpInstructions = props.signUpInstructions;
+  var errorTest = false;
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: classes.flexGrow
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_Grid__WEBPACK_IMPORTED_MODULE_4__["default"], {
@@ -94924,7 +94927,9 @@ var CreateAccountForm = function CreateAccountForm(props) {
     value: signUpUsername,
     onChange: function onChange(event) {
       return setSignUpUsername(event.target.value);
-    }
+    },
+    error: errorTest ? true : false,
+    helperText: errorTest && 'something here'
   })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_Grid__WEBPACK_IMPORTED_MODULE_4__["default"], {
     item: true,
     xs: 12
@@ -94970,7 +94975,8 @@ var CreateAccountForm = function CreateAccountForm(props) {
     justify: "center"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_Button__WEBPACK_IMPORTED_MODULE_3__["default"], {
     variant: "contained",
-    color: "primary"
+    color: "primary",
+    onClick: handleSubmit
   }, "Create Account"))))));
 };
 
@@ -95295,6 +95301,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _material_ui_core_Container__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @material-ui/core/Container */ "./node_modules/@material-ui/core/esm/Container/index.js");
 /* harmony import */ var _components_createAccountForm_CreateAccountForm__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../components/createAccountForm/CreateAccountForm */ "./resources/js/react-app-project/components/createAccountForm/CreateAccountForm.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_3__);
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -95311,26 +95319,47 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
+
 var CreateAccount = function CreateAccount() {
-  var _React$useState = react__WEBPACK_IMPORTED_MODULE_0___default.a.useState(),
+  var _React$useState = react__WEBPACK_IMPORTED_MODULE_0___default.a.useState(''),
       _React$useState2 = _slicedToArray(_React$useState, 2),
       signUpUsername = _React$useState2[0],
       setSignUpUsername = _React$useState2[1];
 
-  var _React$useState3 = react__WEBPACK_IMPORTED_MODULE_0___default.a.useState(),
+  var _React$useState3 = react__WEBPACK_IMPORTED_MODULE_0___default.a.useState(''),
       _React$useState4 = _slicedToArray(_React$useState3, 2),
       signUpPassword = _React$useState4[0],
       setSignUpPassword = _React$useState4[1];
 
-  var _React$useState5 = react__WEBPACK_IMPORTED_MODULE_0___default.a.useState(),
+  var _React$useState5 = react__WEBPACK_IMPORTED_MODULE_0___default.a.useState(''),
       _React$useState6 = _slicedToArray(_React$useState5, 2),
       signUpPasswordCon = _React$useState6[0],
       setSignUpPasswordCon = _React$useState6[1];
 
-  var _React$useState7 = react__WEBPACK_IMPORTED_MODULE_0___default.a.useState(),
+  var _React$useState7 = react__WEBPACK_IMPORTED_MODULE_0___default.a.useState(''),
       _React$useState8 = _slicedToArray(_React$useState7, 2),
       signUpEmail = _React$useState8[0],
       setSignUpEmail = _React$useState8[1];
+
+  var _React$useState9 = react__WEBPACK_IMPORTED_MODULE_0___default.a.useState('Please fill out all fields'),
+      _React$useState10 = _slicedToArray(_React$useState9, 2),
+      signUpInstructions = _React$useState10[0],
+      setSignUpInstructions = _React$useState10[1];
+
+  var handleSubmit = function handleSubmit() {
+    var userData = {
+      username: signUpUsername,
+      email: signUpEmail,
+      password: signUpPassword,
+      password_confirmation: signUpPasswordCon
+    };
+    console.log(userData);
+    axios__WEBPACK_IMPORTED_MODULE_3___default.a.post('api/auth/signup', userData).then(function (res) {
+      console.log(res);
+    })["catch"](function (err) {
+      console.log(err);
+    });
+  };
 
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_Container__WEBPACK_IMPORTED_MODULE_1__["default"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_createAccountForm_CreateAccountForm__WEBPACK_IMPORTED_MODULE_2__["default"], {
     signUpUsername: signUpUsername,
@@ -95340,7 +95369,9 @@ var CreateAccount = function CreateAccount() {
     signUpPasswordCon: signUpPasswordCon,
     setSignUpPasswordCon: setSignUpPasswordCon,
     signUpEmail: signUpEmail,
-    setSignUpEmail: setSignUpEmail
+    setSignUpEmail: setSignUpEmail,
+    signUpInstructions: signUpInstructions,
+    handleSubmit: handleSubmit
   })));
 };
 
