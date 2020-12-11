@@ -10,6 +10,7 @@ import Sell from './pages/sell/Sell';
 
 /* Anything that has register is temporary */
 import Register from './pages/register/Register';
+import CreateAccount from './pages/createAccount/CreateAccount';
 
 
 const App = () => {
@@ -23,6 +24,7 @@ const App = () => {
                 <Route exact path='/build' component={Build} />
                 <Route exact path='/about' component={About} />
                 <Route exact path='/profile' component={Profile} />
+                <Route exact path='/create-account' component={CreateAccount} />
 
                 <Route exact path='/register' component={Register} />
             </Router>
