@@ -16,28 +16,13 @@ class AuthController extends Controller
      * @param [string] email
      * @param [string] password
      * @param [string] password_confirmation
-     * @param [string] message
-     * @param [string] first_name
-     * @param [string] last_name
-     * @param [string] state
-     * @param [string] city
-     * @param [string] street
-     * @param [string] postal_code
-     * @param [string] country
      */
 
      public function signup(Request $request){
         $request->validate([
             'username' => 'required|string',
             'email' => 'required|string|email|unique:users',
-            'password' => 'required|string|confirmed',
-            'first_name' => 'required|string',
-            'last_name' => 'required|string',
-            'state' => 'required|string',
-            'city' => 'required|string',
-            'street' => 'string',
-            'postal_code' => 'string',
-            'country' => 'required|string'
+            'password' => 'required|string|confirmed'
         ]);
 
         $user = new User([
@@ -47,7 +32,7 @@ class AuthController extends Controller
         ]);
 
         $user->save();
-
+        /*
         $user_information = new UserInformation([
             'first_name' => $request->first_name,
             'last_name' => $request->last_name,
@@ -60,7 +45,7 @@ class AuthController extends Controller
 
         $user_information->user()->associate($user);
         $user_information->save();
-
+*/
         return response()->json([
             'message' => 'Successfully created user!'
         ], 201);
