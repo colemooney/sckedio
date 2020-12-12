@@ -9,9 +9,12 @@ const CreateAccount = () => {
     const [signUpPassword, setSignUpPassword] = React.useState('');
     const [signUpPasswordCon, setSignUpPasswordCon] = React.useState('');
     const [signUpEmail, setSignUpEmail] = React.useState('');
-    const [signUpInstructions, setSignUpInstructions] = React.useState('Please fill out all fields')
+    const [usernameHelper, setUsernameHelper] = React.useState('');
+    const [emailHelper, setEmailHelper] = React.useState('');
+    const [passwordHelper, setPasswordHelper] = React.useState('');
+    const [passwordMatchHelper, setPasswordMatchHelper] = React.useState('');
 
-    const handleSubmit = ()=>{
+    const handleSubmit = () => {
         const userData = {
             username: signUpUsername,
             email: signUpEmail,
@@ -21,14 +24,79 @@ const CreateAccount = () => {
 
         console.log(userData);
 
-        axios.post('api/auth/signup', userData)
-            .then(res=>{
-                console.log(res);
-            })
-            .catch(err=>{
-                console.log(err);
-            })
+        validateInputs();
+
+        // axios.post('api/auth/signup', userData)
+        //     .then(res => {
+        //         console.log(res);
+        //     })
+        //     .catch(err => {
+        //         console.log(err);
+        //     });
     }
+
+    const validateInputs = () => {
+        const usernameIsValid = /^[a-zA-Z0-9]+$/.test(signUpUsername);
+        console.log('user regex: ' + usernameIsValid);
+        const usernameIsLength = stringLengthTest(signUpUsername, 4, 25);
+        console.log('user length: ' + usernameIsLength);
+
+        const emailIsValid = /\S+@\S+\.\S+/.test(signUpEmail);
+        console.log('email regex: ' + emailIsValid);
+
+        const passwordIsLength = stringLengthTest(signUpPassword, 7, 200);
+        console.log('password length: ' + passwordIsLength);
+
+        const passwordIsMatch = passwordMatchTest();
+        console.log('password match: ' + passwordIsMatch);
+
+        if (!usernameIsValid) {
+            setUsernameHelper('Can only contain letters and numbers');
+        } else {
+            setUsernameHelper('');
+            if (!usernameIsLength) {
+                setUsernameHelper('Must be between 4 and 25 characters');
+            } else {
+                setUsernameHelper('');
+            }
+        }
+
+        if (!emailIsValid) {
+            setEmailHelper('Please enter a valid email');
+        } else {
+            setEmailHelper('');
+        }
+
+        if (!passwordIsLength) {
+            setPasswordHelper('Must be between 7 and 200 characters');
+        } else {
+            setPasswordHelper('');
+        }
+
+        if (!passwordIsMatch) {
+            setPasswordMatchHelper('Password does not match');
+        } else {
+            setPasswordMatchHelper('');
+        }
+    };
+
+    const passwordMatchTest = () => {
+        if (signUpPassword === signUpPasswordCon) {
+            return true;
+        } else {
+            return false;
+        }
+    };
+
+    const stringLengthTest = (string, min, max) => {
+        const stringLength = string.length;
+
+        if (stringLength < min || stringLength > max) {
+            return false;
+        } else {
+            return true;
+        }
+    };
 
     return (
         <div>
@@ -42,8 +110,11 @@ const CreateAccount = () => {
                     setSignUpPasswordCon={setSignUpPasswordCon}
                     signUpEmail={signUpEmail}
                     setSignUpEmail={setSignUpEmail}
-                    signUpInstructions={signUpInstructions}
                     handleSubmit={handleSubmit}
+                    usernameHelper={usernameHelper}
+                    emailHelper={emailHelper}
+                    passwordHelper={passwordHelper}
+                    passwordMatchHelper={passwordMatchHelper}
                 />
             </Container>
         </div>

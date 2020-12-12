@@ -24,7 +24,10 @@ const CreateAccountForm = (props) => {
         signUpEmail,
         setSignUpEmail,
         handleSubmit,
-        signUpInstructions
+        usernameHelper,
+        emailHelper,
+        passwordHelper,
+        passwordMatchHelper
     } = props;
 
     const errorTest = false;
@@ -40,9 +43,6 @@ const CreateAccountForm = (props) => {
                         <Grid item container xs={12} justify='center'>
                             <Typography variant='h5'>Create Account</Typography>
                         </Grid>
-                        {/* <Grid item container xs={12} justify='center'>
-                            <Typography variant='subtitle1'>{signUpInstructions}</Typography>
-                        </Grid> */}
                         <Grid item xs={12}>
                             <TextField
                                 id='username-input'
@@ -51,8 +51,8 @@ const CreateAccountForm = (props) => {
                                 fullWidth
                                 value={signUpUsername}
                                 onChange={event => setSignUpUsername(event.target.value)}
-                                error={errorTest ? true : false}
-                                helperText={errorTest && 'something here'}
+                                error={usernameHelper === '' ? false : true}
+                                helperText={usernameHelper}
                             />
                         </Grid>
                         <Grid item xs={12}>
@@ -63,6 +63,8 @@ const CreateAccountForm = (props) => {
                                 fullWidth
                                 value={signUpEmail}
                                 onChange={event => setSignUpEmail(event.target.value)}
+                                error={emailHelper === '' ? false : true}
+                                helperText={emailHelper}
                             />
                         </Grid>
                         <Grid item xs={12}>
@@ -74,6 +76,8 @@ const CreateAccountForm = (props) => {
                                 fullWidth
                                 value={signUpPassword}
                                 onChange={event => setSignUpPassword(event.target.value)}
+                                error={passwordHelper === '' ? false : true}
+                                helperText={passwordHelper}
                             />
                         </Grid>
                         <Grid item xs={12}>
@@ -85,10 +89,12 @@ const CreateAccountForm = (props) => {
                                 fullWidth
                                 value={signUpPasswordCon}
                                 onChange={event => setSignUpPasswordCon(event.target.value)}
+                                error={passwordMatchHelper === '' ? false : true}
+                                helperText={passwordMatchHelper}
                             />
                         </Grid>
                         <Grid item container xs={12} justify='center'>
-                            <Button 
+                            <Button
                                 variant="contained" color="primary"
                                 onClick={handleSubmit}
                             >

@@ -94885,7 +94885,10 @@ var CreateAccountForm = function CreateAccountForm(props) {
       signUpEmail = props.signUpEmail,
       setSignUpEmail = props.setSignUpEmail,
       handleSubmit = props.handleSubmit,
-      signUpInstructions = props.signUpInstructions;
+      usernameHelper = props.usernameHelper,
+      emailHelper = props.emailHelper,
+      passwordHelper = props.passwordHelper,
+      passwordMatchHelper = props.passwordMatchHelper;
   var errorTest = false;
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: classes.flexGrow
@@ -94928,8 +94931,8 @@ var CreateAccountForm = function CreateAccountForm(props) {
     onChange: function onChange(event) {
       return setSignUpUsername(event.target.value);
     },
-    error: errorTest ? true : false,
-    helperText: errorTest && 'something here'
+    error: usernameHelper === '' ? false : true,
+    helperText: usernameHelper
   })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_Grid__WEBPACK_IMPORTED_MODULE_4__["default"], {
     item: true,
     xs: 12
@@ -94941,7 +94944,9 @@ var CreateAccountForm = function CreateAccountForm(props) {
     value: signUpEmail,
     onChange: function onChange(event) {
       return setSignUpEmail(event.target.value);
-    }
+    },
+    error: emailHelper === '' ? false : true,
+    helperText: emailHelper
   })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_Grid__WEBPACK_IMPORTED_MODULE_4__["default"], {
     item: true,
     xs: 12
@@ -94954,7 +94959,9 @@ var CreateAccountForm = function CreateAccountForm(props) {
     value: signUpPassword,
     onChange: function onChange(event) {
       return setSignUpPassword(event.target.value);
-    }
+    },
+    error: passwordHelper === '' ? false : true,
+    helperText: passwordHelper
   })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_Grid__WEBPACK_IMPORTED_MODULE_4__["default"], {
     item: true,
     xs: 12
@@ -94967,7 +94974,9 @@ var CreateAccountForm = function CreateAccountForm(props) {
     value: signUpPasswordCon,
     onChange: function onChange(event) {
       return setSignUpPasswordCon(event.target.value);
-    }
+    },
+    error: passwordMatchHelper === '' ? false : true,
+    helperText: passwordMatchHelper
   })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_Grid__WEBPACK_IMPORTED_MODULE_4__["default"], {
     item: true,
     container: true,
@@ -95341,10 +95350,25 @@ var CreateAccount = function CreateAccount() {
       signUpEmail = _React$useState8[0],
       setSignUpEmail = _React$useState8[1];
 
-  var _React$useState9 = react__WEBPACK_IMPORTED_MODULE_0___default.a.useState('Please fill out all fields'),
+  var _React$useState9 = react__WEBPACK_IMPORTED_MODULE_0___default.a.useState(''),
       _React$useState10 = _slicedToArray(_React$useState9, 2),
-      signUpInstructions = _React$useState10[0],
-      setSignUpInstructions = _React$useState10[1];
+      usernameHelper = _React$useState10[0],
+      setUsernameHelper = _React$useState10[1];
+
+  var _React$useState11 = react__WEBPACK_IMPORTED_MODULE_0___default.a.useState(''),
+      _React$useState12 = _slicedToArray(_React$useState11, 2),
+      emailHelper = _React$useState12[0],
+      setEmailHelper = _React$useState12[1];
+
+  var _React$useState13 = react__WEBPACK_IMPORTED_MODULE_0___default.a.useState(''),
+      _React$useState14 = _slicedToArray(_React$useState13, 2),
+      passwordHelper = _React$useState14[0],
+      setPasswordHelper = _React$useState14[1];
+
+  var _React$useState15 = react__WEBPACK_IMPORTED_MODULE_0___default.a.useState(''),
+      _React$useState16 = _slicedToArray(_React$useState15, 2),
+      passwordMatchHelper = _React$useState16[0],
+      setPasswordMatchHelper = _React$useState16[1];
 
   var handleSubmit = function handleSubmit() {
     var userData = {
@@ -95354,11 +95378,74 @@ var CreateAccount = function CreateAccount() {
       password_confirmation: signUpPasswordCon
     };
     console.log(userData);
-    axios__WEBPACK_IMPORTED_MODULE_3___default.a.post('api/auth/signup', userData).then(function (res) {
-      console.log(res);
-    })["catch"](function (err) {
-      console.log(err);
-    });
+    validateInputs(); // axios.post('api/auth/signup', userData)
+    //     .then(res => {
+    //         console.log(res);
+    //     })
+    //     .catch(err => {
+    //         console.log(err);
+    //     });
+  };
+
+  var validateInputs = function validateInputs() {
+    var usernameIsValid = /^[a-zA-Z0-9]+$/.test(signUpUsername);
+    console.log('user regex: ' + usernameIsValid);
+    var usernameIsLength = stringLengthTest(signUpUsername, 4, 25);
+    console.log('user length: ' + usernameIsLength);
+    var emailIsValid = /\S+@\S+\.\S+/.test(signUpEmail);
+    console.log('email regex: ' + emailIsValid);
+    var passwordIsLength = stringLengthTest(signUpPassword, 7, 200);
+    console.log('password length: ' + passwordIsLength);
+    var passwordIsMatch = passwordMatchTest();
+    console.log('password match: ' + passwordIsMatch);
+
+    if (!usernameIsValid) {
+      setUsernameHelper('Can only contain letters and numbers');
+    } else {
+      setUsernameHelper('');
+
+      if (!usernameIsLength) {
+        setUsernameHelper('Must be between 4 and 25 characters');
+      } else {
+        setUsernameHelper('');
+      }
+    }
+
+    if (!emailIsValid) {
+      setEmailHelper('Please enter a valid email');
+    } else {
+      setEmailHelper('');
+    }
+
+    if (!passwordIsLength) {
+      setPasswordHelper('Must be between 7 and 200 characters');
+    } else {
+      setPasswordHelper('');
+    }
+
+    if (!passwordIsMatch) {
+      setPasswordMatchHelper('Password does not match');
+    } else {
+      setPasswordMatchHelper('');
+    }
+  };
+
+  var passwordMatchTest = function passwordMatchTest() {
+    if (signUpPassword === signUpPasswordCon) {
+      return true;
+    } else {
+      return false;
+    }
+  };
+
+  var stringLengthTest = function stringLengthTest(string, min, max) {
+    var stringLength = string.length;
+
+    if (stringLength < min || stringLength > max) {
+      return false;
+    } else {
+      return true;
+    }
   };
 
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_Container__WEBPACK_IMPORTED_MODULE_1__["default"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_createAccountForm_CreateAccountForm__WEBPACK_IMPORTED_MODULE_2__["default"], {
@@ -95370,8 +95457,11 @@ var CreateAccount = function CreateAccount() {
     setSignUpPasswordCon: setSignUpPasswordCon,
     signUpEmail: signUpEmail,
     setSignUpEmail: setSignUpEmail,
-    signUpInstructions: signUpInstructions,
-    handleSubmit: handleSubmit
+    handleSubmit: handleSubmit,
+    usernameHelper: usernameHelper,
+    emailHelper: emailHelper,
+    passwordHelper: passwordHelper,
+    passwordMatchHelper: passwordMatchHelper
   })));
 };
 
