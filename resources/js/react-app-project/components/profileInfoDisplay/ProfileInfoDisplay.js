@@ -15,11 +15,6 @@ const useStyles = makeStyles((theme) => ({
     bold: {
         fontWeight: 500
     },
-    container: {
-        [theme.breakpoints.up('lg')]: {
-            width: 1170
-        }
-    },
     profileImage: {
         maxWidth: '100%',
         [theme.breakpoints.up('sm')]: {
@@ -153,7 +148,7 @@ const ProfileInfoDisplay = (props) => {
                     </Grid> */}
                 </Grid>
             ) : (
-                    <Grid className={classes.container} container spacing={4}>
+                    <Grid container spacing={4}>
                         <Grid container item xs={4}>
                             <Grid item xs={12}>
                                 <img className={classes.profileImage} src={profilePhoto} />
