@@ -95754,8 +95754,8 @@ var CreateAccount = function CreateAccount() {
     var userData = {
       username: signUpUsername,
       email: signUpEmail,
-      password: signUpPassword // password_confirmation: signUpPasswordCon
-
+      password: signUpPassword,
+      password_confirmation: signUpPasswordCon
     };
     console.log(userData);
     var isValid = validateInputs();

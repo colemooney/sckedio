@@ -19,7 +19,7 @@ const CreateAccount = () => {
             username: signUpUsername,
             email: signUpEmail,
             password: signUpPassword,
-            // password_confirmation: signUpPasswordCon
+            password_confirmation: signUpPasswordCon
         };
 
         console.log(userData);
