@@ -19,36 +19,34 @@ const CreateAccount = () => {
             username: signUpUsername,
             email: signUpEmail,
             password: signUpPassword,
-            password_confirmation: signUpPasswordCon
+            // password_confirmation: signUpPasswordCon
         };
 
         console.log(userData);
 
-        validateInputs();
+        const isValid = validateInputs();
 
-        // axios.post('api/auth/signup', userData)
-        //     .then(res => {
-        //         console.log(res);
-        //     })
-        //     .catch(err => {
-        //         console.log(err);
-        //     });
+        console.log('is valid: ' + isValid);
+        if (isValid) {
+            axios.post('api/auth/signup', userData)
+                .then(res => {
+                    console.log(res);
+                })
+                .catch(err => {
+                    console.log(err);
+                });
+        }
     }
 
     const validateInputs = () => {
         const usernameIsValid = /^[a-zA-Z0-9]+$/.test(signUpUsername);
-        console.log('user regex: ' + usernameIsValid);
         const usernameIsLength = stringLengthTest(signUpUsername, 4, 25);
-        console.log('user length: ' + usernameIsLength);
 
         const emailIsValid = /\S+@\S+\.\S+/.test(signUpEmail);
-        console.log('email regex: ' + emailIsValid);
 
         const passwordIsLength = stringLengthTest(signUpPassword, 7, 200);
-        console.log('password length: ' + passwordIsLength);
 
         const passwordIsMatch = passwordMatchTest();
-        console.log('password match: ' + passwordIsMatch);
 
         if (!usernameIsValid) {
             setUsernameHelper('Can only contain letters and numbers');
@@ -77,6 +75,12 @@ const CreateAccount = () => {
             setPasswordMatchHelper('Password does not match');
         } else {
             setPasswordMatchHelper('');
+        }
+
+        if (usernameIsValid && usernameIsLength && emailIsValid && passwordIsLength && passwordIsMatch) {
+            return true;
+        } else {
+            return false;
         }
     };
 
