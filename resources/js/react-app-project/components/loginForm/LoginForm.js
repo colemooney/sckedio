@@ -13,22 +13,16 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-const CreateAccountForm = (props) => {
+const LoginForm = (props) => {
     const classes = useStyles();
     const {
-        setSignUpUsername,
-        signUpUsername,
-        signUpPassword,
-        setSignUpPassword,
-        signUpPasswordCon,
-        setSignUpPasswordCon,
-        signUpEmail,
-        setSignUpEmail,
+        setLoginUsername,
+        loginUsername,
+        loginPassword,
+        setLoginPassword,
         handleSubmit,
         usernameHelper,
-        emailHelper,
-        passwordHelper,
-        passwordMatchHelper
+        passwordHelper
     } = props;
 
     const errorTest = false;
@@ -42,7 +36,7 @@ const CreateAccountForm = (props) => {
                 <Box border={1} width={380} borderRadius='borderRadius' borderColor='grey.500' p={3} mt={2}>
                     <Grid container spacing={3}>
                         <Grid item container xs={12} justify='center'>
-                            <Typography variant='h5'>Create Account</Typography>
+                            <Typography variant='h5'>Login</Typography>
                         </Grid>
                         <Grid item xs={12}>
                             <TextField
@@ -50,22 +44,10 @@ const CreateAccountForm = (props) => {
                                 label='Username'
                                 variant='outlined'
                                 fullWidth
-                                value={signUpUsername}
-                                onChange={event => setSignUpUsername(event.target.value)}
+                                value={loginUsername}
+                                onChange={event => setLoginUsername(event.target.value)}
                                 error={usernameHelper === '' ? false : true}
                                 helperText={usernameHelper}
-                            />
-                        </Grid>
-                        <Grid item xs={12}>
-                            <TextField
-                                id='email-input'
-                                label='Email'
-                                variant='outlined'
-                                fullWidth
-                                value={signUpEmail}
-                                onChange={event => setSignUpEmail(event.target.value)}
-                                error={emailHelper === '' ? false : true}
-                                helperText={emailHelper}
                             />
                         </Grid>
                         <Grid item xs={12}>
@@ -75,23 +57,10 @@ const CreateAccountForm = (props) => {
                                 type='password'
                                 variant='outlined'
                                 fullWidth
-                                value={signUpPassword}
-                                onChange={event => setSignUpPassword(event.target.value)}
+                                value={loginPassword}
+                                onChange={event => setLoginPassword(event.target.value)}
                                 error={passwordHelper === '' ? false : true}
                                 helperText={passwordHelper}
-                            />
-                        </Grid>
-                        <Grid item xs={12}>
-                            <TextField
-                                id='password-input-confirm'
-                                label='Confirm Password'
-                                type='password'
-                                variant='outlined'
-                                fullWidth
-                                value={signUpPasswordCon}
-                                onChange={event => setSignUpPasswordCon(event.target.value)}
-                                error={passwordMatchHelper === '' ? false : true}
-                                helperText={passwordMatchHelper}
                             />
                         </Grid>
                         <Grid item container xs={12} justify='center'>
@@ -99,11 +68,14 @@ const CreateAccountForm = (props) => {
                                 variant="contained" color="primary"
                                 onClick={handleSubmit}
                             >
-                                Create Account
+                                Login
                             </Button>
                         </Grid>
                         <Grid item container xs={12} justify='center'>
-                            <Typography variant='body2'>Already have an account? <Link href='/login'>Login</Link></Typography>
+                            <Typography variant='body2'><Link href='#' onClick={()=>console.log('clicked')}>Forgot your password?</Link></Typography>
+                        </Grid>
+                        <Grid item container xs={12} justify='center'>
+                            <Typography variant='body2'>First time here? <Link href='/create-account'>Create an account</Link></Typography>
                         </Grid>
                     </Grid>
                 </Box>
@@ -112,4 +84,4 @@ const CreateAccountForm = (props) => {
     );
 };
 
-export default CreateAccountForm;
+export default LoginForm;
