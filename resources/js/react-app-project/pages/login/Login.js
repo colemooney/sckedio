@@ -14,7 +14,8 @@ const Login = () => {
     const handleSubmit = () => {
         const loginData = {
             username: loginUsername,
-            password: loginPassword
+            password: loginPassword,
+            remember_me: true
         };
 
         console.log(loginData);
@@ -23,14 +24,35 @@ const Login = () => {
 
         console.log('is valid: ' + isValid);
         if (isValid) {
-            // axios.post('api/auth/signup', loginData)
-            //     .then(res => {
-            //         console.log(res);
-            //     })
-            //     .catch(err => {
-            //         console.log(err);
-            //     });
+            axios.post('api/auth/login', loginData)
+                .then(res => {
+                    console.log(res);
+                    const jwToken = res.data.access_token;
+
+                    // test JWT get request
+                    // getUserInfo(jwToken);
+                })
+                .catch(err => {
+                    console.log(err);
+                });
         }
+    }
+
+    // test JWT get request
+    const getUserInfo = (newToken) => {
+        const authAxios = axios.create({
+            headers: {
+                Authorization: `Bearer ${newToken}`
+            }
+        });
+        authAxios.get('api/auth/user')
+            .then(res => {
+                console.log('getting user info');
+                console.log(res);
+            })
+            .catch(err =>{
+                console.log(err);
+            });
     }
 
     const validateInputs = () => {

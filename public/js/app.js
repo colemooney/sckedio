@@ -95757,7 +95757,6 @@ var CreateAccount = function CreateAccount() {
       password: signUpPassword,
       password_confirmation: signUpPasswordCon
     };
-    console.log(userData);
     var isValid = validateInputs();
     console.log('is valid: ' + isValid);
 
@@ -95949,20 +95948,37 @@ var Login = function Login() {
   var handleSubmit = function handleSubmit() {
     var loginData = {
       username: loginUsername,
-      password: loginPassword
+      password: loginPassword,
+      remember_me: true
     };
     console.log(loginData);
     var isValid = validateInputs();
     console.log('is valid: ' + isValid);
 
-    if (isValid) {// axios.post('api/auth/signup', loginData)
-      //     .then(res => {
-      //         console.log(res);
-      //     })
-      //     .catch(err => {
-      //         console.log(err);
-      //     });
+    if (isValid) {
+      axios__WEBPACK_IMPORTED_MODULE_3___default.a.post('api/auth/login', loginData).then(function (res) {
+        console.log(res);
+        var jwToken = res.data.access_token; // test JWT get request
+        // getUserInfo(jwToken);
+      })["catch"](function (err) {
+        console.log(err);
+      });
     }
+  }; // test JWT get request
+
+
+  var getUserInfo = function getUserInfo(newToken) {
+    var authAxios = axios__WEBPACK_IMPORTED_MODULE_3___default.a.create({
+      headers: {
+        Authorization: "Bearer ".concat(newToken)
+      }
+    });
+    authAxios.get('api/auth/user').then(function (res) {
+      console.log('getting user info');
+      console.log(res);
+    })["catch"](function (err) {
+      console.log(err);
+    });
   };
 
   var validateInputs = function validateInputs() {
