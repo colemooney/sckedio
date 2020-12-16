@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Button from '@material-ui/core/Button';
@@ -9,6 +9,7 @@ import MenuIcon from '@material-ui/icons/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
+import auth from '../../auth';
 import { withRouter } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
@@ -31,7 +32,16 @@ const NavBar = (props) => {
     const theme = useTheme();
     const isMobile = useMediaQuery(theme.breakpoints.down('xs'));
     const [currentLocationURL, setCurrentLocationURL] = React.useState(location.pathname);
-    const [signedIn, setSignedIn] = React.useState(false);
+    const [loggedIn,setLoggedIn] =React.useState(false);
+
+    useEffect(()=>{
+        const jwToken = localStorage.getItem('token');
+        if (jwToken) {
+            auth.login(()=>{
+                setLoggedIn(true);
+            });
+        }
+    });
 
     const navItems = [
         {
@@ -115,7 +125,7 @@ const NavBar = (props) => {
                                             </Typography>
                                         </MenuItem>
                                     ))}
-                                    {signedIn ?
+                                    {auth.isAuthenticated() ?
                                         (<MenuItem onClick={() => handleMenuClick('/profile')}>
                                             <Typography
                                                 color={currentLocationURL === '/profile' ? 'primary' : 'initial'}
@@ -123,18 +133,11 @@ const NavBar = (props) => {
                                                 Profile
                                             </Typography>
                                         </MenuItem>) :
-                                        // (<MenuItem onClick={() => handleMenuClick('/signin')}>
-                                        //     <Typography
-                                        //         color={currentLocationURL === '/signin' ? 'primary' : 'initial'}
-                                        //     >
-                                        //         Sign In
-                                        //     </Typography>
-                                        // </MenuItem>)
-                                        (<MenuItem onClick={() => setSignedIn(true)}>
+                                        (<MenuItem onClick={() => handleMenuClick('/login')}>
                                             <Typography
-                                                color={currentLocationURL === '/signin' ? 'primary' : 'initial'}
+                                                color={'initial'}
                                             >
-                                                Sign In
+                                                Login
                                             </Typography>
                                         </MenuItem>)
                                     }
@@ -155,7 +158,7 @@ const NavBar = (props) => {
                                             </Typography>
                                         </Button>
                                     ))}
-                                    {signedIn ? (
+                                    {auth.isAuthenticated() ? (
                                         <Button
                                             onClick={() => handleButtonClick('/profile')}
                                         >
@@ -167,22 +170,13 @@ const NavBar = (props) => {
                                         </Button>
                                     ) :
                                         (
-                                            // <Button
-                                            //     onClick={() => handleButtonClick('/signin')}
-                                            // >
-                                            //     <Typography
-                                            //         color={currentLocationURL === '/signin' ? 'primary' : 'initial'}
-                                            //     >
-                                            //         Sign In
-                                            // </Typography>
-                                            // </Button>
                                             <Button
-                                                onClick={() => setSignedIn(true)}
+                                                onClick={() => handleButtonClick('/login')}
                                             >
                                                 <Typography
-                                                    color={currentLocationURL === '/signin' ? 'primary' : 'initial'}
+                                                    color={'initial'}
                                                 >
-                                                    Sign In
+                                                    Login
                                             </Typography>
                                             </Button>
                                         )}
