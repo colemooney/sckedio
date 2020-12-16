@@ -22,8 +22,6 @@ const CreateAccount = () => {
             password_confirmation: signUpPasswordCon
         };
 
-        console.log(userData);
-
         const isValid = validateInputs();
 
         console.log('is valid: ' + isValid);

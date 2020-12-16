@@ -1,10 +1,12 @@
 import React from 'react';
 import Container from '@material-ui/core/Container';
 import LoginForm from '../../components/loginForm/loginForm';
+import { useHistory } from "react-router-dom";
 import axios from 'axios';
 
 
 const Login = () => {
+    let history = useHistory();
 
     const [loginUsername, setLoginUsername] = React.useState('');
     const [loginPassword, setLoginPassword] = React.useState('');
@@ -14,7 +16,8 @@ const Login = () => {
     const handleSubmit = () => {
         const loginData = {
             username: loginUsername,
-            password: loginPassword
+            password: loginPassword,
+            remember_me: true
         };
 
         console.log(loginData);
@@ -23,13 +26,23 @@ const Login = () => {
 
         console.log('is valid: ' + isValid);
         if (isValid) {
-            // axios.post('api/auth/signup', loginData)
-            //     .then(res => {
-            //         console.log(res);
-            //     })
-            //     .catch(err => {
-            //         console.log(err);
-            //     });
+            axios.post('api/auth/login', loginData)
+                .then(res => {
+                    console.log(res);
+
+                    // JWT token
+                    const jwToken = res.data.access_token;
+
+                    history.push({
+                        pathname: '/profile',
+                        state: {
+                            jwToken: jwToken
+                        }
+                    });
+                })
+                .catch(err => {
+                    console.log(err);
+                });
         }
     }
 

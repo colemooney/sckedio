@@ -95757,7 +95757,6 @@ var CreateAccount = function CreateAccount() {
       password: signUpPassword,
       password_confirmation: signUpPasswordCon
     };
-    console.log(userData);
     var isValid = validateInputs();
     console.log('is valid: ' + isValid);
 
@@ -95906,8 +95905,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _material_ui_core_Container__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @material-ui/core/Container */ "./node_modules/@material-ui/core/esm/Container/index.js");
 /* harmony import */ var _components_loginForm_loginForm__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../components/loginForm/loginForm */ "./resources/js/react-app-project/components/loginForm/loginForm.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_4__);
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -95925,7 +95925,10 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
+
 var Login = function Login() {
+  var history = Object(react_router_dom__WEBPACK_IMPORTED_MODULE_3__["useHistory"])();
+
   var _React$useState = react__WEBPACK_IMPORTED_MODULE_0___default.a.useState(''),
       _React$useState2 = _slicedToArray(_React$useState, 2),
       loginUsername = _React$useState2[0],
@@ -95949,19 +95952,27 @@ var Login = function Login() {
   var handleSubmit = function handleSubmit() {
     var loginData = {
       username: loginUsername,
-      password: loginPassword
+      password: loginPassword,
+      remember_me: true
     };
     console.log(loginData);
     var isValid = validateInputs();
     console.log('is valid: ' + isValid);
 
-    if (isValid) {// axios.post('api/auth/signup', loginData)
-      //     .then(res => {
-      //         console.log(res);
-      //     })
-      //     .catch(err => {
-      //         console.log(err);
-      //     });
+    if (isValid) {
+      axios__WEBPACK_IMPORTED_MODULE_4___default.a.post('api/auth/login', loginData).then(function (res) {
+        console.log(res); // JWT token
+
+        var jwToken = res.data.access_token;
+        history.push({
+          pathname: '/profile',
+          state: {
+            jwToken: jwToken
+          }
+        });
+      })["catch"](function (err) {
+        console.log(err);
+      });
     }
   };
 
@@ -96017,24 +96028,73 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _material_ui_core_Container__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @material-ui/core/Container */ "./node_modules/@material-ui/core/esm/Container/index.js");
 /* harmony import */ var _components_navBar_NavBar__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../components/navBar/NavBar */ "./resources/js/react-app-project/components/navBar/NavBar.js");
 /* harmony import */ var _components_ProfileInfoDisplay_ProfileInfoDisplay__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../components/ProfileInfoDisplay/ProfileInfoDisplay */ "./resources/js/react-app-project/components/ProfileInfoDisplay/ProfileInfoDisplay.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return; var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
 
-var userInfo = {
-  username: 'jarrett-d-123',
-  firstName: 'Jarrett',
-  lastName: 'Dougherty',
-  email: 'jarrettdougherty@gmail.com',
-  street: '123 Main St',
-  city: 'Philadelphia',
-  state: 'PA',
-  postalCode: 19104,
-  country: 'USA',
-  profilePhoto: 'https://thumbs.dreamstime.com/b/default-avatar-photo-placeholder-profile-picture-default-avatar-photo-placeholder-profile-picture-eps-file-easy-to-edit-125707135.jpg'
-};
 
-var Profile = function Profile() {
+
+
+var Profile = function Profile(props) {
+  var location = Object(react_router_dom__WEBPACK_IMPORTED_MODULE_4__["useLocation"])();
+
+  var _React$useState = react__WEBPACK_IMPORTED_MODULE_0___default.a.useState({
+    username: 'jarrett-d-123',
+    firstName: 'Jarrett',
+    lastName: 'Dougherty',
+    email: 'jarrettdougherty@gmail.com',
+    street: '123 Main St',
+    city: 'Philadelphia',
+    state: 'PA',
+    postalCode: 19104,
+    country: 'USA',
+    profilePhoto: 'https://thumbs.dreamstime.com/b/default-avatar-photo-placeholder-profile-picture-default-avatar-photo-placeholder-profile-picture-eps-file-easy-to-edit-125707135.jpg'
+  }),
+      _React$useState2 = _slicedToArray(_React$useState, 2),
+      userInfo = _React$useState2[0],
+      setUserInfo = _React$useState2[1];
+
+  Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(function () {
+    var jwToken = location.state.jwToken;
+    getUserInfo(jwToken);
+  }, []);
+
+  var getUserInfo = function getUserInfo(newToken) {
+    var authAxios = axios.create({
+      headers: {
+        Authorization: "Bearer ".concat(newToken)
+      }
+    });
+    authAxios.get('api/auth/user').then(function (res) {
+      console.log('getting user info');
+      console.log(res);
+      setUserInfo(_objectSpread(_objectSpread({}, userInfo), {}, {
+        username: res.data.username,
+        email: res.data.email
+      }));
+    })["catch"](function (err) {
+      console.log(err);
+    });
+  };
+
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_navBar_NavBar__WEBPACK_IMPORTED_MODULE_2__["default"], null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_Container__WEBPACK_IMPORTED_MODULE_1__["default"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "Profile"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_ProfileInfoDisplay_ProfileInfoDisplay__WEBPACK_IMPORTED_MODULE_3__["default"], {
     user: userInfo
   })));
