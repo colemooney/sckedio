@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
+use Laravel\Passport\TokenRepository;
+use Laravel\Passport\RefreshTokenRepository;
 use App\Models\User;
 use App\Models\UserInformation;
 
@@ -48,6 +50,48 @@ class AuthController extends Controller
 */
         return response()->json([
             'message' => 'Successfully created user!'
+        ], 201);
+     }
+
+     /**
+      * Create user information
+      * @param [string] first_name
+      * @param [string] last_name
+      * @param [string] state
+      * @param [string] city
+      * @param [string] street
+      * @param [string] postal_code
+      * @param [string] country
+      */
+
+     public function user_information(Request $request){
+        $request->validate([
+            'first_name' => 'required|string',
+            'last_name' => 'required|string',
+            'state' => 'required|string',
+            'city' => 'required|string',
+            'street' => 'string',
+            'postal_code' => 'required|string',
+            'country' => 'required|string'
+        ]);
+        
+        $user_information = new UserInformation([
+            'first_name' => $request->first_name,
+            'last_name' => $request->last_name,
+            'state' => $request->state,
+            'city' => $request->city,
+            'street' => $request->street,
+            'postal_code' => $request->postal_code,
+            'country' => $request->country
+        ]);
+
+        $user = Auth::user();
+        
+        $user_information->user()->associate($user);
+        $user_information->save();
+
+        return response()->json([
+            'message' => 'Successfully create user information!'
         ], 201);
      }
 
