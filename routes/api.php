@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ApiController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\UserInformationController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -33,6 +34,7 @@ Route::group([
     ], function(){
         Route::get('logout', [AuthController::class, 'logout']);
         Route::get('user', [AuthController::class, 'user']); 
-        Route::post('user-information', [AuthController::class, 'user_information']);
+        Route::post('create-user-information', [UserInformationController::class, 'create']);
+        Route::get('show-user-information', [UserInformationController::class, 'show']);
     });
 });
