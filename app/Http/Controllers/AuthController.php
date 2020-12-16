@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
+use Laravel\Passport\TokenRepository;
+use Laravel\Passport\RefreshTokenRepository;
 use App\Models\User;
 use App\Models\UserInformation;
 
