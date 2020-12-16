@@ -1,10 +1,12 @@
 import React from 'react';
 import Container from '@material-ui/core/Container';
 import LoginForm from '../../components/loginForm/loginForm';
+import { useHistory } from "react-router-dom";
 import axios from 'axios';
 
 
 const Login = () => {
+    let history = useHistory();
 
     const [loginUsername, setLoginUsername] = React.useState('');
     const [loginPassword, setLoginPassword] = React.useState('');
@@ -27,32 +29,21 @@ const Login = () => {
             axios.post('api/auth/login', loginData)
                 .then(res => {
                     console.log(res);
+
+                    // JWT token
                     const jwToken = res.data.access_token;
 
-                    // test JWT get request
-                    // getUserInfo(jwToken);
+                    history.push({
+                        pathname: '/profile',
+                        state: {
+                            jwToken: jwToken
+                        }
+                    });
                 })
                 .catch(err => {
                     console.log(err);
                 });
         }
-    }
-
-    // test JWT get request
-    const getUserInfo = (newToken) => {
-        const authAxios = axios.create({
-            headers: {
-                Authorization: `Bearer ${newToken}`
-            }
-        });
-        authAxios.get('api/auth/user')
-            .then(res => {
-                console.log('getting user info');
-                console.log(res);
-            })
-            .catch(err =>{
-                console.log(err);
-            });
     }
 
     const validateInputs = () => {
