@@ -7,7 +7,7 @@ import axios from 'axios';
 import { SecurityRounded } from '@material-ui/icons';
 
 
-const Login = () => {
+const Login = (props) => {
     let history = useHistory();
 
     const [loginUsername, setLoginUsername] = React.useState('');
@@ -24,12 +24,9 @@ const Login = () => {
 
         const isValid = validateInputs();
 
-        console.log('is valid: ' + isValid);
         if (isValid) {
             axios.post('api/auth/login', loginData)
                 .then(res => {
-                    console.log(res);
-
                     // JWT token
                     const jwToken = res.data.access_token;
                     // not secure, only for testing
@@ -38,6 +35,7 @@ const Login = () => {
 
                     // flips authenticated to true
                     auth.login(()=>{
+                        props.setLoggedIn(true);
                         history.push({
                             pathname: '/profile',
                             // state: {
