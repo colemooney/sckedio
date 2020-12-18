@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ApiController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UserInformationController;
+use App\Http\Controllers\UserController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -32,12 +33,16 @@ Route::group([
     Route::group([
         'middleware'=> 'auth:api'
     ], function(){
-        // GET methods
+        // AuthController
         Route::get('logout', [AuthController::class, 'logout']);
         Route::get('user', [AuthController::class, 'user']); 
+
+        //UserInformationController
         Route::get('show-user-information', [UserInformationController::class, 'show']);
-        //POST methods
         Route::post('create-user-information', [UserInformationController::class, 'create']);
         Route::put('update-user-information', [UserInformationController::class, 'update']);
+
+        //UserController
+        Route::get('show-user', [UserController::class, 'show']);
     });
 });
