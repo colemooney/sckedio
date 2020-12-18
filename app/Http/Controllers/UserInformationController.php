@@ -11,6 +11,7 @@ use App\Models\User;
 class UserInformationController extends Controller
 {
     /**
+     * Create new user information
      * @param [string] first_name
      * @param [string] last_name
      * @param [string] state
@@ -46,10 +47,10 @@ class UserInformationController extends Controller
         $duplicate_catcher = DB::table('users_information')->where('user_id','=',$user_id)->get();
         $dp_counter = $duplicate_catcher->count();
 
-        if($dp_counter > 1) {
+        if($dp_counter > 0) {
             return response()->json([
-                'message' => 'Failed'
-            ], 400);
+                'message' => 'Current user already has user information.'
+            ], 409);
         }
         else {
             $user_information->user()->associate($user);
@@ -68,8 +69,61 @@ class UserInformationController extends Controller
      */
     public function show(Request $request) {
         $user_id = Auth::id();
-        $user_information = User::find($user_id)->all()->user_information;
+        $user_information = User::find($user_id)->user_information;
+
+        if(empty($user_information)){
+            return response()->json([
+                'message' => 'User Information not found.'
+            ], 404);
+        }
 
         return response()->json([$user_information]);
+    }
+
+    /**
+     * Update user information
+     * @param [string] first_name
+     * @param [string] last_name
+     * @param [string] state
+     * @param [string] city
+     * @param [string] street
+     * @param [string] postal_code
+     * @param [string] country
+     */
+    public function update(Request $request) {
+        $user_id = Auth::id();
+        
+        $request->validate([
+            'first_name' => 'required|string',
+            'last_name' => 'required|string',
+            'state' => 'required|string',
+            'city' => 'required|string',
+            'street' => 'string',
+            'postal_code' => 'required|string',
+            'country' => 'required|string'
+        ]);
+        
+        $user_information = User::find($user_id)->user_information;
+        
+        // Checks if current user has user information data.
+        if(!empty($user_information)){
+            // Update user information
+            $user_information->first_name = $request->first_name;
+            $user_information->last_name = $request->last_name;
+            $user_information->state = $request->state;
+            $user_information->city = $request->city;
+            $user_information->street = $request->street;
+            $user_information->postal_code = $request->postal_code;
+            $user_information->country = $request->country;
+            $user_information->save();
+        } else {
+            return response()->json([
+                'message' => 'User information not found.'
+            ], 404);
+        }
+        
+        return response()->json([
+            'message' => 'Successfully updated user information.'
+        ], 201);
     }
 }
