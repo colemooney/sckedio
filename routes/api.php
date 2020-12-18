@@ -32,9 +32,12 @@ Route::group([
     Route::group([
         'middleware'=> 'auth:api'
     ], function(){
+        // GET methods
         Route::get('logout', [AuthController::class, 'logout']);
         Route::get('user', [AuthController::class, 'user']); 
-        Route::post('create-user-information', [UserInformationController::class, 'create']);
         Route::get('show-user-information', [UserInformationController::class, 'show']);
+        //POST methods
+        Route::post('create-user-information', [UserInformationController::class, 'create']);
+        Route::put('update-user-information', [UserInformationController::class, 'update']);
     });
 });
