@@ -1,10 +1,10 @@
 import React from 'react';
 import NavBar from '../../components/navBar/NavBar';
 
-const Buy = () => {
+const Buy = (props) => {
     return (
         <div>
-            <NavBar />
+            <NavBar loggedIn={props.loggedIn} setLoggedIn={props.setLoggedIn} />
             <h1>Buy Page</h1>
         </div>
     );

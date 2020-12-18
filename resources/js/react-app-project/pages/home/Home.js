@@ -2,14 +2,13 @@ import React, { useEffect } from 'react';
 import NavBar from '../../components/navBar/NavBar';
 import axios from 'axios';
 
-const Home = () => {
-
-    useEffect(()=>{
+const Home = (props) => {
+    useEffect(() => {
     }, []);
 
     return (
         <div>
-            <NavBar />
+            <NavBar loggedIn={props.loggedIn} setLoggedIn={props.setLoggedIn} />
             <h1>Home Page</h1>
         </div>
     );

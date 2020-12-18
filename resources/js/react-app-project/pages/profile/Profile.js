@@ -9,10 +9,10 @@ const Profile = (props) => {
     const location = useLocation();
 
     const [userInfo, setUserInfo] = React.useState({
-        username: 'username',
+        username: null,
         firstName: 'First',
         lastName: 'Last',
-        email: 'Email',
+        email: null,
         street: 'Street',
         city: 'City',
         state: 'XX',
@@ -21,11 +21,11 @@ const Profile = (props) => {
         profilePhoto: 'https://thumbs.dreamstime.com/b/default-avatar-photo-placeholder-profile-picture-default-avatar-photo-placeholder-profile-picture-eps-file-easy-to-edit-125707135.jpg'
     });
 
-    useEffect(()=>{
-            // const jwToken = auth.getToken();
-            const jwToken = localStorage.getItem('token');
-            getUserInfo(jwToken);
-    },[]);
+    useEffect(() => {
+        // const jwToken = auth.getToken();
+        const jwToken = localStorage.getItem('token');
+        getUserInfo(jwToken);
+    }, []);
 
     const getUserInfo = (newToken) => {
         const authAxios = axios.create({
@@ -35,21 +35,20 @@ const Profile = (props) => {
         });
         authAxios.get('api/auth/user')
             .then(res => {
-                console.log('getting user info');
-                console.log(res);
-                setUserInfo({...userInfo, 
+                setUserInfo({
+                    ...userInfo,
                     username: res.data.username,
                     email: res.data.email
                 });
             })
-            .catch(err =>{
+            .catch(err => {
                 console.log(err);
             });
     }
 
-    return(
+    return (
         <div>
-            <NavBar />
+            <NavBar loggedIn={props.loggedIn} setLoggedIn={props.setLoggedIn} />
             <Container >
                 <h1>Profile</h1>
                 <ProfileInfoDisplay user={userInfo} />

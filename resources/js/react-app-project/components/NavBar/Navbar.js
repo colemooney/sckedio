@@ -30,18 +30,9 @@ const NavBar = (props) => {
     const [anchorEl, setAnchorEl] = React.useState(null);
     const open = Boolean(anchorEl);
     const theme = useTheme();
-    const isMobile = useMediaQuery(theme.breakpoints.down('xs'));
+    const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
     const [currentLocationURL, setCurrentLocationURL] = React.useState(location.pathname);
-    const [loggedIn,setLoggedIn] =React.useState(false);
-
-    useEffect(()=>{
-        const jwToken = localStorage.getItem('token');
-        if (jwToken) {
-            auth.login(()=>{
-                setLoggedIn(true);
-            });
-        }
-    });
+    const loggedIn = props.loggedIn;
 
     const navItems = [
         {
@@ -77,6 +68,13 @@ const NavBar = (props) => {
 
     const handleButtonClick = (pageURL) => {
         history.push(pageURL);
+    };
+
+    const handleLogout = () => {
+        auth.logout(()=>{
+            props.setLoggedIn(false);
+            localStorage.removeItem('token');
+        });
     };
 
     return (
@@ -125,14 +123,25 @@ const NavBar = (props) => {
                                             </Typography>
                                         </MenuItem>
                                     ))}
-                                    {auth.isAuthenticated() ?
-                                        (<MenuItem onClick={() => handleMenuClick('/profile')}>
+                                    {loggedIn ?
+                                        (
+                                        <>
+                                        <MenuItem onClick={() => handleMenuClick('/profile')}>
                                             <Typography
                                                 color={currentLocationURL === '/profile' ? 'primary' : 'initial'}
                                             >
                                                 Profile
                                             </Typography>
-                                        </MenuItem>) :
+                                        </MenuItem>
+                                        <MenuItem onClick={() => handleLogout()}>
+                                            <Typography
+                                                color='error'
+                                            >
+                                                Log Out
+                                            </Typography>
+                                        </MenuItem>
+                                        </>
+                                        ) :
                                         (<MenuItem onClick={() => handleMenuClick('/login')}>
                                             <Typography
                                                 color={'initial'}
@@ -158,7 +167,8 @@ const NavBar = (props) => {
                                             </Typography>
                                         </Button>
                                     ))}
-                                    {auth.isAuthenticated() ? (
+                                    {loggedIn ? (
+                                        <>
                                         <Button
                                             onClick={() => handleButtonClick('/profile')}
                                         >
@@ -168,6 +178,16 @@ const NavBar = (props) => {
                                                 Profile
                                             </Typography>
                                         </Button>
+                                        <Button
+                                            onClick={() => handleLogout()}
+                                        >
+                                            <Typography
+                                                color='error'
+                                            >
+                                                Log Out
+                                            </Typography>
+                                        </Button>
+                                        </>
                                     ) :
                                         (
                                             <Button

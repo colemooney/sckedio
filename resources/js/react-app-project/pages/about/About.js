@@ -1,10 +1,10 @@
 import React from 'react';
 import NavBar from '../../components/navBar/NavBar';
 
-const About = () => {
-    return(
+const About = (props) => {
+    return (
         <div>
-            <NavBar />
+            <NavBar loggedIn={props.loggedIn} setLoggedIn={props.setLoggedIn} />
             <h1>About</h1>
         </div>
     );
