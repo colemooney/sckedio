@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Http;
 use Carbon\Carbon;
 use Laravel\Passport\TokenRepository;
 use Laravel\Passport\RefreshTokenRepository;
+use Laravel\Passport\Client as OClient;
 use App\Models\User;
 use App\Models\UserInformation;
 
@@ -34,24 +37,13 @@ class AuthController extends Controller
         ]);
 
         $user->save();
-        /*
-        $user_information = new UserInformation([
-            'first_name' => $request->first_name,
-            'last_name' => $request->last_name,
-            'state' => $request->state,
-            'city' => $request->city,
-            'street' => $request->street,
-            'postal_code' => $request->postal_code,
-            'country' =>$request->country
-        ]);
-
-        $user_information->user()->associate($user);
-        $user_information->save();
-*/
+        $success = $user->createToken('Sckedio');
         return response()->json([
+            'success' => $success->accessToken,
             'message' => 'Successfully created user!'
         ], 201);
      }
+
 
      /**
       * Login user and create token
@@ -79,7 +71,7 @@ class AuthController extends Controller
             ], 401);
         
         $user = $request->user();
-        
+
         $tokenResult = $user->createToken('Personal Access Token');
         $token = $tokenResult->token;
 
