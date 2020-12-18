@@ -1,8 +1,10 @@
 import React from 'react';
 import Container from '@material-ui/core/Container';
 import LoginForm from '../../components/loginForm/loginForm';
+import auth from '../../auth';
 import { useHistory } from "react-router-dom";
 import axios from 'axios';
+import { SecurityRounded } from '@material-ui/icons';
 
 
 const Login = () => {
@@ -20,8 +22,6 @@ const Login = () => {
             remember_me: true
         };
 
-        console.log(loginData);
-
         const isValid = validateInputs();
 
         console.log('is valid: ' + isValid);
@@ -32,13 +32,20 @@ const Login = () => {
 
                     // JWT token
                     const jwToken = res.data.access_token;
+                    // not secure, only for testing
+                    localStorage.setItem('token', jwToken);
+                    // auth.setToken(jwToken);
 
-                    history.push({
-                        pathname: '/profile',
-                        state: {
-                            jwToken: jwToken
-                        }
+                    // flips authenticated to true
+                    auth.login(()=>{
+                        history.push({
+                            pathname: '/profile',
+                            // state: {
+                            //     jwToken: jwToken
+                            // }
+                        });
                     });
+
                 })
                 .catch(err => {
                     console.log(err);
