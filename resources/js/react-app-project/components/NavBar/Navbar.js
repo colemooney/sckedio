@@ -26,13 +26,13 @@ const useStyles = makeStyles((theme) => ({
 
 const NavBar = (props) => {
     const classes = useStyles();
-    const { history, location } = props;
+    const { history, location, handleLogout, loggedIn } = props;
     const [anchorEl, setAnchorEl] = React.useState(null);
     const open = Boolean(anchorEl);
     const theme = useTheme();
     const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
     const [currentLocationURL, setCurrentLocationURL] = React.useState(location.pathname);
-    const loggedIn = props.loggedIn;
+    // const loggedIn = props.loggedIn;
 
     const navItems = [
         {
@@ -68,13 +68,6 @@ const NavBar = (props) => {
 
     const handleButtonClick = (pageURL) => {
         history.push(pageURL);
-    };
-
-    const handleLogout = () => {
-        auth.logout(()=>{
-            props.setLoggedIn(false);
-            localStorage.removeItem('token');
-        });
     };
 
     return (
@@ -125,7 +118,7 @@ const NavBar = (props) => {
                                     ))}
                                     {loggedIn ?
                                         (
-                                        <>
+                                        <div>
                                         <MenuItem onClick={() => handleMenuClick('/profile')}>
                                             <Typography
                                                 color={currentLocationURL === '/profile' ? 'primary' : 'initial'}
@@ -140,7 +133,7 @@ const NavBar = (props) => {
                                                 Log Out
                                             </Typography>
                                         </MenuItem>
-                                        </>
+                                        </div>
                                         ) :
                                         (<MenuItem onClick={() => handleMenuClick('/login')}>
                                             <Typography

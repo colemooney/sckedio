@@ -36,8 +36,9 @@ const Login = (props) => {
                     // flips authenticated to true
                     auth.login(()=>{
                         props.setLoggedIn(true);
+                        props.tokenTimeKeeper();
                         history.push({
-                            pathname: '/profile',
+                            pathname: '/',
                             // state: {
                             //     jwToken: jwToken
                             // }
@@ -47,6 +48,8 @@ const Login = (props) => {
                 })
                 .catch(err => {
                     console.log(err);
+                    setPasswordHelper('Incorrect username or password');
+                    setUsernameHelper('Incorrect username or password');
                 });
         }
     }

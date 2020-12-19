@@ -48,7 +48,7 @@ const Profile = (props) => {
 
     return (
         <div>
-            <NavBar loggedIn={props.loggedIn} setLoggedIn={props.setLoggedIn} />
+            <NavBar loggedIn={props.loggedIn} handleLogout={props.handleLogout} />
             <Container >
                 <h1>Profile</h1>
                 <ProfileInfoDisplay user={userInfo} />
