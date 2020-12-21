@@ -9,7 +9,6 @@ use Illuminate\Support\Facades\Http;
 use Carbon\Carbon;
 use Laravel\Passport\TokenRepository;
 use Laravel\Passport\RefreshTokenRepository;
-use Laravel\Passport\Client as OClient;
 use App\Models\User;
 use App\Models\UserInformation;
 
@@ -69,22 +68,36 @@ class AuthController extends Controller
             return response()->json([
                 'message' => 'Unauthorized'
             ], 401);
-        
-        $user = $request->user();
 
-        $tokenResult = $user->createToken('Personal Access Token');
-        $token = $tokenResult->token;
+        $user = Auth::user();
 
-        if($request->remember_me)
-            $token->expires_at = Carbon::now()->addWeeks(1);
-
-        $token->save();
-
-        return response()->json([
-            'access_token' => $tokenResult->accessToken,
-            'token_type' => 'Bearer',
-            'expires_at' => Carbon::parse($tokenResult->token->expires_at)->toDateTimeString()
+        $response = Http::asForm()->post(env('APP_URL') . '/oauth/token', [
+                'client_id' => env('PROXY_OAUTH_CLIENT_ID'),
+                'client_secret' => env('PROXY_OAUTH_CLIENT_SECRET'),
+                'grant_type' => env('PROXY_OAUTH_GRANT_TYPE'),
+                'username' => $user->email,
+                'password' => $request->password,
+                'scopes' => '[*]'
         ]);
+    
+
+        // $user = $request->user();
+
+        // $tokenResult = $user->createToken('Personal Access Token');
+        // $token = $tokenResult->token;
+
+        // if($request->remember_me)
+        //     $token->expires_at = Carbon::now()->addWeeks(1);
+
+        // $token->save();
+        
+        
+        return $response->json();
+        // return response()->json([
+        //     'access_token' => $tokenResult->accessToken,
+        //     'token_type' => 'Bearer',
+        //     'expires_at' => Carbon::parse($tokenResult->token->expires_at)->toDateTimeString()
+        // ]);
       }
 
       /**
