@@ -8,7 +8,7 @@ const Home = (props) => {
 
     return (
         <div>
-            <NavBar loggedIn={props.loggedIn} setLoggedIn={props.setLoggedIn} />
+            <NavBar loggedIn={props.loggedIn} handleLogout={props.handleLogout} />
             <h1>Home Page</h1>
         </div>
     );

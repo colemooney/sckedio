@@ -27,6 +27,7 @@
     "dependencies": {
         "@material-ui/core": "^4.11.2",
         "@material-ui/icons": "^4.11.2",
+        "jsonwebtoken": "^8.5.1",
         "react-router-dom": "^5.2.0"
     }
 }
