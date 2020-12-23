@@ -15,8 +15,18 @@ const useStyles = makeStyles((theme) => ({
 
 const ProfileEditModal = (props) => {
     const classes = useStyles();
-    const { newUsername, newFirstName, newLastName, newEmail, newStreet, newCity, newState, newPostalCode, newCountry } = props.newUserInfo;
-    const { open, handleClose, setNewUserInfo, newUserInfo } = props;
+    const { 
+        // newUsername, 
+        newFirstName, 
+        newLastName, 
+        // newEmail, 
+        newStreet, 
+        newCity, 
+        newState, 
+        newPostalCode, 
+        newCountry 
+    } = props.newUserInfo;
+    const { open, handleClose, setNewUserInfo, newUserInfo, handleUpdateUserSubmit } = props;
 
     return (
         <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
@@ -32,7 +42,7 @@ const ProfileEditModal = (props) => {
                             label="First Name"
                             variant='outlined'
                             type="text"
-                            value={newFirstName}
+                            value={newFirstName ? newFirstName : ''}
                             onChange={event => setNewUserInfo(
                                 {
                                     ...newUserInfo,
@@ -48,7 +58,7 @@ const ProfileEditModal = (props) => {
                             label="Last Name"
                             variant='outlined'
                             type="text"
-                            value={newLastName}
+                            value={newLastName ? newLastName : ''}
                             onChange={event => setNewUserInfo(
                                 {
                                     ...newUserInfo,
@@ -64,13 +74,13 @@ const ProfileEditModal = (props) => {
                             label="Username"
                             variant='outlined'
                             type="text"
-                            value={newUsername}
-                            onChange={event => setNewUserInfo(
-                                {
-                                    ...newUserInfo,
-                                    newUsername: event.target.value
-                                }
-                                )}
+                            // value={newUsername}
+                            // onChange={event => setNewUserInfo(
+                            //     {
+                            //         ...newUserInfo,
+                            //         newUsername: event.target.value
+                            //     }
+                            //     )}
                             fullWidth
                         />
                     </Grid>
@@ -80,13 +90,13 @@ const ProfileEditModal = (props) => {
                             label="Email"
                             variant='outlined'
                             type="email"
-                            value={newEmail}
-                            onChange={event => setNewUserInfo(
-                                {
-                                    ...newUserInfo,
-                                    newEmail: event.target.value
-                                }
-                                )}
+                            // value={newEmail}
+                            // onChange={event => setNewUserInfo(
+                            //     {
+                            //         ...newUserInfo,
+                            //         newEmail: event.target.value
+                            //     }
+                            //     )}
                             fullWidth
                         />
                     </Grid>
@@ -96,7 +106,7 @@ const ProfileEditModal = (props) => {
                             label="Street Address"
                             variant='outlined'
                             type="text"
-                            value={newStreet}
+                            value={newStreet ? newStreet : ''}
                             onChange={event => setNewUserInfo(
                                 {
                                     ...newUserInfo,
@@ -112,7 +122,7 @@ const ProfileEditModal = (props) => {
                             label="City"
                             variant='outlined'
                             type="text"
-                            value={newCity}
+                            value={newCity ? newCity : ''}
                             onChange={event => setNewUserInfo(
                                 {
                                     ...newUserInfo,
@@ -128,7 +138,7 @@ const ProfileEditModal = (props) => {
                             label="State"
                             variant='outlined'
                             type="text"
-                            value={newState}
+                            value={newState ? newState : ''}
                             onChange={event => setNewUserInfo(
                                 {
                                     ...newUserInfo,
@@ -144,7 +154,7 @@ const ProfileEditModal = (props) => {
                             label="Postal Code"
                             variant='outlined'
                             type="text"
-                            value={newPostalCode}
+                            value={newPostalCode ? newPostalCode : ''}
                             onChange={event => setNewUserInfo(
                                 {
                                     ...newUserInfo,
@@ -160,7 +170,7 @@ const ProfileEditModal = (props) => {
                             label="Country"
                             variant='outlined'
                             type="text"
-                            value={newCountry}
+                            value={newCountry ? newCountry : ''}
                             onChange={event => setNewUserInfo(
                                 {
                                     ...newUserInfo,
@@ -176,7 +186,13 @@ const ProfileEditModal = (props) => {
                 <Button onClick={handleClose} color="secondary">
                     Cancel
               </Button>
-                <Button onClick={handleClose} color="primary">
+                <Button 
+                    onClick={()=>{
+                        handleUpdateUserSubmit();
+                        handleClose();
+                    }} 
+                    color="primary"
+                >
                     Submit
               </Button>
             </DialogActions>

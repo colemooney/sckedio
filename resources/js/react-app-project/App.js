@@ -36,9 +36,11 @@ const App = () => {
 
             // Decode JWT (to get expire time)
             const decodedToken = jwt.decode(jwToken);
+            console.log('token expire: ' + decodedToken.exp);
 
             // Get current time to compare
             const dateNow = new Date();
+            console.log('current time: ' + (dateNow.getTime() / 1000));
 
             // Check if JWT expire time is less than current time (/1000 to convert)
             if (decodedToken.exp < (dateNow.getTime() / 1000)) {

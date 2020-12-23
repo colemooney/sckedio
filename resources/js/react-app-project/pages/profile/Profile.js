@@ -31,8 +31,8 @@ const Profile = (props) => {
 
     const [userInfo, setUserInfo] = React.useState({
         username: null,
-        firstName: 'First',
-        lastName: 'Last',
+        firstName: null,
+        lastName: null,
         email: null,
         street: 'Street',
         city: 'City',
@@ -43,15 +43,15 @@ const Profile = (props) => {
     });
 
     const [newUserInfo, setNewUserInfo] = React.useState({
-        newUsername: null,
-        newFirstName: 'First',
-        newLastName: 'Last',
-        newEmail: null,
-        newStreet: 'Street',
-        newCity: 'City',
-        newState: 'XX',
-        newPostalCode: '00000',
-        newCountry: 'USA',
+        // newUsername: null,
+        newFirstName: null,
+        newLastName: null,
+        // newEmail: null,
+        newStreet: null,
+        newCity: null,
+        newState: null,
+        newPostalCode: null,
+        newCountry: null,
     });
 
     useEffect(() => {
@@ -74,14 +74,44 @@ const Profile = (props) => {
                 });
                 setNewUserInfo({
                     ...newUserInfo,
-                    newUsername: res.data.username,
-                    newEmail: res.data.email
+                    // newUsername: res.data.username,
+                    // newEmail: res.data.email
                 });
             })
             .catch(err => {
                 console.log(err);
             });
-    }
+    };
+
+    const handleUpdateUserSubmit = () => {
+        console.log('submit');
+        const userUpdateInfo = {
+            first_name: newUserInfo.newFirstName,
+            last_name: newUserInfo.newLastName,
+            state: newUserInfo.newState,
+            city: newUserInfo.newCity,
+            street: newUserInfo.newStreet,
+            postal_code: newUserInfo.newPostalCode,
+            country: newUserInfo.newCountry
+
+        };
+        const jwToken = localStorage.getItem('token');
+        console.log('token: ' + jwToken);
+        const authAxios = axios.create({
+            headers: {
+                Authorization: `Bearer ${jwToken}`
+            }
+        });
+
+        console.log(userUpdateInfo);
+        // authAxios.put('api/auth/update-user-information', userUpdateInfo)
+        //         .then(res => {
+        //             console.log(res);
+        //         })
+        //         .catch(err => {
+        //             console.log(err);
+        //         });
+    };
 
     return (
         <div>
@@ -96,7 +126,8 @@ const Profile = (props) => {
                 </Grid>
                 <ProfileEditModal 
                     open={open} 
-                    handleClose={handleClose} 
+                    handleClose={handleClose}
+                    handleUpdateUserSubmit={handleUpdateUserSubmit} 
                     newUserInfo={newUserInfo} 
                     setNewUserInfo={setNewUserInfo} 
                 />
