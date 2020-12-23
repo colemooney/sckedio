@@ -45,4 +45,8 @@ class User extends Authenticatable
     public function user_information(){
         return $this->hasOne(UserInformation::class);
     }
+
+    public function findForPassport($username) {
+        return $this->where('username', $username)->first();
+    }
 }
