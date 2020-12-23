@@ -48,18 +48,14 @@ class AuthController extends Controller
       * Login user and create token
       * @param [string] email
       * @param [string] password
-      * @param [boolean] remember_me
-      * @return [string] access_token
       * @return [string] token_type
       * @return [string] expires_at
       */
 
       public function login(Request $request){
         $request->validate([
-            // 'email' => 'required|string|email',
             'username' => 'required|string',
             'password' => 'required|string',
-            'remember_me' => 'boolean'
         ]);
 
         $credentials = request(['username', 'password']);
@@ -69,35 +65,16 @@ class AuthController extends Controller
                 'message' => 'Unauthorized'
             ], 401);
 
-        $user = Auth::user();
-
         $response = Http::asForm()->post(env('APP_URL') . '/oauth/token', [
                 'client_id' => env('PROXY_OAUTH_CLIENT_ID'),
                 'client_secret' => env('PROXY_OAUTH_CLIENT_SECRET'),
                 'grant_type' => env('PROXY_OAUTH_GRANT_TYPE'),
-                'username' => $user->email,
+                'username' => $request->username,
                 'password' => $request->password,
                 'scopes' => '[*]'
         ]);
-    
-
-        // $user = $request->user();
-
-        // $tokenResult = $user->createToken('Personal Access Token');
-        // $token = $tokenResult->token;
-
-        // if($request->remember_me)
-        //     $token->expires_at = Carbon::now()->addWeeks(1);
-
-        // $token->save();
-        
         
         return $response->json();
-        // return response()->json([
-        //     'access_token' => $tokenResult->accessToken,
-        //     'token_type' => 'Bearer',
-        //     'expires_at' => Carbon::parse($tokenResult->token->expires_at)->toDateTimeString()
-        // ]);
       }
 
       /**
@@ -109,8 +86,8 @@ class AuthController extends Controller
            $request->user()->token()->revoke();
 
            return response()->json([
-                'message' => 'Successfully logged out'
-           ]);
+                'message' => 'Successfully logged out',
+           ], 200);
        }
 
        /**
