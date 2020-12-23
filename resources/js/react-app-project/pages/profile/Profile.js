@@ -42,6 +42,18 @@ const Profile = (props) => {
         profilePhoto: 'https://thumbs.dreamstime.com/b/default-avatar-photo-placeholder-profile-picture-default-avatar-photo-placeholder-profile-picture-eps-file-easy-to-edit-125707135.jpg'
     });
 
+    const [newUserInfo, setNewUserInfo] = React.useState({
+        newUsername: null,
+        newFirstName: 'First',
+        newLastName: 'Last',
+        newEmail: null,
+        newStreet: 'Street',
+        newCity: 'City',
+        newState: 'XX',
+        newPostalCode: '00000',
+        newCountry: 'USA',
+    });
+
     useEffect(() => {
         const jwToken = localStorage.getItem('token');
         getUserInfo(jwToken);
@@ -60,6 +72,11 @@ const Profile = (props) => {
                     username: res.data.username,
                     email: res.data.email
                 });
+                setNewUserInfo({
+                    ...newUserInfo,
+                    newUsername: res.data.username,
+                    newEmail: res.data.email
+                });
             })
             .catch(err => {
                 console.log(err);
@@ -71,13 +88,18 @@ const Profile = (props) => {
             <NavBar loggedIn={props.loggedIn} handleLogout={props.handleLogout} />
             <Container >
                 <h1>Profile</h1>
-                <ProfileInfoDisplay user={userInfo} />
+                <ProfileInfoDisplay userInfo={userInfo} />
                 <Grid container spacing={0}>
                     <Grid item xs={12}>
                         <Button className={classes.editButton} variant='contained' onClick={handleOpen}>Edit</Button>
                     </Grid>
                 </Grid>
-                <ProfileEditModal open={open} handleClose={handleClose} />
+                <ProfileEditModal 
+                    open={open} 
+                    handleClose={handleClose} 
+                    newUserInfo={newUserInfo} 
+                    setNewUserInfo={setNewUserInfo} 
+                />
             </Container>
         </div>
     );

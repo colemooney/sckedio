@@ -15,7 +15,8 @@ const useStyles = makeStyles((theme) => ({
 
 const ProfileEditModal = (props) => {
     const classes = useStyles();
-    const { open, handleClose } = props;
+    const { newUsername, newFirstName, newLastName, newEmail, newStreet, newCity, newState, newPostalCode, newCountry } = props.newUserInfo;
+    const { open, handleClose, setNewUserInfo, newUserInfo } = props;
 
     return (
         <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
@@ -31,6 +32,13 @@ const ProfileEditModal = (props) => {
                             label="First Name"
                             variant='outlined'
                             type="text"
+                            value={newFirstName}
+                            onChange={event => setNewUserInfo(
+                                {
+                                    ...newUserInfo,
+                                    newFirstName: event.target.value
+                                }
+                                )}
                             fullWidth
                         />
                     </Grid>
@@ -40,6 +48,13 @@ const ProfileEditModal = (props) => {
                             label="Last Name"
                             variant='outlined'
                             type="text"
+                            value={newLastName}
+                            onChange={event => setNewUserInfo(
+                                {
+                                    ...newUserInfo,
+                                    newLastName: event.target.value
+                                }
+                                )}
                             fullWidth
                         />
                     </Grid>
@@ -49,6 +64,13 @@ const ProfileEditModal = (props) => {
                             label="Username"
                             variant='outlined'
                             type="text"
+                            value={newUsername}
+                            onChange={event => setNewUserInfo(
+                                {
+                                    ...newUserInfo,
+                                    newUsername: event.target.value
+                                }
+                                )}
                             fullWidth
                         />
                     </Grid>
@@ -58,6 +80,13 @@ const ProfileEditModal = (props) => {
                             label="Email"
                             variant='outlined'
                             type="email"
+                            value={newEmail}
+                            onChange={event => setNewUserInfo(
+                                {
+                                    ...newUserInfo,
+                                    newEmail: event.target.value
+                                }
+                                )}
                             fullWidth
                         />
                     </Grid>
@@ -67,6 +96,13 @@ const ProfileEditModal = (props) => {
                             label="Street Address"
                             variant='outlined'
                             type="text"
+                            value={newStreet}
+                            onChange={event => setNewUserInfo(
+                                {
+                                    ...newUserInfo,
+                                    newStreet: event.target.value
+                                }
+                                )}
                             fullWidth
                         />
                     </Grid>
@@ -76,6 +112,13 @@ const ProfileEditModal = (props) => {
                             label="City"
                             variant='outlined'
                             type="text"
+                            value={newCity}
+                            onChange={event => setNewUserInfo(
+                                {
+                                    ...newUserInfo,
+                                    newCity: event.target.value
+                                }
+                                )}
                             fullWidth
                         />
                     </Grid>
@@ -85,6 +128,13 @@ const ProfileEditModal = (props) => {
                             label="State"
                             variant='outlined'
                             type="text"
+                            value={newState}
+                            onChange={event => setNewUserInfo(
+                                {
+                                    ...newUserInfo,
+                                    newState: event.target.value
+                                }
+                                )}
                             fullWidth
                         />
                     </Grid>
@@ -94,6 +144,13 @@ const ProfileEditModal = (props) => {
                             label="Postal Code"
                             variant='outlined'
                             type="text"
+                            value={newPostalCode}
+                            onChange={event => setNewUserInfo(
+                                {
+                                    ...newUserInfo,
+                                    newPostalCode: event.target.value
+                                }
+                                )}
                             fullWidth
                         />
                     </Grid>
@@ -103,6 +160,13 @@ const ProfileEditModal = (props) => {
                             label="Country"
                             variant='outlined'
                             type="text"
+                            value={newCountry}
+                            onChange={event => setNewUserInfo(
+                                {
+                                    ...newUserInfo,
+                                    newCountry: event.target.value
+                                }
+                                )}
                             fullWidth
                         />
                     </Grid>
