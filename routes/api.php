@@ -6,6 +6,7 @@ use App\Http\Controllers\ApiController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UserInformationController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\OAuthTokenController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -44,5 +45,8 @@ Route::group([
 
         //UserController
         Route::get('show-user', [UserController::class, 'show']);
+
+        //Refresh access token
+        Route::get('refresh', [OAuthTokenController::class, 'refresh']);
     });
 });
