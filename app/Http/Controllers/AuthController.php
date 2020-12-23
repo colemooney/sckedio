@@ -48,8 +48,6 @@ class AuthController extends Controller
       * Login user and create token
       * @param [string] email
       * @param [string] password
-      * @param [boolean] remember_me
-      * @return [string] access_token
       * @return [string] token_type
       * @return [string] expires_at
       */
@@ -67,13 +65,11 @@ class AuthController extends Controller
                 'message' => 'Unauthorized'
             ], 401);
 
-        $user = Auth::user();
-
         $response = Http::asForm()->post(env('APP_URL') . '/oauth/token', [
                 'client_id' => env('PROXY_OAUTH_CLIENT_ID'),
                 'client_secret' => env('PROXY_OAUTH_CLIENT_SECRET'),
                 'grant_type' => env('PROXY_OAUTH_GRANT_TYPE'),
-                'username' => $user->email,
+                'username' => $request->username,
                 'password' => $request->password,
                 'scopes' => '[*]'
         ]);
