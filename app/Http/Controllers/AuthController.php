@@ -20,6 +20,14 @@ class AuthController extends Controller
      * @param [string] email
      * @param [string] password
      * @param [string] password_confirmation
+     * Initial values for user information
+     * @param [string] first_name
+     * @param [string] last_name
+     * @param [string] state
+     * @param [string] city
+     * @param [string] street
+     * @param [string] postal_code
+     * @param [string] country
      */
 
      public function signup(Request $request){
@@ -35,7 +43,24 @@ class AuthController extends Controller
             'password' => bcrypt($request->password)
         ]);
 
+        // Save the for new user
         $user->save();
+        
+        // Initial value for user_information
+        $user_information = new UserInformation([
+            'first_name' => "",
+            'last_name' => "",
+            'state' => "",
+            'city' => "",
+            'street' => "",
+            'postal_code' => "",
+            'country' => "" 
+        ]);
+
+        // Save data for user_information
+        $user_information->user()->associate($user);
+        $user_information->save();
+
         $success = $user->createToken('Sckedio');
         return response()->json([
             'success' => $success->accessToken,
