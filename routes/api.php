@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use App\Http\Controllers\ApiController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UserInformationController;
@@ -47,6 +48,17 @@ Route::group([
         Route::get('show-user', [UserController::class, 'show']);
 
         //Refresh access token
-        Route::get('refresh', [OAuthTokenController::class, 'refresh']);
+        Route::post('refresh', [OAuthTokenController::class, 'refresh']);
     });
 });
+
+// Email Verification Notice
+Route::get('/email/verify', function(){
+    return view('auth.verify-email');
+})->middleware('auth')->name('verification.notice');
+
+// Email Verification Handler
+Route::get('/email/verify/{id}/{hash}', function(EmailVerificationRequest $request){
+    $request->fulfill();
+    return redirect(env('APP_URL'));
+})->middleware(['auth', 'signed'])->name('verification.verify');

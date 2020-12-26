@@ -10,7 +10,7 @@ class OAuthTokenController extends Controller
 
     /**
      * Refreshes access token
-     * 
+     * @param [string] refresh_token
      */
     public function refresh(Request $request) {
         $request->validate([
