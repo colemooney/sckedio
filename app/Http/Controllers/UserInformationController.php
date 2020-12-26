@@ -97,9 +97,9 @@ class UserInformationController extends Controller
             'first_name' => 'required|string',
             'last_name' => 'required|string',
             'state' => 'required|string',
-            'city' => 'required|string',
-            'street' => 'string',
-            'postal_code' => 'required|string',
+            'city' => 'nullable|string',
+            'street' => 'nullable|string',
+            'postal_code' => 'nullable|string',
             'country' => 'required|string'
         ]);
         

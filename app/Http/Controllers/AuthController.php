@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Exception;
+use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
@@ -46,6 +47,9 @@ class AuthController extends Controller
         // Save the for new user
         $user->save();
         
+        // Verification email
+        // event(new Registered($user));
+
         // Initial value for user_information
         $user_information = new UserInformation([
             'first_name' => "",
@@ -61,9 +65,7 @@ class AuthController extends Controller
         $user_information->user()->associate($user);
         $user_information->save();
 
-        $success = $user->createToken('Sckedio');
         return response()->json([
-            'success' => $success->accessToken,
             'message' => 'Successfully created user!'
         ], 201);
      }
@@ -89,7 +91,7 @@ class AuthController extends Controller
             return response()->json([
                 'message' => 'Unauthorized'
             ], 401);
-
+        
         $response = Http::asForm()->post(env('APP_URL') . '/oauth/token', [
                 'client_id' => env('PROXY_OAUTH_CLIENT_ID'),
                 'client_secret' => env('PROXY_OAUTH_CLIENT_SECRET'),
@@ -98,7 +100,7 @@ class AuthController extends Controller
                 'password' => $request->password,
                 'scopes' => '[*]'
         ]);
-        
+
         return $response->json();
       }
 
