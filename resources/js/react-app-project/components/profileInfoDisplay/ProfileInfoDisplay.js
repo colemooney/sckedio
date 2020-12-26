@@ -29,7 +29,7 @@ const useStyles = makeStyles((theme) => ({
 
 const ProfileInfoDisplay = (props) => {
     const classes = useStyles();
-    const { username, firstName, lastName, email, street, city, state, postalCode, country, profilePhoto } = props.user;
+    const { username, firstName, lastName, email, street, city, state, postalCode, country, profilePhoto } = props.userInfo;
     const theme = useTheme();
     const isMobile = useMediaQuery(theme.breakpoints.down('xs'));
 

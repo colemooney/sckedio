@@ -1,28 +1,61 @@
 import React, { useEffect } from 'react';
+import { makeStyles } from '@material-ui/core/styles';
+import Button from '@material-ui/core/Button';
 import Container from '@material-ui/core/Container';
+import Grid from '@material-ui/core/Grid';
 import NavBar from '../../components/navBar/NavBar';
+import ProfileEditModal from '../../components/profileEditModal/ProfileEditModal';
 import ProfileInfoDisplay from '../../components/ProfileInfoDisplay/ProfileInfoDisplay';
-import auth from '../../auth';
 import { useLocation } from "react-router-dom";
+import axios from 'axios';
+
+const useStyles = makeStyles((theme) => ({
+    editButton: {
+        marginTop: theme.spacing(2),
+        marginBottom: theme.spacing(2)
+    },
+
+}));
 
 const Profile = (props) => {
     const location = useLocation();
+    const classes = useStyles();
+
+    // for modal
+    const [open, setOpen] = React.useState(false);
+    const handleOpen = () => {
+        setOpen(true);
+    };
+    const handleClose = () => {
+        setOpen(false);
+    };
 
     const [userInfo, setUserInfo] = React.useState({
         username: null,
-        firstName: 'First',
-        lastName: 'Last',
+        firstName: null,
+        lastName: null,
         email: null,
-        street: 'Street',
-        city: 'City',
-        state: 'XX',
-        postalCode: '00000',
-        country: 'USA',
+        street: null,
+        city: null,
+        state: null,
+        postalCode: null,
+        country: null,
         profilePhoto: 'https://thumbs.dreamstime.com/b/default-avatar-photo-placeholder-profile-picture-default-avatar-photo-placeholder-profile-picture-eps-file-easy-to-edit-125707135.jpg'
     });
 
+    const [newUserInfo, setNewUserInfo] = React.useState({
+        newUsername: null,
+        newFirstName: null,
+        newLastName: null,
+        newEmail: null,
+        newStreet: null,
+        newCity: null,
+        newState: null,
+        newPostalCode: null,
+        newCountry: null,
+    });
+
     useEffect(() => {
-        // const jwToken = auth.getToken();
         const jwToken = localStorage.getItem('token');
         getUserInfo(jwToken);
     }, []);
@@ -35,23 +68,87 @@ const Profile = (props) => {
         });
         authAxios.get('api/auth/user')
             .then(res => {
+                console.log(res);
                 setUserInfo({
                     ...userInfo,
-                    username: res.data.username,
-                    email: res.data.email
+                    username: res.data[0].username,
+                    email: res.data[0].email,
+                    firstName: res.data[1].first_name,
+                    lastName: res.data[1].last_name,
+                    street: res.data[1].street,
+                    city: res.data[1].city,
+                    state: res.data[1].state,
+                    postalCode: res.data[1].postal_code,
+                    country: res.data[1].country
+                });
+                setNewUserInfo({
+                    ...newUserInfo,
+                    newUsername: res.data[0].username,
+                    newEmail: res.data[0].email,
+                    newFirstName: res.data[1].first_name,
+                    newLastName: res.data[1].last_name,
+                    newStreet: res.data[1].street,
+                    newCity: res.data[1].city,
+                    newState: res.data[1].state,
+                    newPostalCode: res.data[1].postal_code,
+                    newCountry: res.data[1].country
                 });
             })
             .catch(err => {
                 console.log(err);
             });
-    }
+    };
+
+    const handleUpdateUserSubmit = () => {
+        console.log('submit');
+        const userUpdateInfo = {
+            first_name: newUserInfo.newFirstName,
+            last_name: newUserInfo.newLastName,
+            state: newUserInfo.newState,
+            city: newUserInfo.newCity,
+            street: newUserInfo.newStreet,
+            postal_code: newUserInfo.newPostalCode,
+            country: newUserInfo.newCountry
+
+        };
+        const jwToken = localStorage.getItem('token');
+        const authAxios = axios.create({
+            headers: {
+                Authorization: `Bearer ${jwToken}`
+            }
+        });
+
+        console.log(userUpdateInfo);
+        authAxios.put('api/auth/update-user-information', userUpdateInfo)
+            // authAxios.post('api/auth/create-user-information', userUpdateInfo)
+            .then(res => {
+                console.log(res);
+                const jwToken = localStorage.getItem('token');
+                getUserInfo(jwToken);
+            })
+            .catch(err => {
+                console.log(err);
+            });
+    };
 
     return (
         <div>
             <NavBar loggedIn={props.loggedIn} handleLogout={props.handleLogout} />
             <Container >
                 <h1>Profile</h1>
-                <ProfileInfoDisplay user={userInfo} />
+                <ProfileInfoDisplay userInfo={userInfo} />
+                <Grid container spacing={0}>
+                    <Grid item xs={12}>
+                        <Button className={classes.editButton} variant='contained' onClick={handleOpen}>Edit</Button>
+                    </Grid>
+                </Grid>
+                <ProfileEditModal
+                    open={open}
+                    handleClose={handleClose}
+                    handleUpdateUserSubmit={handleUpdateUserSubmit}
+                    newUserInfo={newUserInfo}
+                    setNewUserInfo={setNewUserInfo}
+                />
             </Container>
         </div>
     );

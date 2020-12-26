@@ -4,8 +4,6 @@ import LoginForm from '../../components/loginForm/loginForm';
 import auth from '../../auth';
 import { useHistory } from "react-router-dom";
 import axios from 'axios';
-import { SecurityRounded } from '@material-ui/icons';
-
 
 const Login = (props) => {
     let history = useHistory();
@@ -27,6 +25,7 @@ const Login = (props) => {
         if (isValid) {
             axios.post('api/auth/login', loginData)
                 .then(res => {
+                    console.log(res);
                     // JWT token
                     const jwToken = res.data.access_token;
                     // not secure, only for testing
