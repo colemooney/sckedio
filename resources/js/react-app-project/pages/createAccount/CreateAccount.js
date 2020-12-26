@@ -1,9 +1,17 @@
 import React from 'react';
 import Container from '@material-ui/core/Container';
 import CreateAccountForm from '../../components/createAccountForm/CreateAccountForm';
+import MuiAlert from '@material-ui/lab/Alert';
+import Snackbar from '@material-ui/core/Snackbar';
+import { useHistory } from "react-router-dom";
 import axios from 'axios';
 
+function Alert(props) {
+    return <MuiAlert elevation={6} variant="filled" {...props} />;
+}
+
 const CreateAccount = () => {
+    let history = useHistory();
 
     const [signUpUsername, setSignUpUsername] = React.useState('');
     const [signUpPassword, setSignUpPassword] = React.useState('');
@@ -13,6 +21,19 @@ const CreateAccount = () => {
     const [emailHelper, setEmailHelper] = React.useState('');
     const [passwordHelper, setPasswordHelper] = React.useState('');
     const [passwordMatchHelper, setPasswordMatchHelper] = React.useState('');
+    const [snackbarOpen, setSnackbarOpen] = React.useState(false);
+
+    const handleSnackbarOpen = () => {
+        setSnackbarOpen(true);
+    };
+
+    const handleSnackbarClose = (event, reason) => {
+        if (reason === 'clickaway') {
+            return;
+        }
+
+        setSnackbarOpen(false);
+    };
 
     const handleSubmit = () => {
         const userData = {
@@ -29,6 +50,12 @@ const CreateAccount = () => {
             axios.post('api/auth/signup', userData)
                 .then(res => {
                     console.log(res);
+                    handleSnackbarOpen();
+                    setTimeout(()=>{
+                        history.push({
+                            pathname: '/login',
+                        });
+                    }, 2500);
                 })
                 .catch(err => {
                     console.log(err);
@@ -118,6 +145,11 @@ const CreateAccount = () => {
                     passwordHelper={passwordHelper}
                     passwordMatchHelper={passwordMatchHelper}
                 />
+                <Snackbar open={snackbarOpen} autoHideDuration={6000} onClose={handleSnackbarClose}>
+                    <Alert onClose={handleSnackbarClose} severity="success">
+                    Account successfully created! You will now be directed to the login page.
+                    </Alert>
+                </Snackbar>
             </Container>
         </div>
     );

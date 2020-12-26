@@ -4,6 +4,7 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import About from './pages/about/About';
 import Build from './pages/build/Build';
 import Buy from './pages/buy/Buy';
+import CreateAccount from './pages/createAccount/CreateAccount';
 import Home from './pages/home/Home';
 import Login from './pages/login/Login';
 import Profile from './pages/profile/Profile';
@@ -11,10 +12,10 @@ import ProtectedRoute from './components/protectedRoute/ProtectedRoute';
 import Sell from './pages/sell/Sell';
 import auth from './auth';
 import jwt from 'jsonwebtoken';
+import axios from 'axios';
 
 /* Anything that has register is temporary */
 import Register from './pages/register/Register';
-import CreateAccount from './pages/createAccount/CreateAccount';
 
 
 
@@ -63,11 +64,28 @@ const App = () => {
     const handleLogout = () => {
         console.log('logged out');
         clearTimeout(timeoutVar);
+
+        // part of axios log out request
+        // const jwToken = localStorage.getItem('token');
+        // const authAxios = axios.create({
+        //     headers: {
+        //         Authorization: `Bearer ${jwToken}`
+        //     }
+        // });
+        
         // Log out via auth, flip logged in state, remove token from storage
         auth.logout(() => {
-            
             localStorage.removeItem('token');
             setLoggedIn(false);
+
+            // authAxios.get('api/auth/logout')
+            // .then(res => {
+            //     console.log('axios log out');
+            //     console.log(res);
+            // })
+            // .catch(err => {
+            //     console.log(err);
+            // });
         });
     };
 

@@ -7,6 +7,7 @@ import NavBar from '../../components/navBar/NavBar';
 import ProfileEditModal from '../../components/profileEditModal/ProfileEditModal';
 import ProfileInfoDisplay from '../../components/ProfileInfoDisplay/ProfileInfoDisplay';
 import { useLocation } from "react-router-dom";
+import axios from 'axios';
 
 const useStyles = makeStyles((theme) => ({
     editButton: {
@@ -34,11 +35,11 @@ const Profile = (props) => {
         firstName: null,
         lastName: null,
         email: null,
-        street: 'Street',
-        city: 'City',
-        state: 'XX',
-        postalCode: '00000',
-        country: 'USA',
+        street: null,
+        city: null,
+        state: null,
+        postalCode: null,
+        country: null,
         profilePhoto: 'https://thumbs.dreamstime.com/b/default-avatar-photo-placeholder-profile-picture-default-avatar-photo-placeholder-profile-picture-eps-file-easy-to-edit-125707135.jpg'
     });
 
@@ -104,13 +105,14 @@ const Profile = (props) => {
         });
 
         console.log(userUpdateInfo);
-        // authAxios.put('api/auth/update-user-information', userUpdateInfo)
-        //         .then(res => {
-        //             console.log(res);
-        //         })
-        //         .catch(err => {
-        //             console.log(err);
-        //         });
+        authAxios.put('api/auth/update-user-information', userUpdateInfo)
+        // authAxios.post('api/auth/create-user-information', userUpdateInfo)
+                .then(res => {
+                    console.log(res);
+                })
+                .catch(err => {
+                    console.log(err);
+                });
     };
 
     return (
