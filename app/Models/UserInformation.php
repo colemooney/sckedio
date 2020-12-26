@@ -23,7 +23,8 @@ class UserInformation extends Model
     ];
 
     protected $hidden =[
-        'user_id'
+        'user_id',
+        'id'
     ];
 
     public function user(){
