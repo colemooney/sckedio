@@ -224,10 +224,10 @@ const states = [
 const ProfileEditModal = (props) => {
     const classes = useStyles();
     const { 
-        // newUsername, 
+        newUsername, 
         newFirstName, 
         newLastName, 
-        // newEmail, 
+        newEmail, 
         newStreet, 
         newCity, 
         newState, 
@@ -278,11 +278,12 @@ const ProfileEditModal = (props) => {
                     </Grid>
                     <Grid item xs={12} sm={6}>
                         <TextField
+                            disabled
                             id="username"
                             label="Username"
                             variant='outlined'
                             type="text"
-                            // value={newUsername}
+                            value={newUsername}
                             // onChange={event => setNewUserInfo(
                             //     {
                             //         ...newUserInfo,
@@ -294,11 +295,12 @@ const ProfileEditModal = (props) => {
                     </Grid>
                     <Grid item xs={12} sm={6}>
                         <TextField
+                            disabled
                             id="email"
                             label="Email"
                             variant='outlined'
                             type="email"
-                            // value={newEmail}
+                            value={newEmail}
                             // onChange={event => setNewUserInfo(
                             //     {
                             //         ...newUserInfo,

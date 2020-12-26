@@ -44,10 +44,10 @@ const Profile = (props) => {
     });
 
     const [newUserInfo, setNewUserInfo] = React.useState({
-        // newUsername: null,
+        newUsername: null,
         newFirstName: null,
         newLastName: null,
-        // newEmail: null,
+        newEmail: null,
         newStreet: null,
         newCity: null,
         newState: null,
@@ -68,15 +68,30 @@ const Profile = (props) => {
         });
         authAxios.get('api/auth/user')
             .then(res => {
+                console.log(res);
                 setUserInfo({
                     ...userInfo,
-                    username: res.data.username,
-                    email: res.data.email
+                    username: res.data[0].username,
+                    email: res.data[0].email,
+                    firstName: res.data[1].first_name,
+                    lastName: res.data[1].last_name,
+                    street: res.data[1].street,
+                    city: res.data[1].city,
+                    state: res.data[1].state,
+                    postalCode: res.data[1].postal_code,
+                    country: res.data[1].country
                 });
                 setNewUserInfo({
                     ...newUserInfo,
-                    // newUsername: res.data.username,
-                    // newEmail: res.data.email
+                    newUsername: res.data[0].username,
+                    newEmail: res.data[0].email,
+                    newFirstName: res.data[1].first_name,
+                    newLastName: res.data[1].last_name,
+                    newStreet: res.data[1].street,
+                    newCity: res.data[1].city,
+                    newState: res.data[1].state,
+                    newPostalCode: res.data[1].postal_code,
+                    newCountry: res.data[1].country
                 });
             })
             .catch(err => {
@@ -97,7 +112,6 @@ const Profile = (props) => {
 
         };
         const jwToken = localStorage.getItem('token');
-        console.log('token: ' + jwToken);
         const authAxios = axios.create({
             headers: {
                 Authorization: `Bearer ${jwToken}`
@@ -106,13 +120,15 @@ const Profile = (props) => {
 
         console.log(userUpdateInfo);
         authAxios.put('api/auth/update-user-information', userUpdateInfo)
-        // authAxios.post('api/auth/create-user-information', userUpdateInfo)
-                .then(res => {
-                    console.log(res);
-                })
-                .catch(err => {
-                    console.log(err);
-                });
+            // authAxios.post('api/auth/create-user-information', userUpdateInfo)
+            .then(res => {
+                console.log(res);
+                const jwToken = localStorage.getItem('token');
+                getUserInfo(jwToken);
+            })
+            .catch(err => {
+                console.log(err);
+            });
     };
 
     return (
@@ -126,12 +142,12 @@ const Profile = (props) => {
                         <Button className={classes.editButton} variant='contained' onClick={handleOpen}>Edit</Button>
                     </Grid>
                 </Grid>
-                <ProfileEditModal 
-                    open={open} 
+                <ProfileEditModal
+                    open={open}
                     handleClose={handleClose}
-                    handleUpdateUserSubmit={handleUpdateUserSubmit} 
-                    newUserInfo={newUserInfo} 
-                    setNewUserInfo={setNewUserInfo} 
+                    handleUpdateUserSubmit={handleUpdateUserSubmit}
+                    newUserInfo={newUserInfo}
+                    setNewUserInfo={setNewUserInfo}
                 />
             </Container>
         </div>
