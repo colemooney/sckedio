@@ -94,13 +94,13 @@ class UserInformationController extends Controller
         $user_id = Auth::id();
         
         $request->validate([
-            'first_name' => 'required|string',
-            'last_name' => 'required|string',
-            'state' => 'required|string',
+            'first_name' => 'nullable|string',
+            'last_name' => 'nullable|string',
+            'state' => 'nullable|string',
             'city' => 'nullable|string',
             'street' => 'nullable|string',
             'postal_code' => 'nullable|string',
-            'country' => 'required|string'
+            'country' => 'nullable|string'
         ]);
         
         $user_information = User::find($user_id)->user_information;
