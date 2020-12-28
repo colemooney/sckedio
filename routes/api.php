@@ -46,7 +46,8 @@ Route::group([
 
         //UserController
         Route::get('show-user', [UserController::class, 'show']);
-
+        Route::put('update-user', [UserController::class, 'update']);
+        
         //Refresh access token
         Route::post('refresh', [OAuthTokenController::class, 'refresh']);
     });
