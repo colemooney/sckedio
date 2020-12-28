@@ -30,6 +30,9 @@ const Profile = (props) => {
         setOpen(false);
     };
 
+    const [usernameHelper, setUsernameHelper] = React.useState('');
+    const [emailHelper, setEmailHelper] = React.useState('');
+
     const [userInfo, setUserInfo] = React.useState({
         username: null,
         firstName: null,
@@ -108,27 +111,78 @@ const Profile = (props) => {
             city: newUserInfo.newCity,
             street: newUserInfo.newStreet,
             postal_code: newUserInfo.newPostalCode,
-            country: newUserInfo.newCountry
+            country: newUserInfo.newCountry,
+            username: newUserInfo.newUsername,
+            email: newUserInfo.newEmail
 
         };
-        const jwToken = localStorage.getItem('token');
-        const authAxios = axios.create({
-            headers: {
-                Authorization: `Bearer ${jwToken}`
-            }
-        });
 
-        console.log(userUpdateInfo);
-        authAxios.put('api/auth/update-user-information', userUpdateInfo)
-            // authAxios.post('api/auth/create-user-information', userUpdateInfo)
-            .then(res => {
-                console.log(res);
-                const jwToken = localStorage.getItem('token');
-                getUserInfo(jwToken);
-            })
-            .catch(err => {
-                console.log(err);
+        const isValid = validateInputs();
+        console.log('is valid: ' + isValid);
+
+        if (isValid) {
+            const jwToken = localStorage.getItem('token');
+            const authAxios = axios.create({
+                headers: {
+                    Authorization: `Bearer ${jwToken}`
+                }
             });
+
+            console.log(userUpdateInfo);
+            authAxios.put('api/auth/update-user-information', userUpdateInfo)
+                // authAxios.post('api/auth/create-user-information', userUpdateInfo)
+                .then(res => {
+                    console.log(res);
+                    const jwToken = localStorage.getItem('token');
+                    getUserInfo(jwToken);
+                })
+                .catch(err => {
+                    console.log(err);
+                })
+                .then(() => {
+                    handleClose();
+                });
+        };
+    };
+
+    const validateInputs = () => {
+        const usernameIsValid = /^[a-zA-Z0-9]+$/.test(newUserInfo.newUsername);
+        const usernameIsLength = stringLengthTest(newUserInfo.newUsername, 4, 25);
+
+        const emailIsValid = /\S+@\S+\.\S+/.test(newUserInfo.newEmail);
+
+        if (!usernameIsValid) {
+            setUsernameHelper('Can only contain letters and numbers');
+        } else {
+            setUsernameHelper('');
+            if (!usernameIsLength) {
+                setUsernameHelper('Must be between 4 and 25 characters');
+            } else {
+                setUsernameHelper('');
+            }
+        }
+
+        if (!emailIsValid) {
+            setEmailHelper('Please enter a valid email');
+        } else {
+            setEmailHelper('');
+        }
+
+        if (usernameIsValid && usernameIsLength && emailIsValid) {
+            return true;
+        } else {
+            return false;
+        }
+    };
+
+    const stringLengthTest = (string, min, max) => {
+        const stringLength = string.length;
+
+        if (stringLength < min || stringLength > max) {
+            return false;
+        } else {
+            return true;
+        }
     };
 
     return (
@@ -148,6 +202,8 @@ const Profile = (props) => {
                     handleUpdateUserSubmit={handleUpdateUserSubmit}
                     newUserInfo={newUserInfo}
                     setNewUserInfo={setNewUserInfo}
+                    usernameHelper={usernameHelper}
+                    emailHelper={emailHelper}
                 />
             </Container>
         </div>
