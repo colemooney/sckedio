@@ -223,18 +223,26 @@ const states = [
 
 const ProfileEditModal = (props) => {
     const classes = useStyles();
-    const { 
-        newUsername, 
-        newFirstName, 
-        newLastName, 
-        newEmail, 
-        newStreet, 
-        newCity, 
-        newState, 
-        newPostalCode, 
-        newCountry 
+    const {
+        newUsername,
+        newFirstName,
+        newLastName,
+        newEmail,
+        newStreet,
+        newCity,
+        newState,
+        newPostalCode,
+        newCountry
     } = props.newUserInfo;
-    const { open, handleClose, setNewUserInfo, newUserInfo, handleUpdateUserSubmit } = props;
+    const {
+        open,
+        handleClose,
+        setNewUserInfo,
+        newUserInfo,
+        handleUpdateUserSubmit,
+        usernameHelper,
+        emailHelper
+    } = props;
 
     return (
         <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
@@ -256,7 +264,7 @@ const ProfileEditModal = (props) => {
                                     ...newUserInfo,
                                     newFirstName: event.target.value
                                 }
-                                )}
+                            )}
                             fullWidth
                         />
                     </Grid>
@@ -272,41 +280,45 @@ const ProfileEditModal = (props) => {
                                     ...newUserInfo,
                                     newLastName: event.target.value
                                 }
-                                )}
+                            )}
                             fullWidth
                         />
                     </Grid>
                     <Grid item xs={12} sm={6}>
                         <TextField
-                            disabled
+                            // disabled
                             id="username"
                             label="Username"
                             variant='outlined'
                             type="text"
                             value={newUsername}
-                            // onChange={event => setNewUserInfo(
-                            //     {
-                            //         ...newUserInfo,
-                            //         newUsername: event.target.value
-                            //     }
-                            //     )}
+                            onChange={event => setNewUserInfo(
+                                {
+                                    ...newUserInfo,
+                                    newUsername: event.target.value
+                                }
+                            )}
+                            error={usernameHelper === '' ? false : true}
+                            helperText={usernameHelper}
                             fullWidth
                         />
                     </Grid>
                     <Grid item xs={12} sm={6}>
                         <TextField
-                            disabled
+                            // disabled
                             id="email"
                             label="Email"
                             variant='outlined'
                             type="email"
                             value={newEmail}
-                            // onChange={event => setNewUserInfo(
-                            //     {
-                            //         ...newUserInfo,
-                            //         newEmail: event.target.value
-                            //     }
-                            //     )}
+                            onChange={event => setNewUserInfo(
+                                {
+                                    ...newUserInfo,
+                                    newEmail: event.target.value
+                                }
+                            )}
+                            error={emailHelper === '' ? false : true}
+                            helperText={emailHelper}
                             fullWidth
                         />
                     </Grid>
@@ -322,7 +334,7 @@ const ProfileEditModal = (props) => {
                                     ...newUserInfo,
                                     newStreet: event.target.value
                                 }
-                                )}
+                            )}
                             fullWidth
                         />
                     </Grid>
@@ -338,7 +350,7 @@ const ProfileEditModal = (props) => {
                                     ...newUserInfo,
                                     newCity: event.target.value
                                 }
-                                )}
+                            )}
                             fullWidth
                         />
                     </Grid>
@@ -355,7 +367,7 @@ const ProfileEditModal = (props) => {
                                     ...newUserInfo,
                                     newState: event.target.value
                                 }
-                                )}
+                            )}
                             fullWidth
                         >
                             {states.map((option) => (
@@ -377,7 +389,7 @@ const ProfileEditModal = (props) => {
                                     ...newUserInfo,
                                     newPostalCode: event.target.value
                                 }
-                                )}
+                            )}
                             fullWidth
                         />
                     </Grid>
@@ -393,7 +405,7 @@ const ProfileEditModal = (props) => {
                                     ...newUserInfo,
                                     newCountry: event.target.value
                                 }
-                                )}
+                            )}
                             fullWidth
                         />
                     </Grid>
@@ -403,11 +415,10 @@ const ProfileEditModal = (props) => {
                 <Button onClick={handleClose} color="secondary">
                     Cancel
               </Button>
-                <Button 
-                    onClick={()=>{
+                <Button
+                    onClick={() => {
                         handleUpdateUserSubmit();
-                        handleClose();
-                    }} 
+                    }}
                     color="primary"
                 >
                     Submit
