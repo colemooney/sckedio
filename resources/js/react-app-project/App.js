@@ -64,28 +64,11 @@ const App = () => {
     const handleLogout = () => {
         console.log('logged out');
         clearTimeout(timeoutVar);
-
-        // part of axios log out request
-        // const jwToken = localStorage.getItem('token');
-        // const authAxios = axios.create({
-        //     headers: {
-        //         Authorization: `Bearer ${jwToken}`
-        //     }
-        // });
         
         // Log out via auth, flip logged in state, remove token from storage
         auth.logout(() => {
             localStorage.removeItem('token');
             setLoggedIn(false);
-
-            // authAxios.get('api/auth/logout')
-            // .then(res => {
-            //     console.log('axios log out');
-            //     console.log(res);
-            // })
-            // .catch(err => {
-            //     console.log(err);
-            // });
         });
     };
 
