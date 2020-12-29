@@ -25,18 +25,20 @@ class PasswordController extends Controller
     }
 
     public function reset_password($token) {
-        return response()->json([
-            'token' => $token
-        ]);
+        return redirect()->action([PasswordController::class, 'update_password'], ['token' => $token]);
     }
 
+
+    /**
+     * @param [string] token
+     */
     public function update_password(Request $request) {
         $request->validate([
             'token' => 'required',
             'email' => 'required|email',
             'password' => 'required|min:8|confirmed'
         ]);
-        
+            
         $status = Password::reset(
             $request->only('email', 'password', 'password_confirmation', 'token'),
             function ($user, $password) use ($request) {
@@ -48,6 +50,6 @@ class PasswordController extends Controller
             }
         );
 
-        return response()->json([$status]);
+        return redirect('login');
     }
 }
