@@ -25,7 +25,7 @@ class PasswordController extends Controller
     }
 
     public function reset_password($token) {
-        return redirect()->action([PasswordController::class, 'update_password'], ['token' => $token]);
+        return response()->json(['token' => $token]);
     }
 
 
