@@ -48,7 +48,7 @@ Route::group([
         Route::put('update-user', [UserController::class, 'update']);
         
         // Changing password
-        Route::post('/forgot-password', [PasswordController::class, 'update'])->name('password.mail');
+        Route::post('/forgot-password', [PasswordController::class, 'mail_reset_password'])->name('password.mail');
         Route::get('/reset-password/{token}', [PasswordController::class, 'reset_password'])->name('password.reset');
         Route::post('/reset-password', [PasswordController::class, 'update_password'])->name('password.update');
 

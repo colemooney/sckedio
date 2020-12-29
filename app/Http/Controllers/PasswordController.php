@@ -10,7 +10,7 @@ use Illuminate\Support\Str;
 
 class PasswordController extends Controller
 {
-    public function update(Request $request) {
+    public function mail_reset_password(Request $request) {
         $request->validate([
             'email' => 'required|email'
         ]);
