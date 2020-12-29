@@ -2,9 +2,8 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Foundation\Auth\EmailVerificationRequest;
-use App\Http\Controllers\ApiController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\PasswordController;
 use App\Http\Controllers\UserInformationController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\OAuthTokenController;
@@ -48,18 +47,12 @@ Route::group([
         Route::get('show-user', [UserController::class, 'show']);
         Route::put('update-user', [UserController::class, 'update']);
         
+        // Changing password
+        Route::post('/forgot-password', [PasswordController::class, 'mail_reset_password'])->name('password.mail');
+        Route::get('/reset-password/{token}', [PasswordController::class, 'reset_password'])->name('password.reset');
+        Route::post('/reset-password', [PasswordController::class, 'update_password'])->name('password.update');
+
         //Refresh access token
         Route::post('refresh', [OAuthTokenController::class, 'refresh']);
     });
 });
-
-// Email Verification Notice
-Route::get('/email/verify', function(){
-    return view('auth.verify-email');
-})->middleware('auth')->name('verification.notice');
-
-// Email Verification Handler
-Route::get('/email/verify/{id}/{hash}', function(EmailVerificationRequest $request){
-    $request->fulfill();
-    return redirect(env('APP_URL'));
-})->middleware(['auth', 'signed'])->name('verification.verify');
