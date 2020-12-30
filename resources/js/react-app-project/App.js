@@ -30,7 +30,10 @@ const App = () => {
         console.log('app load');
 
         // Get JWT from localStorage (if it exists)
-        const jwToken = localStorage.getItem('token');
+        // const jwToken = localStorage.getItem('token');
+
+        // for deployment JWT logic
+        // const jwToken = auth.getToken();
 
         // If JWT exists in localStorage
         if (jwToken) {
@@ -56,7 +59,22 @@ const App = () => {
                     setLoggedIn(true);
                 });
             }
-        }
+        } 
+        // for deployment JWT logic
+        // else {
+        //     const refreshToken = localStorage.getItem('refresh_token');
+
+        //     const tokenObject = {
+        //         refresh_token: refreshToken
+        //     };
+
+        //     axios.post('api/auth/refresh', tokenObject)
+        //         .then(res=>{
+        //             console.log('try refresh token');
+        //             console.log(res)
+        //         })
+        //         .catch(err=>console.log(err));
+        // }
         setLoading(false);
     });
 
@@ -73,9 +91,9 @@ const App = () => {
     };
 
     
-    const tokenTimeKeeper = () => {
+    const tokenTimeKeeper = (numOfSeconds) => {
         console.log('timer started');
-        setTimeoutVar(setTimeout(handleLogout, 15 * 60 * 1000));
+        setTimeoutVar(setTimeout(handleLogout, numOfSeconds * 1000));
     };
 
     return (

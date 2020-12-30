@@ -28,14 +28,21 @@ const Login = (props) => {
                     console.log(res);
                     // JWT token
                     const jwToken = res.data.access_token;
+                    // seconds to JWT expire
+                    const secondsToExpire = res.data.expires_in;
+                    // refresh token
+                    const refreshToken = res.data.refresh_token;
                     // not secure, only for testing
                     localStorage.setItem('token', jwToken);
-                    // auth.setToken(jwToken);
+
+                    // for deployment JWT logic
+                    auth.setToken(jwToken);
+                    localStorage.setItem('refresh_token', refreshToken);
 
                     // flips authenticated to true
                     auth.login(()=>{
                         props.setLoggedIn(true);
-                        props.tokenTimeKeeper();
+                        props.tokenTimeKeeper(secondsToExpire);
                         history.push({
                             pathname: '/',
                             // state: {
