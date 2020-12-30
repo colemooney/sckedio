@@ -8,6 +8,7 @@ import CreateAccount from './pages/createAccount/CreateAccount';
 import Home from './pages/home/Home';
 import Login from './pages/login/Login';
 import PasswordForgotRequest from './pages/passwordForgetRequest/PasswordForgotRequest';
+import PasswordReset from './pages/passwordReset/PasswordReset';
 import Profile from './pages/profile/Profile';
 import ProtectedRoute from './components/protectedRoute/ProtectedRoute';
 import Sell from './pages/sell/Sell';
@@ -17,8 +18,6 @@ import axios from 'axios';
 
 /* Anything that has register is temporary */
 import Register from './pages/register/Register';
-
-
 
 const App = () => {
     const [loggedIn, setLoggedIn] = React.useState(false);
@@ -112,6 +111,7 @@ const App = () => {
                         <Route exact path='/create-account' component={CreateAccount} />
                         <Route exact path='/login' component={() => <Login setLoggedIn={setLoggedIn} tokenTimeKeeper={tokenTimeKeeper} />} />
                         <Route exact path='/forgot-password' component={PasswordForgotRequest} />
+                        <Route exact path='/password-reset' component={PasswordReset} />
 
                         <Route exact path='/register' component={Register} />
 
