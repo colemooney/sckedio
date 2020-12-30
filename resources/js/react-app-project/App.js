@@ -7,6 +7,7 @@ import Buy from './pages/buy/Buy';
 import CreateAccount from './pages/createAccount/CreateAccount';
 import Home from './pages/home/Home';
 import Login from './pages/login/Login';
+import PasswordForgotRequest from './pages/passwordForgetRequest/PasswordForgotRequest';
 import Profile from './pages/profile/Profile';
 import ProtectedRoute from './components/protectedRoute/ProtectedRoute';
 import Sell from './pages/sell/Sell';
@@ -30,7 +31,7 @@ const App = () => {
         console.log('app load');
 
         // Get JWT from localStorage (if it exists)
-        // const jwToken = localStorage.getItem('token');
+        const jwToken = localStorage.getItem('token');
 
         // for deployment JWT logic
         // const jwToken = auth.getToken();
@@ -110,6 +111,7 @@ const App = () => {
                         <ProtectedRoute exact path='/profile' component={() => <Profile loggedIn={loggedIn} handleLogout={handleLogout} />} />
                         <Route exact path='/create-account' component={CreateAccount} />
                         <Route exact path='/login' component={() => <Login setLoggedIn={setLoggedIn} tokenTimeKeeper={tokenTimeKeeper} />} />
+                        <Route exact path='/forgot-password' component={PasswordForgotRequest} />
 
                         <Route exact path='/register' component={Register} />
 
