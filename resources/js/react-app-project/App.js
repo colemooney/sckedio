@@ -7,6 +7,8 @@ import Buy from './pages/buy/Buy';
 import CreateAccount from './pages/createAccount/CreateAccount';
 import Home from './pages/home/Home';
 import Login from './pages/login/Login';
+import PasswordForgotRequest from './pages/passwordForgetRequest/PasswordForgotRequest';
+import PasswordReset from './pages/passwordReset/PasswordReset';
 import Profile from './pages/profile/Profile';
 import ProtectedRoute from './components/protectedRoute/ProtectedRoute';
 import Sell from './pages/sell/Sell';
@@ -16,8 +18,6 @@ import axios from 'axios';
 
 /* Anything that has register is temporary */
 import Register from './pages/register/Register';
-
-
 
 const App = () => {
     const [loggedIn, setLoggedIn] = React.useState(false);
@@ -31,6 +31,9 @@ const App = () => {
 
         // Get JWT from localStorage (if it exists)
         const jwToken = localStorage.getItem('token');
+
+        // for deployment JWT logic
+        // const jwToken = auth.getToken();
 
         // If JWT exists in localStorage
         if (jwToken) {
@@ -56,7 +59,22 @@ const App = () => {
                     setLoggedIn(true);
                 });
             }
-        }
+        } 
+        // for deployment JWT logic
+        // else {
+        //     const refreshToken = localStorage.getItem('refresh_token');
+
+        //     const tokenObject = {
+        //         refresh_token: refreshToken
+        //     };
+
+        //     axios.post('api/auth/refresh', tokenObject)
+        //         .then(res=>{
+        //             console.log('try refresh token');
+        //             console.log(res)
+        //         })
+        //         .catch(err=>console.log(err));
+        // }
         setLoading(false);
     });
 
@@ -73,9 +91,9 @@ const App = () => {
     };
 
     
-    const tokenTimeKeeper = () => {
+    const tokenTimeKeeper = (numOfSeconds) => {
         console.log('timer started');
-        setTimeoutVar(setTimeout(handleLogout, 15 * 60 * 1000));
+        setTimeoutVar(setTimeout(handleLogout, numOfSeconds * 1000));
     };
 
     return (
@@ -92,6 +110,8 @@ const App = () => {
                         <ProtectedRoute exact path='/profile' component={() => <Profile loggedIn={loggedIn} handleLogout={handleLogout} />} />
                         <Route exact path='/create-account' component={CreateAccount} />
                         <Route exact path='/login' component={() => <Login setLoggedIn={setLoggedIn} tokenTimeKeeper={tokenTimeKeeper} />} />
+                        <Route exact path='/forgot-password' component={PasswordForgotRequest} />
+                        <Route exact path='/password-reset' component={PasswordReset} />
 
                         <Route exact path='/register' component={Register} />
 

@@ -72,7 +72,7 @@ const LoginForm = (props) => {
                             </Button>
                         </Grid>
                         <Grid item container xs={12} justify='center'>
-                            <Typography variant='body2'><Link href='#' onClick={()=>console.log('clicked')}>Forgot your password?</Link></Typography>
+                            <Typography variant='body2'><Link href='/forgot-password' onClick={()=>console.log('clicked')}>Forgot your password?</Link></Typography>
                         </Grid>
                         <Grid item container xs={12} justify='center'>
                             <Typography variant='body2'>First time here? <Link href='/create-account'>Create an account</Link></Typography>
