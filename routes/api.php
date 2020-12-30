@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ApiController;
 use App\Http\Controllers\PasswordController;
 use App\Http\Controllers\UserInformationController;
 use App\Http\Controllers\UserController;
@@ -27,9 +28,12 @@ Route::get('users/', [ApiController::class, 'list']);
 
 Route::group([
     'prefix'=> 'auth'
-], function(){
+], function() {
         Route::post('login',[AuthController::class, 'login']);
         Route::post('signup', [AuthController::class, 'signup']);
+        
+        //Refresh access token
+        Route::post('refresh', [OAuthTokenController::class, 'refresh']);
 
     Route::group([
         'middleware'=> 'auth:api'
@@ -47,12 +51,18 @@ Route::group([
         Route::get('show-user', [UserController::class, 'show']);
         Route::put('update-user', [UserController::class, 'update']);
         
+    });
+});
+
+Route::group([
+    'prefix' => 'guest'
+], function() {
+    Route::group([
+        'middleware' => 'guest:api'    
+    ], function (){
         // Changing password
         Route::post('/forgot-password', [PasswordController::class, 'mail_reset_password'])->name('password.mail');
         Route::get('/reset-password/{token}', [PasswordController::class, 'reset_password'])->name('password.reset');
         Route::post('/reset-password', [PasswordController::class, 'update_password'])->name('password.update');
-
-        //Refresh access token
-        Route::post('refresh', [OAuthTokenController::class, 'refresh']);
     });
 });
