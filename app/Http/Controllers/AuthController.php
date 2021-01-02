@@ -93,10 +93,7 @@ class AuthController extends Controller
             'access_token' => $response['access_token'],
             'expires_in' => $response['expires_in'],
             'message' => 'You are now logged in.'
-        ], 200)
-        ->withHeaders([
-            'Authorization' => 'Bearer '.$response['access_token'],
-        ]);
+        ], 200);
       }
 
       /**
