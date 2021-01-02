@@ -12,43 +12,29 @@ use Laravel\Passport\TokenRepository;
 use Laravel\Passport\RefreshTokenRepository;
 use App\Models\User;
 use App\Models\UserInformation;
+use App\Utilities\ProxyRequest;
 
 class AuthController extends Controller
 {
-    /**
-     * Create user
-     * @param [string] username
-     * @param [string] email
-     * @param [string] password
-     * @param [string] password_confirmation
-     * Initial values for user information
-     * @param [string] first_name
-     * @param [string] last_name
-     * @param [string] state
-     * @param [string] city
-     * @param [string] street
-     * @param [string] postal_code
-     * @param [string] country
-     */
 
-     public function signup(Request $request){
-        $request->validate([
+    protected $proxy;
+
+    public function __construct(ProxyRequest $proxy) {
+        $this->proxy = $proxy;
+    }
+
+     public function signup(Request $request) {
+        $this->validate(request(), [
             'username' => 'required|string|unique:users',
             'email' => 'required|string|email|unique:users',
-            'password' => 'required|string|confirmed'
+            'password' => 'required|string|confirmed',
         ]);
 
-        $user = new User([
-            'username' => $request->username,
-            'email' => $request->email,
-            'password' => bcrypt($request->password)
+        $user = User::create([
+            'username' => request('username'),
+            'email' => request('email'),
+            'password' => bcrypt(request('password')),
         ]);
-
-        // Save the for new user
-        $user->save();
-        
-        // Verification email
-        // event(new Registered($user));
 
         // Initial value for user_information
         $user_information = new UserInformation([
@@ -65,7 +51,15 @@ class AuthController extends Controller
         $user_information->user()->associate($user);
         $user_information->save();
 
+        // Tokens
+         $resp = $this->proxy->grantPasswordToken(
+             $user->username,
+             request('password'),
+         );
+
         return response()->json([
+            'access_token' => $resp['access_token'],
+            'expires_in' => $resp['expires_in'],
             'message' => 'Successfully created user!'
         ], 201);
      }
@@ -79,7 +73,7 @@ class AuthController extends Controller
       * @return [string] expires_at
       */
 
-      public function login(Request $request){
+      public function login(Request $request) {
         $request->validate([
             'username' => 'required|string',
             'password' => 'required|string',
@@ -87,21 +81,19 @@ class AuthController extends Controller
 
         $credentials = request(['username', 'password']);
         
-        if(!Auth::attempt($credentials))
+        if(!Auth::attempt($credentials)) {
             return response()->json([
                 'message' => 'Unauthorized'
             ], 401);
+        } else {
+            $response = $this->proxy->grantPasswordToken($request->username, $request->password);
+        }
         
-        $response = Http::asForm()->post(env('APP_URL') . '/oauth/token', [
-                'client_id' => env('PROXY_OAUTH_CLIENT_ID'),
-                'client_secret' => env('PROXY_OAUTH_CLIENT_SECRET'),
-                'grant_type' => env('PROXY_OAUTH_GRANT_TYPE'),
-                'username' => $request->username,
-                'password' => $request->password,
-                'scopes' => '[*]'
-        ]);
-
-        return $response->json();
+        return response()->json([
+            'access_token' => $response['access_token'],
+            'expires_in' => $response['expires_in'],
+            'message' => 'You are now logged in.'
+        ], 200);
       }
 
       /**
@@ -109,9 +101,13 @@ class AuthController extends Controller
        * @return [string] message
        */
 
-       public function logout(Request $request){
-           $request->user()->token()->revoke();
+       public function logout(Request $request) {
+           $token = request()->user()->token();
+           $token->delete();
 
+           // remove httponly cookie
+           cookie()->queue(cookie()->forget('refresh_token'));
+        
            return response()->json([
                 'message' => 'Successfully logged out',
            ], 200);
@@ -123,9 +119,9 @@ class AuthController extends Controller
         * @return [json] user object 
         */
 
-        public function user(Request $request){
+        public function user(Request $request) {
             $user = Auth::user();
             $user_information = User::find($user->id)->user_information;
-            return response()->json([$user, $user_information]);
+            return response()->json([$user,$user_information]);
         }
 }
