@@ -33,7 +33,7 @@ Route::group([
         Route::post('signup', [AuthController::class, 'signup']);
         
         //Refresh access token
-        Route::post('refresh', [OAuthTokenController::class, 'refresh']);
+        Route::get('refresh', [OAuthTokenController::class, 'refresh']);
 
     Route::group([
         'middleware'=> 'auth:api'
@@ -50,7 +50,6 @@ Route::group([
         //UserController
         Route::get('show-user', [UserController::class, 'show']);
         Route::put('update-user', [UserController::class, 'update']);
-        
     });
 });
 
