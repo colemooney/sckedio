@@ -30,4 +30,9 @@ return [
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
 
+    'passport' => [
+        'password_client_id' => env('PROXY_OAUTH_CLIENT_ID'),
+        'password_client_secret' => env('PROXY_OAUTH_CLIENT_SECRET'),
+    ],
+
 ];
