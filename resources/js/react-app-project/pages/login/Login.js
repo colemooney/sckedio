@@ -20,6 +20,8 @@ const Login = (props) => {
             remember_me: true
         };
 
+        console.log(loginData);
+
         const isValid = validateInputs();
 
         if (isValid) {
@@ -31,13 +33,13 @@ const Login = (props) => {
                     // seconds to JWT expire
                     const secondsToExpire = res.data.expires_in;
                     // refresh token
-                    const refreshToken = res.data.refresh_token;
+                    // const refreshToken = res.data.refresh_token;
                     // not secure, only for testing
                     localStorage.setItem('token', jwToken);
 
                     // for deployment JWT logic
-                    auth.setToken(jwToken);
-                    localStorage.setItem('refresh_token', refreshToken);
+                    // auth.setToken(jwToken);
+                    // localStorage.setItem('refresh_token', refreshToken);
 
                     // flips authenticated to true
                     auth.login(()=>{
