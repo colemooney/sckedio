@@ -18,6 +18,9 @@ class OAuthTokenController extends Controller
 
         $response = $this->proxy->refreshAccessToken();
 
-        return $response->json();
+        return response()->json([
+        'access_token' => $response['access_token'],
+        'expires_in' => $response['expires_in'],
+        'message' => 'Refreshed.'], 200);
     }
 }
