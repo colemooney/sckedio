@@ -30,7 +30,7 @@ const NavBar = (props) => {
     const [anchorEl, setAnchorEl] = React.useState(null);
     const open = Boolean(anchorEl);
     const theme = useTheme();
-    const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+    const isMobile = useMediaQuery(theme.breakpoints.down('sm'), {noSsr:true});
     const [currentLocationURL, setCurrentLocationURL] = React.useState(location.pathname);
     // const loggedIn = props.loggedIn;
 
