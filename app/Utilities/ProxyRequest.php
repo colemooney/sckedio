@@ -3,6 +3,8 @@
 namespace App\Utilities;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
+use Laravel\Passport\TokenRepository;
+use Laravel\Passport\RefreshTokenRepository;
 
 class ProxyRequest 
 {
@@ -18,12 +20,27 @@ class ProxyRequest
         return $this->makePostRequest($params);
     }
 
+    public function revokeTokens(string $accessTokenId) {
+        $tokenRepository = app(TokenRepository::class);
+        $refreshTokenRepository = app(RefreshTokenRepository::class);
+        
+        $tokenRepository->revokeAccessToken($accessTokenId);
+        $refreshTokenRepository->revokeRefreshTokensByAccessTokenId($accessTokenId);
+
+        return response()->json([
+            'message' => 'Successfully logged out.'
+        ]);
+    }
+
     public function refreshAccessToken() {
         // Conditions refresh_token if it is available, missing, and/or expired.
 
         $refreshToken = request()->cookie('refresh_token');
-
-        abort_unless($refreshToken, 403, 'Please log in.');
+        
+        if(!$refreshToken) {
+            cookie()->queue(cookie()->forget('refresh_token'));
+            abort_unless($refreshToken, 403, 'Please log in.');
+        }
 
         $params = [
             'grant_type' => 'refresh_token',

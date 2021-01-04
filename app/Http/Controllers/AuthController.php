@@ -27,7 +27,7 @@ class AuthController extends Controller
         $this->validate(request(), [
             'username' => 'required|string|unique:users',
             'email' => 'required|string|email|unique:users',
-            'password' => 'required|string|confirmed',
+            'password' => 'required|string|confirmed|min:7',
         ]);
 
         $user = User::create([
@@ -102,15 +102,14 @@ class AuthController extends Controller
        */
 
        public function logout(Request $request) {
-           $token = request()->user()->token();
-           $token->delete();
-
+            // $request->user()->token()->revoke();
+            $tokenId = $request->user()->token()->id;
+            $result = $this->proxy->revokeTokens($tokenId);
+            
            // remove httponly cookie
            cookie()->queue(cookie()->forget('refresh_token'));
         
-           return response()->json([
-                'message' => 'Successfully logged out',
-           ], 200);
+           return $result;
        }
 
        /**
