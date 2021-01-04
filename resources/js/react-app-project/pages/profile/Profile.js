@@ -7,6 +7,7 @@ import NavBar from '../../components/navBar/NavBar';
 import ProfileEditModal from '../../components/profileEditModal/ProfileEditModal';
 import ProfileInfoDisplay from '../../components/ProfileInfoDisplay/ProfileInfoDisplay';
 import { useLocation } from "react-router-dom";
+import auth from '../../auth';
 import axios from 'axios';
 
 const useStyles = makeStyles((theme) => ({
@@ -59,7 +60,9 @@ const Profile = (props) => {
     });
 
     useEffect(() => {
-        const jwToken = localStorage.getItem('token');
+        console.log('profile reload');
+        // const jwToken = localStorage.getItem('token');
+        const jwToken = auth.getToken();
         getUserInfo(jwToken);
     }, []);
 
@@ -121,7 +124,8 @@ const Profile = (props) => {
         console.log('is valid: ' + isValid);
 
         if (isValid) {
-            const jwToken = localStorage.getItem('token');
+            // const jwToken = localStorage.getItem('token');
+            const jwToken = auth.getToken();
             const authAxios = axios.create({
                 headers: {
                     Authorization: `Bearer ${jwToken}`
@@ -133,7 +137,8 @@ const Profile = (props) => {
                 // authAxios.post('api/auth/create-user-information', userUpdateInfo)
                 .then(res => {
                     console.log(res);
-                    const jwToken = localStorage.getItem('token');
+                    // const jwToken = localStorage.getItem('token');
+                    const jwToken = auth.getToken();
                     getUserInfo(jwToken);
                 })
                 .catch(err => {

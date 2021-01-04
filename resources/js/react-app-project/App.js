@@ -23,77 +23,98 @@ const App = () => {
     const [loggedIn, setLoggedIn] = React.useState(false);
     const [loading, setLoading] = React.useState(true);
     const [tokenExpired, setTokenExpired] = React.useState(false);
-    const [timeoutVar,setTimeoutVar] = React.useState();
+    // const [timeoutVar, setTimeoutVar] = React.useState();
+
+    // setTimeout variable
+    let timeFunc;
 
     // JWT checks
     useEffect(() => {
         console.log('app load');
 
-        // Get JWT from localStorage (if it exists)
-        const jwToken = localStorage.getItem('token');
+        runRefresh();
 
-        // for deployment JWT logic
-        // const jwToken = auth.getToken();
+        // // Get JWT from localStorage (if it exists)
+        // const jwToken = localStorage.getItem('token');
 
-        // If JWT exists in localStorage
-        if (jwToken) {
+        // // for deployment JWT logic
+        // // const jwToken = auth.getToken();
 
-            // Decode JWT (to get expire time)
-            const decodedToken = jwt.decode(jwToken);
-            console.log('token expire: ' + decodedToken.exp);
+        // // If JWT exists in localStorage
+        // if (jwToken) {
 
-            // Get current time to compare
-            const dateNow = new Date();
-            console.log('current time: ' + (dateNow.getTime() / 1000));
+        //     // Decode JWT (to get expire time)
+        //     const decodedToken = jwt.decode(jwToken);
+        //     console.log('token expire: ' + decodedToken.exp);
 
-            // Check if JWT expire time is less than current time (/1000 to convert)
-            if (decodedToken.exp < (dateNow.getTime() / 1000)) {
-                // not currently using this, might need in future
-                setTokenExpired(true);
+        //     // Get current time to compare
+        //     const dateNow = new Date();
+        //     console.log('current time: ' + (dateNow.getTime() / 1000));
 
-                handleLogout();
-                // If JWT is NOT expired
-            } else {
-                // Log in via auth, flip logged in state
+        //     // Check if JWT expire time is less than current time (/1000 to convert)
+        //     if (decodedToken.exp < (dateNow.getTime() / 1000)) {
+        //         // not currently using this, might need in future
+        //         setTokenExpired(true);
+
+        //         handleLogout();
+        //         // If JWT is NOT expired
+        //     } else {
+        //         // Log in via auth, flip logged in state
+        //         auth.login(() => {
+        //             setLoggedIn(true);
+        //         });
+        //     }
+        // } 
+        setLoading(false);
+    }, []);
+
+    const runRefresh = () => {
+        console.log('refresh');
+        axios.get('api/auth/refresh')
+            .then(res => {
+                console.log(res);
+                // JWT token
+                const jwToken = res.data.access_token;
+                // seconds to JWT expire
+                const secondsToExpire = res.data.expires_in;
+
+                // for deployment JWT logic
+                auth.setToken(jwToken);
+
+                // flips authenticated to true
                 auth.login(() => {
                     setLoggedIn(true);
+                    tokenTimeKeeper(secondsToExpire);
+                    // history.push({
+                    //     pathname: '/'
+                    // });
                 });
-            }
-        } 
-        // for deployment JWT logic
-        // else {
-        //     const refreshToken = localStorage.getItem('refresh_token');
-
-        //     const tokenObject = {
-        //         refresh_token: refreshToken
-        //     };
-
-        //     axios.post('api/auth/refresh', tokenObject)
-        //         .then(res=>{
-        //             console.log('try refresh token');
-        //             console.log(res)
-        //         })
-        //         .catch(err=>console.log(err));
-        // }
-        setLoading(false);
-    });
+            })
+            .catch(err => {
+                console.log(err);
+                handleLogout();
+            });
+    };
 
     // let timeoutVar;
     const handleLogout = () => {
         console.log('logged out');
-        clearTimeout(timeoutVar);
-        
+        // clearTimeout(timeoutVar);
+        clearTimeout(timeFunc);
+
         // Log out via auth, flip logged in state, remove token from storage
         auth.logout(() => {
-            localStorage.removeItem('token');
+            // localStorage.removeItem('token');
             setLoggedIn(false);
         });
     };
 
-    
+
     const tokenTimeKeeper = (numOfSeconds) => {
+        // numOfSeconds = 30;
         console.log('timer started');
-        setTimeoutVar(setTimeout(handleLogout, numOfSeconds * 1000));
+        // setTimeoutVar(setTimeout(runRefresh, numOfSeconds * 1000));
+        timeFunc = setTimeout(runRefresh, numOfSeconds * 1000);
     };
 
     return (
