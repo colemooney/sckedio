@@ -36,8 +36,11 @@ class ProxyRequest
         // Conditions refresh_token if it is available, missing, and/or expired.
 
         $refreshToken = request()->cookie('refresh_token');
-
-        abort_unless($refreshToken, 403, 'Please log in.');
+        
+        if(!$refreshToken) {
+            cookie()->queue(cookie()->forget('refresh_token'));
+            abort_unless($refreshToken, 403, 'Please log in.');
+        }
 
         $params = [
             'grant_type' => 'refresh_token',
