@@ -3,6 +3,8 @@
 namespace App\Utilities;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
+use Laravel\Passport\TokenRepository;
+use Laravel\Passport\RefreshTokenRepository;
 
 class ProxyRequest 
 {
@@ -16,6 +18,18 @@ class ProxyRequest
         ];
 
         return $this->makePostRequest($params);
+    }
+
+    public function revokeTokens(string $accessTokenId) {
+        $tokenRepository = app(TokenRepository::class);
+        $refreshTokenRepository = app(RefreshTokenRepository::class);
+        
+        $tokenRepository->revokeAccessToken($accessTokenId);
+        $refreshTokenRepository->revokeRefreshTokensByAccessTokenId($accessTokenId);
+
+        return response()->json([
+            'message' => 'Successfully logged out.'
+        ]);
     }
 
     public function refreshAccessToken() {
