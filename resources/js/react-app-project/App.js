@@ -1,9 +1,11 @@
 import React, { useEffect } from 'react';
+import { makeStyles } from '@material-ui/core/styles';
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import CssBaseline from '@material-ui/core/CssBaseline';
 import About from './pages/about/About';
 import Build from './pages/build/Build';
 import Buy from './pages/buy/Buy';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import CreateAccount from './pages/createAccount/CreateAccount';
 import Home from './pages/home/Home';
 import Login from './pages/login/Login';
@@ -19,7 +21,17 @@ import axios from 'axios';
 /* Anything that has register is temporary */
 import Register from './pages/register/Register';
 
+const useStyles = makeStyles((theme) => ({
+    center: {
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        minHeight: '100vh'
+    }
+}));
+
 const App = () => {
+    const classes = useStyles();
     const [loggedIn, setLoggedIn] = React.useState(false);
     const [loading, setLoading] = React.useState(true);
     const [tokenExpired, setTokenExpired] = React.useState(false);
@@ -32,7 +44,9 @@ const App = () => {
     useEffect(() => {
         console.log('app load');
 
-        runRefresh();
+        runRefresh(()=>{
+            setLoading(false);
+        });
 
         // // Get JWT from localStorage (if it exists)
         // const jwToken = localStorage.getItem('token');
@@ -65,10 +79,10 @@ const App = () => {
         //         });
         //     }
         // } 
-        setLoading(false);
+        // setLoading(false);
     }, []);
 
-    const runRefresh = () => {
+    const runRefresh = (callback) => {
         console.log('refresh');
         axios.get('api/auth/refresh')
             .then(res => {
@@ -92,7 +106,15 @@ const App = () => {
             })
             .catch(err => {
                 console.log(err);
-                handleLogout();
+                clearTimeout(timeFunc);
+                // Log out via auth, flip logged in state, remove token from storage
+                auth.logout(() => {
+                    // localStorage.removeItem('token');
+                    setLoggedIn(false);
+                });
+            })
+            .then(()=>{
+                callback();
             });
     };
 
@@ -102,11 +124,30 @@ const App = () => {
         // clearTimeout(timeoutVar);
         clearTimeout(timeFunc);
 
-        // Log out via auth, flip logged in state, remove token from storage
-        auth.logout(() => {
-            // localStorage.removeItem('token');
-            setLoggedIn(false);
+        const jwToken = auth.getToken();
+
+        const authAxios = axios.create({
+            headers: {
+                Authorization: `Bearer ${jwToken}`
+            }
         });
+
+        authAxios.get('api/auth/logout')
+            .then(res => {
+                console.log(res);
+                // Log out via auth, flip logged in state, remove token from storage
+                auth.logout(() => {
+                    // localStorage.removeItem('token');
+                    setLoggedIn(false);
+                });
+
+            })
+            .catch(err => {
+                console.log(err);
+                handleLogout();
+            });
+
+
     };
 
 
@@ -114,11 +155,14 @@ const App = () => {
         // numOfSeconds = 30;
         console.log('timer started');
         // setTimeoutVar(setTimeout(runRefresh, numOfSeconds * 1000));
-        timeFunc = setTimeout(runRefresh, numOfSeconds * 1000);
+        timeFunc = setTimeout(runRefresh, (numOfSeconds-10) * 1000);
     };
 
     return (
-        loading ? <h1>loading</h1> :
+        loading ? 
+            <div className={classes.center}>
+                <CircularProgress /> 
+            </div> :
             <React.Fragment>
                 <CssBaseline />
                 <Router>
