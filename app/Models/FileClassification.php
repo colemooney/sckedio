@@ -11,6 +11,6 @@ class FileClassification extends Model
     protected $table = 'file_classifications';
 
     protected $fillable = [
-        'file_classification'
+        'classification'
     ];
 }
