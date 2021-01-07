@@ -24,8 +24,8 @@ class LookUpSeeder extends Seeder
         IdeaType::create(['idea_type' => 'I\'ll make my idea myself!']);
 
         // File classification values
-        FileClassification::create(['file_classification' => 'public']);
-        FileClassification::create(['file_classification' => 'private']);
+        FileClassification::create(['classification' => 'public']);
+        FileClassification::create(['classification' => 'private']);
 
         // Category values
         Category::create(['category' => 'Fashion']);
