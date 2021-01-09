@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Str;
-
+use Session;
 class PasswordController extends Controller
 {
     public function mail_reset_password(Request $request) {
@@ -25,20 +25,26 @@ class PasswordController extends Controller
     }
 
     public function reset_password($token) {
-        return response()->json(['token' => $token]);
+        return redirect()->route('password.reset');
     }
 
-
-    /**
-     * @param [string] token
-     */
     public function update_password(Request $request) {
         $request->validate([
             'token' => 'required',
             'email' => 'required|email',
             'password' => 'required|min:8|confirmed'
         ]);
-            
+
+        $request->token = $request->session()->get('token');
+        return response()->json([
+            'token'=>$request->token
+        ]);
+        if(empty($request->token)){
+            return response()->json([
+                'message' => 'Empty token'
+            ], 422);
+        }
+
         $status = Password::reset(
             $request->only('email', 'password', 'password_confirmation', 'token'),
             function ($user, $password) use ($request) {
