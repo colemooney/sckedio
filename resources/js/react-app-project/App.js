@@ -11,6 +11,7 @@ import Home from './pages/home/Home';
 import Login from './pages/login/Login';
 import PasswordForgotRequest from './pages/passwordForgetRequest/PasswordForgotRequest';
 import PasswordReset from './pages/passwordReset/PasswordReset';
+import Product from './pages/product/Product';
 import Profile from './pages/profile/Profile';
 import ProtectedRoute from './components/protectedRoute/ProtectedRoute';
 import Sell from './pages/sell/Sell';
@@ -177,6 +178,9 @@ const App = () => {
                         <Route exact path='/login' component={() => <Login setLoggedIn={setLoggedIn} tokenTimeKeeper={tokenTimeKeeper} />} />
                         <Route exact path='/forgot-password' component={PasswordForgotRequest} />
                         <Route exact path='/password-reset' component={PasswordReset} />
+                        <Route path='/product/:id'>
+                            <Product />
+                        </Route>
 
                         <Route exact path='/register' component={Register} />
 
