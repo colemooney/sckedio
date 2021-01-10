@@ -179,7 +179,7 @@ const App = () => {
                         <Route exact path='/forgot-password' component={PasswordForgotRequest} />
                         <Route exact path='/password-reset' component={PasswordReset} />
                         <Route path='/product/:id'>
-                            <Product />
+                            <Product loggedIn={loggedIn} handleLogout={handleLogout} />
                         </Route>
 
                         <Route exact path='/register' component={Register} />

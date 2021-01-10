@@ -7,6 +7,7 @@ import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
+import { useHistory } from "react-router-dom";
 
 const useStyles = makeStyles({
     root: {
@@ -20,16 +21,18 @@ const useStyles = makeStyles({
 
 const DesignCard = (props) => {
     const classes = useStyles();
+    let history = useHistory();
     const {
-        seller,
+        designer,
         productTitle,
         interest,
-        image
+        image,
+        itemNum
     } = props.product;
 
     return (
         <Card className={classes.root}>
-            <CardActionArea>
+            <CardActionArea onClick={()=>history.push(`/product/${itemNum}`)}>
                 <CardMedia
                     className={classes.media}
                     image={image}
@@ -37,7 +40,7 @@ const DesignCard = (props) => {
                 />
                 <CardContent>
                     <Typography gutterBottom variant='h5' component='h2'>
-                        {seller}
+                        {designer}
                     </Typography>
                     <Typography variant='body2' color='textSecondary' component='p'>
                         {productTitle}

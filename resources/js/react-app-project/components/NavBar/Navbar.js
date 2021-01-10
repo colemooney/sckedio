@@ -73,8 +73,10 @@ const NavBar = (props) => {
     return (
         <div className={classes.root}>
             <AppBar
-                position="fixed"
-                color="#ffffff"
+                // position="fixed"
+                // color="#ffffff"
+                position="static"
+                color="transparent"
             >
                 <Toolbar>
                     <Typography variant="h5" className={classes.title}>
