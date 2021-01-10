@@ -85,7 +85,7 @@ const App = () => {
 
     const runRefresh = (callback) => {
         console.log('refresh');
-        axios.get('api/auth/refresh')
+        axios.get('/api/auth/refresh')
             .then(res => {
                 console.log(res);
                 // JWT token
@@ -133,7 +133,7 @@ const App = () => {
             }
         });
 
-        authAxios.get('api/auth/logout')
+        authAxios.get('/api/auth/logout')
             .then(res => {
                 console.log(res);
                 // Log out via auth, flip logged in state, remove token from storage
