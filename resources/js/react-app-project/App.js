@@ -177,7 +177,10 @@ const App = () => {
                         <Route exact path='/create-account' component={CreateAccount} />
                         <Route exact path='/login' component={() => <Login setLoggedIn={setLoggedIn} tokenTimeKeeper={tokenTimeKeeper} />} />
                         <Route exact path='/forgot-password' component={PasswordForgotRequest} />
-                        <Route exact path='/password-reset' component={PasswordReset} />
+                        {/* <Route exact path='/password-reset' component={PasswordReset} /> */}
+                        <Route path='/password-reset/:token'>
+                            <PasswordReset />
+                        </Route>
                         <Route path='/product/:id'>
                             <Product loggedIn={loggedIn} handleLogout={handleLogout} />
                         </Route>
