@@ -72,7 +72,7 @@ const Profile = (props) => {
                 Authorization: `Bearer ${newToken}`
             }
         });
-        authAxios.get('api/auth/user')
+        authAxios.get('/api/auth/user')
             .then(res => {
                 console.log(res);
                 setUserInfo({
@@ -133,8 +133,8 @@ const Profile = (props) => {
             });
 
             console.log(userUpdateInfo);
-            authAxios.put('api/auth/update-user-information', userUpdateInfo)
-                // authAxios.post('api/auth/create-user-information', userUpdateInfo)
+            authAxios.put('/api/auth/update-user-information', userUpdateInfo)
+                // authAxios.post('/api/auth/create-user-information', userUpdateInfo)
                 .then(res => {
                     console.log(res);
                     // const jwToken = localStorage.getItem('token');
