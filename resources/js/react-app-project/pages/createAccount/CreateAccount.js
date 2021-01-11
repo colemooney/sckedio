@@ -49,7 +49,7 @@ const CreateAccount = () => {
 
         console.log('is valid: ' + isValid);
         if (isValid) {
-            axios.post('api/auth/signup', userData)
+            axios.post('/api/auth/signup', userData)
                 .then(res => {
                     console.log(res);
                     handleSnackbarOpen();

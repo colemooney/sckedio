@@ -10,6 +10,7 @@ const PasswordReset = () => {
     const [emailHelper,setEmailHelper] = React.useState('');
     const [passwordHelper,setPasswordHelper] = React.useState('');
     const [passwordMatchHelper,setPasswordMatchHelper] = React.useState('');
+    const [resetToken,setResetToken] = React.useState('');
 
     const handleSubmit = () => {
         const userData = {
@@ -93,6 +94,7 @@ const PasswordReset = () => {
                     emailHelper={emailHelper}
                     passwordHelper={passwordHelper}
                     passwordMatchHelper={passwordMatchHelper}
+                    resetToken={resetToken}
                 />
             </Container>
         </div>

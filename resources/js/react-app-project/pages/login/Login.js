@@ -25,7 +25,7 @@ const Login = (props) => {
         const isValid = validateInputs();
 
         if (isValid) {
-            axios.post('api/auth/login', loginData)
+            axios.post('/api/auth/login', loginData)
                 .then(res => {
                     console.log(res);
                     // JWT token
