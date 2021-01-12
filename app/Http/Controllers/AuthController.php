@@ -3,65 +3,25 @@
 namespace App\Http\Controllers;
 
 use Exception;
-use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Http;
-use Carbon\Carbon;
-use Laravel\Passport\TokenRepository;
-use Laravel\Passport\RefreshTokenRepository;
-use App\Models\User;
-use App\Models\UserInformation;
-use App\Utilities\ProxyRequest;
+use App\Http\Controllers\Services\UserAuthentication\UserAuthenticationService;
+use App\Http\Requests\UserRequest\SignUpRequest;
+use App\Http\Requests\UserRequest\LogInRequest;
 
 class AuthController extends Controller
 {
 
-    protected $proxy;
+    protected $userAuthentication;
 
-    public function __construct(ProxyRequest $proxy) {
-        $this->proxy = $proxy;
+    public function __construct(UserAuthenticationService $userAuthentication) 
+    {
+        $this->userAuth = $userAuthentication;
     }
 
-     public function signup(Request $request) {
-        $this->validate(request(), [
-            'username' => 'required|string|unique:users',
-            'email' => 'required|string|email|unique:users',
-            'password' => 'required|string|confirmed|min:7',
-        ]);
-
-        $user = User::create([
-            'username' => request('username'),
-            'email' => request('email'),
-            'password' => bcrypt(request('password')),
-        ]);
-
-        // Initial value for user_information
-        $user_information = new UserInformation([
-            'first_name' => "",
-            'last_name' => "",
-            'state' => "",
-            'city' => "",
-            'street' => "",
-            'postal_code' => "",
-            'country' => "" 
-        ]);
-
-        // Save data for user_information
-        $user_information->user()->associate($user);
-        $user_information->save();
-
-        // Tokens
-         $resp = $this->proxy->grantPasswordToken(
-             $user->username,
-             request('password'),
-         );
-
-        return response()->json([
-            'access_token' => $resp['access_token'],
-            'expires_in' => $resp['expires_in'],
-            'message' => 'Successfully created user!'
-        ], 201);
+     public function signup(SignUpRequest $request) 
+     {
+        $status = $this->userAuth->handleSignUp($request);
+        return $status;
      }
 
 
@@ -73,27 +33,10 @@ class AuthController extends Controller
       * @return [string] expires_at
       */
 
-      public function login(Request $request) {
-        $request->validate([
-            'username' => 'required|string',
-            'password' => 'required|string',
-        ]);
-
-        $credentials = request(['username', 'password']);
-        
-        if(!Auth::attempt($credentials)) {
-            return response()->json([
-                'message' => 'Unauthorized'
-            ], 401);
-        } else {
-            $response = $this->proxy->grantPasswordToken($request->username, $request->password);
-        }
-        
-        return response()->json([
-            'access_token' => $response['access_token'],
-            'expires_in' => $response['expires_in'],
-            'message' => 'You are now logged in.'
-        ], 200);
+      public function login(LogInRequest $request) 
+      {
+        $status = $this->userAuth->handleLogIn($request);
+        return $status;
       }
 
       /**
@@ -101,15 +44,11 @@ class AuthController extends Controller
        * @return [string] message
        */
 
-       public function logout(Request $request) {
-            // $request->user()->token()->revoke();
+       public function logout(Request $request) 
+       {
             $tokenId = $request->user()->token()->id;
-            $result = $this->proxy->revokeTokens($tokenId);
-            
-           // remove httponly cookie
-           cookie()->queue(cookie()->forget('refresh_token'));
-        
-           return $result;
+            $status = $this->userAuth->handleLogOut($tokenId);
+            return $status;
        }
 
        /**
@@ -118,9 +57,9 @@ class AuthController extends Controller
         * @return [json] user object 
         */
 
-        public function user(Request $request) {
-            $user = Auth::user();
-            $user_information = User::find($user->id)->user_information;
-            return response()->json([$user,$user_information]);
+        public function user(Request $request) 
+        {
+            $status = $this->userAuth->findCurrentUser();
+            return $status;
         }
 }
