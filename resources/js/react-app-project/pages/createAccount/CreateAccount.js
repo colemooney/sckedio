@@ -61,11 +61,15 @@ const CreateAccount = () => {
                 })
                 .catch(err => {
                     console.log(err);
+                    if (err.response.data.errors.username[0]==='The username has already been taken.') {
+                        setUsernameHelper('Username has been taken')
+                    }
                 });
         }
     }
 
     const validateInputs = () => {
+        setUsernameHelper('');
         const usernameIsValid = /^[a-zA-Z0-9]+$/.test(signUpUsername);
         const usernameIsLength = stringLengthTest(signUpUsername, 4, 25);
 
