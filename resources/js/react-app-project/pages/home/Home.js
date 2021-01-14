@@ -33,7 +33,15 @@ const Home = (props) => {
         artisanWhiteboardImage: {
             maxWidth: 600
         },
-
+        bottomSectionBackground: {
+            height: 600,
+            backgroundImage: `url(${"../../images/pexels-andreea-ch-1166644.jpg"})`,
+            backgroundSize: 'cover',
+            backgroundPosition: 'bottom-center',
+            backgroundRepeat: 'no-repeat',
+            width: `calc(100vw + 40px)`,
+            padding: 0,
+        }
     }
 
     return (
@@ -95,42 +103,19 @@ const Home = (props) => {
 
                         </Grid>
 
+                        {/* Bottom section */}
+                        <Grid item style={styles.bottomSectionBackground}>
+                            <Grid item xs={12} md={6}>
+                            <Typography variant='h5' align='center'>Stay tuned in.</Typography>
+                            <Typography variant='h5' align='center'>Sckedio embraces the spirit of innovation, so make sure to keep up to date on our big changes</Typography>
+                            </Grid>
+                        </Grid>
 
 
+
                     </Grid>
 
-                    {/* <Grid container justify='center' spacing={8}>
-                        <Grid item container xs={12} xl={12} justify='center'>
-                            <Typography variant='h2' align='center'>The marketplace for ideas</Typography>
-                        </Grid>
-                        <Grid item container xs={10} xl={6} justify='center'>
-                            <Typography variant='h5' align='center'>Sckedio connects people who have an idea for a product with people who want to build and buy their idea.</Typography>
-                        </Grid>
-                    </Grid>
-                    <Grid container justify='center' spacing={8}>
-                        <Grid item container xs={12} xl={12} justify='center'>
-                            <Typography variant='h2' align='center'>Your ideas into action.</Typography>
-                        </Grid>
-                        <Grid item container xs={10} xl={10} justify='center'>
-                            <Typography variant='h5' align='center'>Once your idea is submitted, buyers have the opportunity to express interest and our manufacturers can turn your idea into a reality.</Typography>
-                        </Grid>
-                    </Grid>
-                    <Grid container justify='center' spacing={8}>
-                        <Grid item container xs={12} xl={12} justify='center'>
-                            <Typography variant='h2' align='center'>Turn your idea into a reality and make money in the process.</Typography>
-                        </Grid>
-                        <Grid item container xs={10} xl={10} justify='center'>
-                            <Typography variant='h5' align='center'>Any idea — fully developed or a shower thought— gives you a chance to make money</Typography>
-                        </Grid>
-                    </Grid>
-                    <Grid container justify='center' spacing={8}>
-                        <Grid item container xs={12} xl={12} justify='center'>
-                            <Typography variant='h5' align='center'>Follow a few easy steps to change the world with your idea</Typography>
-                            <Typography variant='h5' align='center'>Easy upload process</Typography>
-                            <Typography variant='h5' align='center'>Free to submit</Typography>
-                            <Typography variant='h5' align='center'>All ideas welcome</Typography>
-                        </Grid>
-                    </Grid>
+                    {/* 
                     <Grid container justify='center' spacing={8}>
                         <Grid item container xs={12} xl={12} justify='center'>
                             <Typography variant='h5' align='center'>Stay tuned in.</Typography>
