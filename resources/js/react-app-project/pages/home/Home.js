@@ -32,7 +32,8 @@ const Home = (props) => {
         },
         artisanWhiteboardImage: {
             maxWidth: 600
-        }
+        },
+
     }
 
     return (
@@ -73,23 +74,28 @@ const Home = (props) => {
                         {/*Middle section*/}
                         <Grid item style={styles.middleSectionBackground}>
 
-                            <Grid item container>{/*Container of "The marketplace..." text and image on right */}
-            
+                            <Grid item container>
+
                                 <Grid item xs={12} md={6}>{/* Image of artisan drawing on whiteboard*/}
                                     <Box display="flex" justifyContent="center" alignItems="center" backgroundSize="contain">
                                         <img src={require("../../images/artisan.jpg")} style={styles.artisanWhiteboardImage} id="artisan-image" width="100%" alt="artisan-image" />
                                     </Box>
                                 </Grid>
 
-                                <Grid item xs={12} md={6}>{/*The marketplace for ideas...+Sckedio connects... */}
+                                <Grid item xs={12} md={6}>
                                     <Typography variant='h2'>Turn your idea into a reality and make money in the process.</Typography>
                                     <Typography variant='h5'>Any idea — fully developed or a shower thought— gives you a chance to make money</Typography>
                                     <Typography variant='h5'>Follow a few easy steps to change the world with your idea</Typography>
+                                    <Typography variant='h5' align='center'>Easy upload process</Typography>
+                                    <Typography variant='h5' align='center'>Free to submit</Typography>
+                                    <Typography variant='h5' align='center'>All ideas welcome</Typography>
                                 </Grid>
 
                             </Grid>
 
                         </Grid>
+
+
 
                     </Grid>
 
