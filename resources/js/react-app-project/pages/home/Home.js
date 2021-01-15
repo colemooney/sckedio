@@ -62,6 +62,9 @@ const Home = (props) => {
                                     <Grid item xs={12} md={6}>{/*The marketplace for ideas...+Sckedio connects... */}
                                         <Typography variant='h2'>The marketplace for ideas</Typography>
                                         <Typography variant='h5'>Sckedio connects people who have an idea for a product with people who want to build and buy their idea.</Typography>
+                                        <Box align="center">
+                                            <Button variant="contained">Submit an idea</Button>
+                                        </Box>
                                     </Grid>
                                     <Grid item xs={12} md={6}>{/* Small image of man at whiteboard*/}
                                         <Box display="flex" justifyContent="center" alignItems="center" backgroundSize="contain">
