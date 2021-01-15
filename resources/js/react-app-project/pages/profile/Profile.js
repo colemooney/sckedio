@@ -1,8 +1,10 @@
 import React, { useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
+import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
+import Typography from '@material-ui/core/Typography';
 import NavBar from '../../components/navBar/NavBar';
 import ProfileEditModal from '../../components/profileEditModal/ProfileEditModal';
 import ProfileInfoDisplay from '../../components/ProfileInfoDisplay/ProfileInfoDisplay';
@@ -194,7 +196,9 @@ const Profile = (props) => {
         <div>
             <NavBar loggedIn={props.loggedIn} handleLogout={props.handleLogout} />
             <Container >
-                <h1>Profile</h1>
+                <Box my={3}>
+                    <Typography variant='h2'>Profile</Typography>
+                </Box>
                 <ProfileInfoDisplay userInfo={userInfo} />
                 <Grid container spacing={0}>
                     <Grid item xs={12}>

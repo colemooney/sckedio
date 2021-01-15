@@ -27,7 +27,8 @@ const DesignCard = (props) => {
         productTitle,
         interest,
         image,
-        itemNum
+        itemNum,
+        category
     } = props.product;
 
     return (
@@ -35,15 +36,18 @@ const DesignCard = (props) => {
             <CardActionArea onClick={()=>history.push(`/product/${itemNum}`)}>
                 <CardMedia
                     className={classes.media}
-                    image={image}
+                    image={image[0]}
                     title={productTitle}
                 />
                 <CardContent>
                     <Typography gutterBottom variant='h5' component='h2'>
+                        {productTitle}
+                    </Typography>
+                    <Typography variant='body2' color='textSecondary' component='p'>
                         {designer}
                     </Typography>
                     <Typography variant='body2' color='textSecondary' component='p'>
-                        {productTitle}
+                        {category}
                     </Typography>
                     <Typography variant='body2' color='textSecondary' component='p'>
                         Interest: {interest}
