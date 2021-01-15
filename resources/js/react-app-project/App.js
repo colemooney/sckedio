@@ -11,6 +11,7 @@ import Home from './pages/home/Home';
 import Login from './pages/login/Login';
 import PasswordForgotRequest from './pages/passwordForgetRequest/PasswordForgotRequest';
 import PasswordReset from './pages/passwordReset/PasswordReset';
+import Product from './pages/product/Product';
 import Profile from './pages/profile/Profile';
 import ProtectedRoute from './components/protectedRoute/ProtectedRoute';
 import Sell from './pages/sell/Sell';
@@ -84,7 +85,7 @@ const App = () => {
 
     const runRefresh = (callback) => {
         console.log('refresh');
-        axios.get('api/auth/refresh')
+        axios.get('/api/auth/refresh')
             .then(res => {
                 console.log(res);
                 // JWT token
@@ -132,7 +133,7 @@ const App = () => {
             }
         });
 
-        authAxios.get('api/auth/logout')
+        authAxios.get('/api/auth/logout')
             .then(res => {
                 console.log(res);
                 // Log out via auth, flip logged in state, remove token from storage
@@ -176,7 +177,13 @@ const App = () => {
                         <Route exact path='/create-account' component={CreateAccount} />
                         <Route exact path='/login' component={() => <Login setLoggedIn={setLoggedIn} tokenTimeKeeper={tokenTimeKeeper} />} />
                         <Route exact path='/forgot-password' component={PasswordForgotRequest} />
-                        <Route exact path='/password-reset' component={PasswordReset} />
+                        {/* <Route exact path='/password-reset' component={PasswordReset} /> */}
+                        <Route path='/password-reset/:token'>
+                            <PasswordReset />
+                        </Route>
+                        <Route path='/product/:id'>
+                            <Product loggedIn={loggedIn} handleLogout={handleLogout} />
+                        </Route>
 
                         <Route exact path='/register' component={Register} />
 

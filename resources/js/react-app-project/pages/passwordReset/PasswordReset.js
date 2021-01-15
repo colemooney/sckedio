@@ -1,21 +1,29 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Container from '@material-ui/core/Container';
 import PasswordResetForm from '../../components/passwordResetForm/PasswordResetForm';
+import { useParams } from 'react-router-dom';
 import axios from 'axios';
 
 const PasswordReset = () => {
+    const { token } = useParams();
     const [resetEmail,setResetEmail] = React.useState('');
     const [resetPassword,setResetPassword] = React.useState('');
     const [resetPasswordCon,setResetPasswordCon] = React.useState('');
     const [emailHelper,setEmailHelper] = React.useState('');
     const [passwordHelper,setPasswordHelper] = React.useState('');
     const [passwordMatchHelper,setPasswordMatchHelper] = React.useState('');
+    // const [resetToken,setResetToken] = React.useState('');
+
+    useEffect(()=>{
+        console.log(token);
+    });
 
     const handleSubmit = () => {
         const userData = {
             email: resetEmail,
             password: resetPassword,
-            password_confirmation: resetPasswordCon
+            password_confirmation: resetPasswordCon,
+            token: token
         };
 
         const isValid = validateInputs();
@@ -23,9 +31,9 @@ const PasswordReset = () => {
         if (isValid) {
             console.log('submit');
             console.log(userData);
-            // axios.post('api/guest/reset-password', userData)
-            //     .then(res=>console.log(res))
-            //     .catch(err=>console.log(err))
+            axios.post('/api/guest/reset-password', userData)
+                .then(res=>console.log(res))
+                .catch(err=>console.log(err))
         }
     };
 
@@ -93,6 +101,7 @@ const PasswordReset = () => {
                     emailHelper={emailHelper}
                     passwordHelper={passwordHelper}
                     passwordMatchHelper={passwordMatchHelper}
+                    // resetToken={resetToken}
                 />
             </Container>
         </div>

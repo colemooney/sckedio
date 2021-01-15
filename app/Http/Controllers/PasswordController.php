@@ -2,54 +2,32 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Auth\Events\PasswordReset;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Password;
-use Illuminate\Support\Str;
+use App\Http\Requests\PasswordReset\UpdateRequest;
+use App\Http\Requests\PasswordReset\EmailRequest;
+use App\Http\Controllers\Services\PasswordReset\PasswordResetService;
 
 class PasswordController extends Controller
 {
-    public function mail_reset_password(Request $request) {
-        $request->validate([
-            'email' => 'required|email'
-        ]);
+    protected $passwordService;
 
-        $status = Password::sendResetLink(
-            $request->only('email')
-        );
+    public function __construct(PasswordResetService $passwordService)
+    {
+        $this->passwordService = $passwordService;
+    }
 
-        return $status === Password::RESET_LINK_SENT
-                    ? back()->with(['status' => __($status)])
-                    : back()->withErrors(['email' => __($status)]);
+    public function mail_reset_link(EmailRequest $request) 
+    {
+        $status = $this->passwordService->handleMailResetLink($request->email);
+        return $status;
     }
 
     public function reset_password($token) {
-        return response()->json(['token' => $token]);
+        return redirect()->route('password.reset');
     }
 
-
-    /**
-     * @param [string] token
-     */
-    public function update_password(Request $request) {
-        $request->validate([
-            'token' => 'required',
-            'email' => 'required|email',
-            'password' => 'required|min:8|confirmed'
-        ]);
-            
-        $status = Password::reset(
-            $request->only('email', 'password', 'password_confirmation', 'token'),
-            function ($user, $password) use ($request) {
-                $user->forceFill([
-                    'password' => Hash::make($password)
-                ])->save();
-
-                event(new PasswordReset($user));
-            }
-        );
-
-        return redirect('login');
+    public function update_password(UpdateRequest $request) 
+    {
+        $status = $this->passwordService->updatePassword($request);
+        return $status;
     }
 }
