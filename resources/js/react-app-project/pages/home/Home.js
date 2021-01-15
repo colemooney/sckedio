@@ -96,9 +96,20 @@ const Home = (props) => {
                                     <Typography variant='h2'>Turn your idea into a reality and make money in the process.</Typography>
                                     <Typography variant='h5'>Any idea — fully developed or a shower thought— gives you a chance to make money</Typography>
                                     <Typography variant='h5'>Follow a few easy steps to change the world with your idea</Typography>
-                                    <Typography variant='h5' align='center'>Easy upload process</Typography>
-                                    <Typography variant='h5' align='center'>Free to submit</Typography>
-                                    <Typography variant='h5' align='center'>All ideas welcome</Typography>
+                                    <Button variant="contained">Upload your idea now</Button>
+                                    <Grid item container>
+                                        <Grid item xs={4}>
+                                            <Typography variant='h5' align='center'>Easy upload process</Typography>
+                                        </Grid>
+                                        <Grid item xs={4}>
+                                            <Typography variant='h5' align='center'>Free to submit</Typography>
+                                        </Grid>
+                                        <Grid item xs={4}>
+                                            <Typography variant='h5' align='center'>All ideas welcome</Typography>
+                                        </Grid>
+
+                                    </Grid>
+
                                 </Grid>
 
                             </Grid>
