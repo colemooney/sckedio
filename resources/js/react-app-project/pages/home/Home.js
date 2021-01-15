@@ -6,6 +6,7 @@ import Link from '@material-ui/core/Link';
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
+import Button from '@material-ui/core/Button';
 import axios from 'axios';
 
 const Home = (props) => {
@@ -112,8 +113,20 @@ const Home = (props) => {
                             </Grid>
                             <Grid item xs={12} md={6}>
                                 <Box m={10}>
-                                    <Typography variant='h4'>Stay tuned in.</Typography>
-                                    <Typography variant='h6'>Sckedio embraces the spirit of innovation, so make sure to keep up to date on our big changes</Typography>
+                                    <Grid item container>
+                                        <Grid item xs={6} md={12}>
+                                            <Typography variant='h4'>Stay tuned in.</Typography>
+                                            <Typography variant='h6'>Sckedio embraces the spirit of innovation, so make sure to keep up to date on our big changes</Typography>
+                                        </Grid>
+
+                                        <Grid item xs={6} md={12}>
+                                            <TextField id="form-name" label="Name" variant="outlined" />
+                                            <TextField id="form-email" label="Email" variant="outlined" />
+                                            <Button variant="contained">Subscribe</Button>
+                                        </Grid>
+                                    </Grid>
+
+
                                 </Box>
 
                             </Grid>
