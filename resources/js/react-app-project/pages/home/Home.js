@@ -35,6 +35,7 @@ const Home = (props) => {
         },
         bottomSectionBackground: {
             height: 600,
+            maxHeight: 1000,
             backgroundImage: `url(${"../../images/pexels-andreea-ch-1166644.jpg"})`,
             backgroundSize: 'cover',
             backgroundPosition: 'bottom-center',
@@ -104,24 +105,23 @@ const Home = (props) => {
                         </Grid>
 
                         {/* Bottom section */}
-                        <Grid item style={styles.bottomSectionBackground}>
-                            <Grid item xs={12} md={6}>
-                            <Typography variant='h5' align='center'>Stay tuned in.</Typography>
-                            <Typography variant='h5' align='center'>Sckedio embraces the spirit of innovation, so make sure to keep up to date on our big changes</Typography>
+                        <Grid item container style={styles.bottomSectionBackground}>
+
+                            <Grid item xs={false} md={6}>
+
                             </Grid>
+                            <Grid item xs={12} md={6}>
+                                <Box m={10}>
+                                    <Typography variant='h4'>Stay tuned in.</Typography>
+                                    <Typography variant='h6'>Sckedio embraces the spirit of innovation, so make sure to keep up to date on our big changes</Typography>
+                                </Box>
+
+                            </Grid>
+
                         </Grid>
-
-
 
                     </Grid>
 
-                    {/* 
-                    <Grid container justify='center' spacing={8}>
-                        <Grid item container xs={12} xl={12} justify='center'>
-                            <Typography variant='h5' align='center'>Stay tuned in.</Typography>
-                            <Typography variant='h5' align='center'>Sckedio embraces the spirit of innovation, so make sure to keep up to date on our big changes</Typography>
-                        </Grid>
-                    </Grid> */}
                 </Container>
 
             </div>
