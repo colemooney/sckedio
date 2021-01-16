@@ -1,13 +1,14 @@
 import React from 'react';
 import NavBar from '../../components/navBar/NavBar';
-import Section from '../../components/section/Section'
+import PageLayout from '../../components/pagelayout/pagelayout';
+import { SellPage } from '../../data/PageData';
 
 const Sell = (props) => {
 
     return (
         <div>
             <NavBar loggedIn={props.loggedIn} handleLogout={props.handleLogout} />
-            <Section />
+            <PageLayout pageData={SellPage} />
         </div>
     );
 };
