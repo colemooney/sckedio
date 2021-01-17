@@ -16,6 +16,7 @@ const useStyles = makeStyles({
     media: {
         height: 280,
         width: 225,
+        borderBottom: '1px solid lightgrey'
     }
 })
 

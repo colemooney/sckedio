@@ -23,8 +23,12 @@ const useStyles = makeStyles((theme) => ({
         cursor: 'pointer',
         border: '1px solid blue'
     },
+    infoSection: {
+        minHeight: 350,
+    },
     productImage: {
         maxWidth: '100%',
+        border: '1px solid lightgrey',
         [theme.breakpoints.up('sm')]: {
             marginBottom: theme.spacing(2)
         }
@@ -55,113 +59,58 @@ const ProductInfoDisplay = (props) => {
         interest,
         image,
         itemNum,
-        category
+        category,
+        description
     } = props.product;
     const theme = useTheme();
     const isMobile = useMediaQuery(theme.breakpoints.down('xs'));
 
     return (
         <div className={classes.root}>
-            {isMobile ? (
-                <Grid container spacing={1}>
-                    {/* <Grid item xs={6}>
-                        <img className={classes.profileImage} src={profilePhoto} />
-                    </Grid>
-                    <Grid item xs={12}>
-                        <Typography variant='h4' gutterBottom>
-                            {firstName} {lastName}
-                        </Typography>
-                    </Grid>
-                    <Grid item xs={12}>
-                        <Typography
-                            variant='h6'
-                            color='textSecondary'
-                        >
-                            ACCOUNT TYPE
-                        </Typography>
-                        <Divider />
-                    </Grid>
-                    <Grid item xs={12}>
-                        <Typography>
-                            Designer, Buyer
-                        </Typography>
-                    </Grid>
-                    <Grid item xs={12}>
-                        <Typography variant='h6' color='textSecondary'>
-                            INFORMATION
-                        </Typography>
-                        <Divider />
-                    </Grid>
-                    <Grid item xs={12}>
-                        <Typography className={classes.bold}>
-                            Username:
-                        </Typography>
-                        <Typography>
-                            {username}
-                        </Typography>
-                    </Grid>
-                    <Grid item xs={12}>
-                        <Typography className={classes.bold}>
-                            Email:
-                        </Typography>
-                        <Typography>
-                            {email}
-                        </Typography>
-                    </Grid>
-                    <Grid item xs={12}>
-                        <Typography className={classes.bold}>
-                            Address:
-                        </Typography>
-                        <Typography>
-                            {street}<br />{city}, {state}<br />{postalCode}
-                        </Typography>
-                    </Grid>
-                    <Grid item xs={12}>
-                        <Typography className={classes.bold}>
-                            Country:
-                        </Typography>
-                        <Typography>
-                            {country}
-                        </Typography>
-                    </Grid> */}
-                </Grid>
-            ) : (
                     <div>
                     <Box my={3}>
                         <Typography variant='h3'>{category}</Typography>
                     </Box>
                     <Grid container spacing={4}>
-                        <Grid container item xs={4}>
-                            <Grid item xs={12}>
+                        <Grid container item xs={12} md={4} justify='center'>
+                            <Grid item xs={12} sm={8} md={12}>
                                 <img className={classes.productImage} src={currentImage} />
                             </Grid>
                         </Grid>
-                        <Grid container item xs={5} >
-                            <Grid item xs={12}>
-                                <Typography variant='h4' gutterBottom>
-                                    {productTitle}
-                                </Typography>
-                            </Grid>
-                            <Grid item xs={12}>
-                                <Typography variant='h6' color='textSecondary'>
-                                    {designer}
-                                </Typography>
-                                <Typography variant='h6' color='textSecondary'>
-                                    Interest: {interest}
-                                </Typography>
-                                <Divider />
-                            </Grid>
-                            <Grid item>
-                                {imageArr.map((individualImage, i)=> (
-                                        <img className={individualImage.active ? classes.currentProductThumbnail : classes.productThumbnail} src={individualImage.src} key={i} data-key={i} onClick={event=>handleImageClick(event.target)} />
-                                ))}
-                            </Grid>
+                        <Grid container item xs={12} md={5} className={classes.infoSection}>
+                            {/* <div className={classes.infoSection}> */}
+                                <Grid item xs={12}>
+                                    <Typography variant='h4' gutterBottom>
+                                        {productTitle}
+                                    </Typography>
+                                    <Typography variant='h6' >
+                                        {designer}
+                                    </Typography>
+                                    <Typography variant='h6' >
+                                        Interest: {interest}
+                                    </Typography>
+                                </Grid>
+                                <Grid item xs={12}>
+                                    <Typography variant='h5' gutterBottom>
+                                        Description
+                                    </Typography>
+                                    <Typography variant='body1'>
+                                        {description}
+                                    </Typography>
+                                    <Divider />
+                                </Grid>
+                                <Grid item>
+                                    {imageArr.map((individualImage, i)=> (
+                                            <img className={individualImage.active ? classes.currentProductThumbnail : classes.productThumbnail} src={individualImage.src} key={i} data-key={i} onClick={event=>handleImageClick(event.target)} />
+                                    ))}
+                                </Grid>
+                            {/* </div> */}
                         </Grid>
-                        <Grid container item xs={3}>
-                            <Box border={1} width={'100%'} height={200} borderRadius='borderRadius' borderColor='grey.500' p={2}>
+                        <Grid container item xs={12} md={3} justify='center'>
+                            <Box border={1} width={400} height={200} borderRadius='borderRadius' borderColor='grey.500' p={2}>
                                 <Grid container spacing={2}>
                                     <Grid item container xs={12} justify='center'>
-                                        <Typography variant='h4' gutterBottom>
+                                        <Typography variant='h5' gutterBottom>
                                             Buy Now
                                         </Typography>
                                     </Grid>
@@ -173,7 +122,6 @@ const ProductInfoDisplay = (props) => {
                         </Grid>
                     </Grid>
                     </div>
-                )}
         </div>
     );
 
