@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Designer;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
 
 class CreateRequest extends FormRequest
 {
@@ -34,6 +35,9 @@ class CreateRequest extends FormRequest
             'total_cost' => 'required|numeric',
             'stock_type' => 'required|string',
             'idea_type' => 'required|string',
+            'public_files' => 'mimes:jpeg,jpg,png,gif|max:204800',
+            'private_files' => 'mimes:jpeg,jpg,png,gif|max:204800',
+            // 'private_file' => 'image',
         ];
     }
 }
