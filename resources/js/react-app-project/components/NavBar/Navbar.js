@@ -19,7 +19,17 @@ const useStyles = makeStyles((theme) => ({
         flexGrow: 1,
     },
     menuButton: {
-        marginRight: theme.spacing(2),
+        // marginRight: theme.spacing(2),
+        marginLeft: theme.spacing(0),
+    },
+    mobileRoleButton: {
+        textTransform: 'none'
+    },
+    mobileToolbar: {
+        [theme.breakpoints.down('xs')]: {
+            paddingLeft: theme.spacing(1),
+            paddingRight: theme.spacing(1)
+        }
     },
     title: {
         flexGrow: 1,
@@ -93,13 +103,65 @@ const NavBar = (props) => {
                 position="static"
                 color="transparent"
             >
-                <Toolbar>
+                <Toolbar
+                    className={classes.mobileToolbar}
+                >
                     <Typography variant="h5" className={classes.title}>
                         Sckedio
                     </Typography>
                     <div>
                         {isMobile ? (
                             <div>
+                                {loggedIn &&
+                                    (<>
+                                        <Button
+                                            onClick={handleAccountType}
+                                            className={classes.mobileRoleButton}
+                                        >
+                                            <Box
+                                                width={130}
+                                                display='flex'
+                                                border={1}
+                                                justifyContent='flex-end'
+                                            >
+                                                <Typography>{currentAccountType}</Typography>
+                                                <ArrowDropDownIcon />
+                                            </Box>
+                                        </Button>
+                                        <Menu
+                                            id="account-dropdown"
+                                            anchorEl={anchorElAccount}
+                                            anchorOrigin={{
+                                                vertical: 'top',
+                                                horizontal: 'right',
+                                            }}
+                                            keepMounted
+                                            transformOrigin={{
+                                                vertical: 'top',
+                                                horizontal: 'right',
+                                            }}
+                                            open={openAccount}
+                                            onClose={() => setAnchorElAccount(null)}
+                                        >
+                                            {roles.map((item, i) => (
+                                                <MenuItem key={i} onClick={() => handleAccountClick(item)}>
+                                                    <Typography>
+                                                        {item}
+                                                    </Typography>
+                                                </MenuItem>
+                                            ))}
+                                            <MenuItem
+                                                onClick={() => handleLogout()}
+                                            >
+                                                <Typography
+                                                    color='error'
+                                                >
+                                                    Log Out
+                                                    </Typography>
+                                            </MenuItem>
+                                        </Menu>
+                                    </>)
+                                }
                                 <IconButton
                                     edge="start"
                                     className={classes.menuButton}
@@ -143,13 +205,13 @@ const NavBar = (props) => {
                                                         Profile
                                             </Typography>
                                                 </MenuItem>
-                                                <MenuItem onClick={() => handleLogout()}>
+                                                {/* <MenuItem onClick={() => handleLogout()}>
                                                     <Typography
                                                         color='error'
                                                     >
                                                         Log Out
-                                            </Typography>
-                                                </MenuItem>
+                                                    </Typography>
+                                                </MenuItem> */}
                                             </div>
                                         ) :
                                         (<MenuItem onClick={() => handleMenuClick('/login')}>

@@ -38,6 +38,18 @@ const App = () => {
     const [loading, setLoading] = React.useState(true);
     const [tokenExpired, setTokenExpired] = React.useState(false);
     // const [timeoutVar, setTimeoutVar] = React.useState();
+    const [userInfo, setUserInfo] = React.useState({
+        username: null,
+        firstName: null,
+        lastName: null,
+        email: null,
+        street: null,
+        city: null,
+        state: null,
+        postalCode: null,
+        country: null,
+        profilePhoto: 'https://thumbs.dreamstime.com/b/default-avatar-photo-placeholder-profile-picture-default-avatar-photo-placeholder-profile-picture-eps-file-easy-to-edit-125707135.jpg'
+    });
 
     // setTimeout variable
     let timeFunc;
@@ -46,8 +58,10 @@ const App = () => {
     useEffect(() => {
         console.log('app load');
 
-        runRefresh(()=>{
+        runRefresh(() => {
             setLoading(false);
+            const jwToken = auth.getToken();
+            getUserInfo(jwToken);
         });
 
         // // Get JWT from localStorage (if it exists)
@@ -84,6 +98,45 @@ const App = () => {
         // setLoading(false);
     }, []);
 
+    const getUserInfo = (newToken) => {
+        const authAxios = axios.create({
+            headers: {
+                Authorization: `Bearer ${newToken}`
+            }
+        });
+        authAxios.get('/api/auth/user')
+            .then(res => {
+                console.log(res);
+                setUserInfo({
+                    ...userInfo,
+                    username: res.data[0].username,
+                    email: res.data[0].email,
+                    firstName: res.data[1].first_name,
+                    lastName: res.data[1].last_name,
+                    street: res.data[1].street,
+                    city: res.data[1].city,
+                    state: res.data[1].state,
+                    postalCode: res.data[1].postal_code,
+                    country: res.data[1].country
+                });
+                // setNewUserInfo({
+                //     ...newUserInfo,
+                //     newUsername: res.data[0].username,
+                //     newEmail: res.data[0].email,
+                //     newFirstName: res.data[1].first_name,
+                //     newLastName: res.data[1].last_name,
+                //     newStreet: res.data[1].street,
+                //     newCity: res.data[1].city,
+                //     newState: res.data[1].state,
+                //     newPostalCode: res.data[1].postal_code,
+                //     newCountry: res.data[1].country
+                // });
+            })
+            .catch(err => {
+                console.log(err);
+            });
+    };
+
     const runRefresh = (callback) => {
         console.log('refresh');
         axios.get('/api/auth/refresh')
@@ -115,7 +168,7 @@ const App = () => {
                     setLoggedIn(false);
                 });
             })
-            .then(()=>{
+            .then(() => {
                 callback();
             });
     };
@@ -157,13 +210,13 @@ const App = () => {
         // numOfSeconds = 30;
         console.log('timer started');
         // setTimeoutVar(setTimeout(runRefresh, numOfSeconds * 1000));
-        timeFunc = setTimeout(runRefresh, (numOfSeconds-10) * 1000);
+        timeFunc = setTimeout(runRefresh, (numOfSeconds - 10) * 1000);
     };
 
     return (
-        loading ? 
+        loading ?
             <div className={classes.center}>
-                <CircularProgress /> 
+                <CircularProgress />
             </div> :
             <React.Fragment>
                 <CssBaseline />
@@ -175,7 +228,7 @@ const App = () => {
                         <Route exact path='/build' component={() => <Build loggedIn={loggedIn} handleLogout={handleLogout} />} />
                         <Route exact path='/about' component={() => <About loggedIn={loggedIn} handleLogout={handleLogout} />} />
                         <Route exact path='/get-started' component={() => <GetStarted loggedIn={loggedIn} handleLogout={handleLogout} />} />
-                        <ProtectedRoute exact path='/profile' component={() => <Profile loggedIn={loggedIn} handleLogout={handleLogout} />} />
+                        <ProtectedRoute exact path='/profile' component={() => <Profile loggedIn={loggedIn} handleLogout={handleLogout} userInfo={userInfo} getUserInfo={getUserInfo} />} />
                         <Route exact path='/create-account' component={CreateAccount} />
                         <Route exact path='/login' component={() => <Login setLoggedIn={setLoggedIn} tokenTimeKeeper={tokenTimeKeeper} />} />
                         <Route exact path='/forgot-password' component={PasswordForgotRequest} />

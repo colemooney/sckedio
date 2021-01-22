@@ -286,7 +286,7 @@ const ProfileEditModal = (props) => {
                     </Grid>
                     <Grid item xs={12} sm={6}>
                         <TextField
-                            // disabled
+                            disabled
                             id="username"
                             label="Username"
                             variant='outlined'
