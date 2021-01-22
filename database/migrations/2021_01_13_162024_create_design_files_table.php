@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateFileClassificationsTable extends Migration
+class CreateDesignFilesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,12 @@ class CreateFileClassificationsTable extends Migration
      */
     public function up()
     {
-        Schema::create('file_classifications', function (Blueprint $table) {
+        Schema::create('design_files', function (Blueprint $table) {
             $table->id();
-            $table->string('classification');
+            $table->foreignId('design_id');
+            $table->foreign('design_id')->references('id')->on('designs')->onDelete('cascade');
+            $table->boolean('is_private');
+            $table->string('file_route');
             $table->timestamps();
         });
     }
@@ -27,6 +30,6 @@ class CreateFileClassificationsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('file_classifications');
+        Schema::dropIfExists('design_files');
     }
 }
