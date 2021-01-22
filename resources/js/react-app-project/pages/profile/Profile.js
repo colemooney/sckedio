@@ -24,6 +24,8 @@ const Profile = (props) => {
     const location = useLocation();
     const classes = useStyles();
 
+    const { userInfo, getUserInfo } = props;
+
     // for modal
     const [open, setOpen] = React.useState(false);
     const handleOpen = () => {
@@ -36,18 +38,18 @@ const Profile = (props) => {
     const [usernameHelper, setUsernameHelper] = React.useState('');
     const [emailHelper, setEmailHelper] = React.useState('');
 
-    const [userInfo, setUserInfo] = React.useState({
-        username: null,
-        firstName: null,
-        lastName: null,
-        email: null,
-        street: null,
-        city: null,
-        state: null,
-        postalCode: null,
-        country: null,
-        profilePhoto: 'https://thumbs.dreamstime.com/b/default-avatar-photo-placeholder-profile-picture-default-avatar-photo-placeholder-profile-picture-eps-file-easy-to-edit-125707135.jpg'
-    });
+    // const [userInfo, setUserInfo] = React.useState({
+    //     username: null,
+    //     firstName: null,
+    //     lastName: null,
+    //     email: null,
+    //     street: null,
+    //     city: null,
+    //     state: null,
+    //     postalCode: null,
+    //     country: null,
+    //     profilePhoto: 'https://thumbs.dreamstime.com/b/default-avatar-photo-placeholder-profile-picture-default-avatar-photo-placeholder-profile-picture-eps-file-easy-to-edit-125707135.jpg'
+    // });
 
     const [newUserInfo, setNewUserInfo] = React.useState({
         newUsername: null,
@@ -62,50 +64,66 @@ const Profile = (props) => {
     });
 
     useEffect(() => {
-        console.log('profile reload');
-        // const jwToken = localStorage.getItem('token');
-        const jwToken = auth.getToken();
-        getUserInfo(jwToken);
-    }, []);
-
-    const getUserInfo = (newToken) => {
-        const authAxios = axios.create({
-            headers: {
-                Authorization: `Bearer ${newToken}`
-            }
+        setNewUserInfo({
+            ...newUserInfo,
+            newUsername: userInfo.username,
+            newEmail: userInfo.email,
+            newFirstName: userInfo.firstName,
+            newLastName: userInfo.lastName,
+            newStreet: userInfo.street,
+            newCity: userInfo.city,
+            newState: userInfo.state,
+            newPostalCode: userInfo.postalCode,
+            newCountry: userInfo.country
         });
-        authAxios.get('/api/auth/user')
-            .then(res => {
-                console.log(res);
-                setUserInfo({
-                    ...userInfo,
-                    username: res.data[0].username,
-                    email: res.data[0].email,
-                    firstName: res.data[1].first_name,
-                    lastName: res.data[1].last_name,
-                    street: res.data[1].street,
-                    city: res.data[1].city,
-                    state: res.data[1].state,
-                    postalCode: res.data[1].postal_code,
-                    country: res.data[1].country
-                });
-                setNewUserInfo({
-                    ...newUserInfo,
-                    newUsername: res.data[0].username,
-                    newEmail: res.data[0].email,
-                    newFirstName: res.data[1].first_name,
-                    newLastName: res.data[1].last_name,
-                    newStreet: res.data[1].street,
-                    newCity: res.data[1].city,
-                    newState: res.data[1].state,
-                    newPostalCode: res.data[1].postal_code,
-                    newCountry: res.data[1].country
-                });
-            })
-            .catch(err => {
-                console.log(err);
-            });
-    };
+
+    }, [userInfo]);
+
+    // useEffect(() => {
+    //     console.log('profile reload');
+    //     // const jwToken = localStorage.getItem('token');
+    //     const jwToken = auth.getToken();
+    //     getUserInfo(jwToken);
+    // }, []);
+
+    // const getUserInfo = (newToken) => {
+    //     const authAxios = axios.create({
+    //         headers: {
+    //             Authorization: `Bearer ${newToken}`
+    //         }
+    //     });
+    //     authAxios.get('/api/auth/user')
+    //         .then(res => {
+    //             console.log(res);
+    //             setUserInfo({
+    //                 ...userInfo,
+    //                 username: res.data[0].username,
+    //                 email: res.data[0].email,
+    //                 firstName: res.data[1].first_name,
+    //                 lastName: res.data[1].last_name,
+    //                 street: res.data[1].street,
+    //                 city: res.data[1].city,
+    //                 state: res.data[1].state,
+    //                 postalCode: res.data[1].postal_code,
+    //                 country: res.data[1].country
+    //             });
+    //             setNewUserInfo({
+    //                 ...newUserInfo,
+    //                 newUsername: res.data[0].username,
+    //                 newEmail: res.data[0].email,
+    //                 newFirstName: res.data[1].first_name,
+    //                 newLastName: res.data[1].last_name,
+    //                 newStreet: res.data[1].street,
+    //                 newCity: res.data[1].city,
+    //                 newState: res.data[1].state,
+    //                 newPostalCode: res.data[1].postal_code,
+    //                 newCountry: res.data[1].country
+    //             });
+    //         })
+    //         .catch(err => {
+    //             console.log(err);
+    //         });
+    // };
 
     const handleUpdateUserSubmit = () => {
         console.log('submit');

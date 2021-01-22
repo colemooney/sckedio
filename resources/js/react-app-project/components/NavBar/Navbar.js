@@ -1,6 +1,8 @@
 import React, { useEffect } from 'react';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
+import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
+import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
@@ -17,7 +19,17 @@ const useStyles = makeStyles((theme) => ({
         flexGrow: 1,
     },
     menuButton: {
-        marginRight: theme.spacing(2),
+        // marginRight: theme.spacing(2),
+        marginLeft: theme.spacing(0),
+    },
+    mobileRoleButton: {
+        textTransform: 'none'
+    },
+    mobileToolbar: {
+        [theme.breakpoints.down('xs')]: {
+            paddingLeft: theme.spacing(1),
+            paddingRight: theme.spacing(1)
+        }
     },
     title: {
         flexGrow: 1,
@@ -28,10 +40,14 @@ const NavBar = (props) => {
     const classes = useStyles();
     const { history, location, handleLogout, loggedIn } = props;
     const [anchorEl, setAnchorEl] = React.useState(null);
+    const [anchorElAccount, setAnchorElAccount] = React.useState(null);
     const open = Boolean(anchorEl);
+    const openAccount = Boolean(anchorElAccount);
     const theme = useTheme();
-    const isMobile = useMediaQuery(theme.breakpoints.down('sm'), {noSsr:true});
+    const isMobile = useMediaQuery(theme.breakpoints.down('sm'), { noSsr: true });
     const [currentLocationURL, setCurrentLocationURL] = React.useState(location.pathname);
+    const [currentAccountType, setCurrentAccountType] = React.useState('Buyer');
+    const roles = ['Buyer', 'Designer', 'Manufacturer'];
     // const loggedIn = props.loggedIn;
 
     const navItems = [
@@ -70,6 +86,15 @@ const NavBar = (props) => {
         history.push(pageURL);
     };
 
+    const handleAccountType = (event) => {
+        setAnchorElAccount(event.currentTarget);
+    };
+
+    const handleAccountClick = (type) => {
+        setCurrentAccountType(type);
+        setAnchorElAccount(null);
+    };
+
     return (
         <div className={classes.root}>
             <AppBar
@@ -78,13 +103,65 @@ const NavBar = (props) => {
                 position="static"
                 color="transparent"
             >
-                <Toolbar>
+                <Toolbar
+                    className={classes.mobileToolbar}
+                >
                     <Typography variant="h5" className={classes.title}>
                         Sckedio
                     </Typography>
                     <div>
                         {isMobile ? (
                             <div>
+                                {loggedIn &&
+                                    (<>
+                                        <Button
+                                            onClick={handleAccountType}
+                                            className={classes.mobileRoleButton}
+                                        >
+                                            <Box
+                                                width={130}
+                                                display='flex'
+                                                border={1}
+                                                justifyContent='flex-end'
+                                            >
+                                                <Typography>{currentAccountType}</Typography>
+                                                <ArrowDropDownIcon />
+                                            </Box>
+                                        </Button>
+                                        <Menu
+                                            id="account-dropdown"
+                                            anchorEl={anchorElAccount}
+                                            anchorOrigin={{
+                                                vertical: 'top',
+                                                horizontal: 'right',
+                                            }}
+                                            keepMounted
+                                            transformOrigin={{
+                                                vertical: 'top',
+                                                horizontal: 'right',
+                                            }}
+                                            open={openAccount}
+                                            onClose={() => setAnchorElAccount(null)}
+                                        >
+                                            {roles.map((item, i) => (
+                                                <MenuItem key={i} onClick={() => handleAccountClick(item)}>
+                                                    <Typography>
+                                                        {item}
+                                                    </Typography>
+                                                </MenuItem>
+                                            ))}
+                                            <MenuItem
+                                                onClick={() => handleLogout()}
+                                            >
+                                                <Typography
+                                                    color='error'
+                                                >
+                                                    Log Out
+                                                    </Typography>
+                                            </MenuItem>
+                                        </Menu>
+                                    </>)
+                                }
                                 <IconButton
                                     edge="start"
                                     className={classes.menuButton}
@@ -120,22 +197,22 @@ const NavBar = (props) => {
                                     ))}
                                     {loggedIn ?
                                         (
-                                        <div>
-                                        <MenuItem onClick={() => handleMenuClick('/profile')}>
-                                            <Typography
-                                                color={currentLocationURL === '/profile' ? 'primary' : 'initial'}
-                                            >
-                                                Profile
+                                            <div>
+                                                <MenuItem onClick={() => handleMenuClick('/profile')}>
+                                                    <Typography
+                                                        color={currentLocationURL === '/profile' ? 'primary' : 'initial'}
+                                                    >
+                                                        Profile
                                             </Typography>
-                                        </MenuItem>
-                                        <MenuItem onClick={() => handleLogout()}>
-                                            <Typography
-                                                color='error'
-                                            >
-                                                Log Out
-                                            </Typography>
-                                        </MenuItem>
-                                        </div>
+                                                </MenuItem>
+                                                {/* <MenuItem onClick={() => handleLogout()}>
+                                                    <Typography
+                                                        color='error'
+                                                    >
+                                                        Log Out
+                                                    </Typography>
+                                                </MenuItem> */}
+                                            </div>
                                         ) :
                                         (<MenuItem onClick={() => handleMenuClick('/login')}>
                                             <Typography
@@ -164,24 +241,61 @@ const NavBar = (props) => {
                                     ))}
                                     {loggedIn ? (
                                         <>
-                                        <Button
-                                            onClick={() => handleButtonClick('/profile')}
-                                        >
-                                            <Typography
-                                                color={currentLocationURL === '/profile' ? 'primary' : 'initial'}
+                                            <Button
+                                                onClick={() => handleButtonClick('/profile')}
                                             >
-                                                Profile
+                                                <Typography
+                                                    color={currentLocationURL === '/profile' ? 'primary' : 'initial'}
+                                                >
+                                                    Profile
                                             </Typography>
-                                        </Button>
-                                        <Button
-                                            onClick={() => handleLogout()}
-                                        >
-                                            <Typography
-                                                color='error'
+                                            </Button>
+
+                                            <Button
+                                                onClick={handleAccountType}
                                             >
-                                                Log Out
-                                            </Typography>
-                                        </Button>
+                                                <Box
+                                                    width={160}
+                                                    display='flex'
+                                                    border={1}
+                                                    justifyContent='flex-end'
+                                                >
+                                                    <Typography>{currentAccountType}</Typography>
+                                                    <ArrowDropDownIcon />
+                                                </Box>
+                                            </Button>
+                                            <Menu
+                                                id="account-dropdown"
+                                                anchorEl={anchorElAccount}
+                                                anchorOrigin={{
+                                                    vertical: 'top',
+                                                    horizontal: 'right',
+                                                }}
+                                                keepMounted
+                                                transformOrigin={{
+                                                    vertical: 'top',
+                                                    horizontal: 'right',
+                                                }}
+                                                open={openAccount}
+                                                onClose={() => setAnchorElAccount(null)}
+                                            >
+                                                {roles.map((item, i) => (
+                                                    <MenuItem key={i} onClick={() => handleAccountClick(item)}>
+                                                        <Typography>
+                                                            {item}
+                                                        </Typography>
+                                                    </MenuItem>
+                                                ))}
+                                                <MenuItem
+                                                    onClick={() => handleLogout()}
+                                                >
+                                                    <Typography
+                                                        color='error'
+                                                    >
+                                                        Log Out
+                                                    </Typography>
+                                                </MenuItem>
+                                            </Menu>
                                         </>
                                     ) :
                                         (
@@ -195,6 +309,7 @@ const NavBar = (props) => {
                                             </Typography>
                                             </Button>
                                         )}
+
                                 </div>
                             )
                         }
