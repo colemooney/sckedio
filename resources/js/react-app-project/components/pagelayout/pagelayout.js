@@ -3,6 +3,7 @@ import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
+import { Container } from '@material-ui/core';
 
 const PageLayout = ({ pageData }) => {
 
@@ -34,7 +35,7 @@ const PageLayout = ({ pageData }) => {
         },
         sectionText: {
             position: 'absolute',
-            padding: 30
+            paddingTop: 30
         },
         middleSection: {
             display: 'flex',
@@ -64,10 +65,10 @@ const PageLayout = ({ pageData }) => {
             {/*Middle section*/}
             <Grid container>
                 {pageData.main.map((section, i) => (
-                    <div key={i}>
+                    <Grid item key={i} xs={12} md={6} style={styles.middleSection}>
                         {
                             section.image ?
-                                <Grid item xs={12} md={6} style={styles.middleSection}>{/* Image of artisan drawing on whiteboard*/}
+                                <Grid item style={styles.middleSection}>{/* Image of artisan drawing on whiteboard*/}
                                     <Grid item style={styles.sectionText} md={4}>
                                         <Typography variant='h4'>{section.title}</Typography>
                                         <Typography variant='h6'>{section.subtitle}</Typography>
@@ -77,14 +78,14 @@ const PageLayout = ({ pageData }) => {
                                     </Box>
                                 </Grid>
                                 :
-                                <Grid item xs={12} md={6} style={styles.middleSectionBlock}>{/* Image of artisan drawing on whiteboard*/}
+                                <Grid item style={styles.middleSection}>{/* Image of artisan drawing on whiteboard*/}
                                     <Grid item style={styles.sectionText} md={4}>
                                         <Typography variant='h4'>{section.title}</Typography>
                                         <Typography variant='h6'>{section.subtitle}</Typography>
                                     </Grid>
                                 </Grid>
                         }
-                    </div>
+                    </Grid>
                 ))}
             </Grid>
         </Grid>
