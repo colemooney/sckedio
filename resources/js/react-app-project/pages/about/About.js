@@ -1,11 +1,13 @@
 import React from 'react';
 import NavBar from '../../components/navBar/NavBar';
+import PageLayout from '../../components/pagelayout/pagelayout';
+import { AboutPage } from '../../data/PageData';
 
 const About = (props) => {
     return (
         <div>
             <NavBar loggedIn={props.loggedIn} handleLogout={props.handleLogout} />
-            <h1>About</h1>
+            <PageLayout pageData={AboutPage} />
         </div>
     );
 };
