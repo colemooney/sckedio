@@ -50,6 +50,7 @@ class UserInformationController extends Controller
             'postal_code' => 'nullable|string',
             'country' => 'nullable|string',
             'role' => 'nullable|string',
+            'revoke_role' => 'nullable|string'
         ]);
 
         $user = Auth::user();
@@ -77,10 +78,13 @@ class UserInformationController extends Controller
 
         if(!empty($request->role))
         {
-            $role = $user->getRoleNames();
-            $user->syncRoles($validData['role']);
+            $role = $user->assignRole($validData['role']);
         }
 
+        if(!empty($request->revoke_role))
+        {
+            $user->removeRole($validData['revoke_role']);
+        }
         return response()->json([
             'message' => 'Successfully updated user information.'
         ], 201);
