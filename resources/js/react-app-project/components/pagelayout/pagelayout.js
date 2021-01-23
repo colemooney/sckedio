@@ -3,7 +3,7 @@ import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
-import { Container } from '@material-ui/core';
+import FeedbackForm from '../../components/feedbackform/feedbackform';
 
 const PageLayout = ({ pageData }) => {
 
@@ -20,19 +20,6 @@ const PageLayout = ({ pageData }) => {
             padding: 70,
             paddingBottom: 0
         },
-        smallWhiteboardImage: {
-            borderColor: 'transparent'
-        },
-        bottomSectionBackground: {
-            height: 600,
-            maxHeight: 1000,
-            backgroundImage: `url(${"../../images/pexels-andreea-ch-1166644.jpg"})`,
-            backgroundSize: 'cover',
-            backgroundPosition: 'bottom-center',
-            backgroundRepeat: 'no-repeat',
-            width: `calc(100vw + 40px)`,
-            padding: 0,
-        },
         sectionText: {
             position: 'absolute',
             paddingTop: 30
@@ -40,10 +27,6 @@ const PageLayout = ({ pageData }) => {
         middleSection: {
             display: 'flex',
             justifyContent: 'center'
-        },
-        middleSectionBlock: {
-            display: 'flex',
-            flexDirection: 'column',
         }
     };
 
@@ -88,6 +71,7 @@ const PageLayout = ({ pageData }) => {
                     </Grid>
                 ))}
             </Grid>
+            <FeedbackForm />
         </Grid>
     );
 };
