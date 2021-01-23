@@ -37,8 +37,9 @@ class UserInformationController extends Controller
      * @param [string] postal_code
      * @param [string] country
      */
-    public function update(Request $request) {
-        $request->validate([
+    public function update(Request $request) 
+    {
+        $validData = $request->validate([
             'username' => 'nullable|string',
             'email' => 'nullable|string',
             'first_name' => 'nullable|string',
@@ -47,43 +48,39 @@ class UserInformationController extends Controller
             'city' => 'nullable|string',
             'street' => 'nullable|string',
             'postal_code' => 'nullable|string',
-            'country' => 'nullable|string'
+            'country' => 'nullable|string',
+            'role' => 'nullable|string',
         ]);
-        
-        $user_id = Auth::id();
 
-        $user_credentials = User::findOrFail($user_id);
-        $user_information = User::find($user_id)->user_information;
+        $user = Auth::user();
+        $user_credentials = User::findOrFail($user->id);
+        $user_information = $user_credentials->user_information;
         
-        // Checks if username and/or email are blank.
-        if(empty($request->username)) {
-            $request->username = $user_credentials->username;
-        }
-        if(empty($request->email)) {
-            $request->email = $user_credentials->email;
+        // Checks if username, role and/or email are blank.
+        if(!empty($request->username) || !empty($request->email)) 
+        {
+            $user_credentials->fill($validData)->save();
         }
 
-        // Checks if current user has user information data.
-        if(!empty($user_information)){
-            // Update user information
-            $user_credentials->username = $request->username;
-            $user_credentials->email = $request->email;
-            $user_credentials->save();
-            $user_information->first_name = $request->first_name;
-            $user_information->last_name = $request->last_name;
-            $user_information->state = $request->state;
-            $user_information->city = $request->city;
-            $user_information->street = $request->street;
-            $user_information->postal_code = $request->postal_code;
-            $user_information->country = $request->country;
-            $user_information->save();
-
-        } else {
+        if(!empty($user_information))
+        {
+           $user_information->user()->associate($user);
+           $user_information->fill($validData);
+           $user_information->save();
+        } 
+        else 
+        {
             return response()->json([
                 'message' => 'User information not found.'
             ], 404);
         }
-        
+
+        if(!empty($request->role))
+        {
+            $role = $user->getRoleNames();
+            $user->syncRoles($validData['role']);
+        }
+
         return response()->json([
             'message' => 'Successfully updated user information.'
         ], 201);

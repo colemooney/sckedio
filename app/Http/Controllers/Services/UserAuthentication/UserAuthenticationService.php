@@ -38,6 +38,8 @@ class UserAuthenticationService
 
         $user_information->user()->associate($user);
         $user_information->save();
+        
+        $user->assignRole('buyer');
 
         return response()->json([
             'message' => 'Successfully created user!'
@@ -58,11 +60,14 @@ class UserAuthenticationService
         {
             $response = $this->proxy->grantPasswordToken($user_credentials['username'], $user_credentials['password']);
         }
-
+        $user = Auth::user();
+        $role = $user->getRoleNames();
+        
         return response()->json([
             'access_token' => $response['access_token'],
             'expires_in' => $response['expires_in'],
-            'message' => 'You are now logged in!'
+            'message' => 'You are now logged in!',
+            'role' => $role
         ], 200);
     }
 
@@ -79,9 +84,11 @@ class UserAuthenticationService
     {
         $user = Auth::user();
         $user_information = User::find($user->id)->user_information;
-
+        $role = $user->getRoleNames();
         return response()->json([
-            $user, $user_information
-        ]);
+            $user, 
+            $user_information, 
+            $role
+        ], 200);
     }
 }
