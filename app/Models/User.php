@@ -8,11 +8,13 @@ use Illuminate\Contracts\Auth\CanResetPassword;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Passport\HasApiTokens;
+use Spatie\Permission\Traits\HasRoles;
 use App\Http\Models\Designer\Design;
+
 
 class User extends Authenticatable implements MustVerifyEmail
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    use HasRoles, HasApiTokens, HasFactory, Notifiable;
 
     /**
      * The attributes that are mass assignable.
