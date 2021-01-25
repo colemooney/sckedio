@@ -61,6 +61,8 @@ const Profile = (props) => {
         newState: null,
         newPostalCode: null,
         newCountry: null,
+        newDesigner: null,
+        newManufacturer: null
     });
 
     useEffect(() => {
@@ -74,7 +76,9 @@ const Profile = (props) => {
             newCity: userInfo.city,
             newState: userInfo.state,
             newPostalCode: userInfo.postalCode,
-            newCountry: userInfo.country
+            newCountry: userInfo.country,
+            newDesigner: false,
+            newManufacturer: false
         });
 
     }, [userInfo]);
