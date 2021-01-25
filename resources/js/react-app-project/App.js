@@ -48,6 +48,7 @@ const App = () => {
         state: null,
         postalCode: null,
         country: null,
+        roles: [],
         profilePhoto: 'https://thumbs.dreamstime.com/b/default-avatar-photo-placeholder-profile-picture-default-avatar-photo-placeholder-profile-picture-eps-file-easy-to-edit-125707135.jpg'
     });
 
@@ -117,7 +118,8 @@ const App = () => {
                     city: res.data[1].city,
                     state: res.data[1].state,
                     postalCode: res.data[1].postal_code,
-                    country: res.data[1].country
+                    country: res.data[1].country,
+                    roles: res.data[2]
                 });
                 // setNewUserInfo({
                 //     ...newUserInfo,
@@ -139,6 +141,7 @@ const App = () => {
 
     const runRefresh = (callback) => {
         console.log('refresh');
+        
         axios.get('/api/auth/refresh')
             .then(res => {
                 console.log(res);
@@ -230,7 +233,7 @@ const App = () => {
                         <Route exact path='/get-started' component={() => <GetStarted loggedIn={loggedIn} handleLogout={handleLogout} />} />
                         <ProtectedRoute exact path='/profile' component={() => <Profile loggedIn={loggedIn} handleLogout={handleLogout} userInfo={userInfo} getUserInfo={getUserInfo} />} />
                         <Route exact path='/create-account' component={CreateAccount} />
-                        <Route exact path='/login' component={() => <Login setLoggedIn={setLoggedIn} tokenTimeKeeper={tokenTimeKeeper} />} />
+                        <Route exact path='/login' component={() => <Login setLoggedIn={setLoggedIn} tokenTimeKeeper={tokenTimeKeeper} getUserInfo={getUserInfo} />} />
                         <Route exact path='/forgot-password' component={PasswordForgotRequest} />
                         {/* <Route exact path='/password-reset' component={PasswordReset} /> */}
                         <Route path='/password-reset/:token'>
