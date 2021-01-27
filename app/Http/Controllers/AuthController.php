@@ -7,7 +7,8 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Services\UserAuthentication\UserAuthenticationService;
 use App\Http\Requests\UserRequest\SignUpRequest;
 use App\Http\Requests\UserRequest\LogInRequest;
-
+//TEMPORARY
+use Illuminate\Support\Facades\Route;
 class AuthController extends Controller
 {
 
@@ -18,48 +19,28 @@ class AuthController extends Controller
         $this->userAuth = $userAuthentication;
     }
 
-     public function signup(SignUpRequest $request) 
-     {
-        $status = $this->userAuth->handleSignUp($request);
+    public function signup(SignUpRequest $request) 
+    {
+    $status = $this->userAuth->handleSignUp($request);
+    return $status;
+    }
+
+    public function login(LogInRequest $request) 
+    {
+    $status = $this->userAuth->handleLogIn($request);
+    return $status;
+    }
+
+    public function logout(Request $request) 
+    {
+        $tokenId = $request->user()->token()->id;
+        $status = $this->userAuth->handleLogOut($tokenId);
         return $status;
-     }
+    }
 
-
-     /**
-      * Login user and create token
-      * @param [string] email
-      * @param [string] password
-      * @return [string] token_type
-      * @return [string] expires_at
-      */
-
-      public function login(LogInRequest $request) 
-      {
-        $status = $this->userAuth->handleLogIn($request);
+    public function user(Request $request) 
+    {
+        $status = $this->userAuth->findCurrentUser();
         return $status;
-      }
-
-      /**
-       * Logout user (Revoke the token)
-       * @return [string] message
-       */
-
-       public function logout(Request $request) 
-       {
-            $tokenId = $request->user()->token()->id;
-            $status = $this->userAuth->handleLogOut($tokenId);
-            return $status;
-       }
-
-       /**
-        * Get the authenticated user
-        *
-        * @return [json] user object 
-        */
-
-        public function user(Request $request) 
-        {
-            $status = $this->userAuth->findCurrentUser();
-            return $status;
-        }
+    }
 }

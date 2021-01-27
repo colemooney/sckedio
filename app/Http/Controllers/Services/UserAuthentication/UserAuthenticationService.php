@@ -60,14 +60,11 @@ class UserAuthenticationService
         {
             $response = $this->proxy->grantPasswordToken($user_credentials['username'], $user_credentials['password']);
         }
-        $user = Auth::user();
-        $role = $user->getRoleNames();
         
         return response()->json([
             'access_token' => $response['access_token'],
             'expires_in' => $response['expires_in'],
-            'message' => 'You are now logged in!',
-            'role' => $role
+            'message' => 'You are now logged in!'
         ], 200);
     }
 
@@ -84,11 +81,11 @@ class UserAuthenticationService
     {
         $user = Auth::user();
         $user_information = User::find($user->id)->user_information;
-        $role = $user->getRoleNames();
+        $role = $user->roles->pluck('name');
         return response()->json([
             $user, 
-            $user_information, 
-            $role
+            $user_information,
+            $role,
         ], 200);
     }
 }
