@@ -35,9 +35,17 @@ class User extends Authenticatable implements MustVerifyEmail
     protected $hidden = [
         'password',
         'remember_token',
-        'id'
+        'id',
+        'role',
+        'email_verified_at',
+        'created_at',
+        'updated_at',
+        // 'roles'
     ];
 
+    // protected $appends = [
+    //     'role_names'
+    // ];
     /**
      * The attributes that should be cast to native types.
      *
@@ -61,4 +69,9 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->where('username', $username)->first();
     }
+
+    // public function getRoleNamesAttribute()
+    // {
+    //     return $this->roles->pluck('name');
+    // }
 }
