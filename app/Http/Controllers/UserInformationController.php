@@ -49,8 +49,8 @@ class UserInformationController extends Controller
             'street' => 'nullable|string',
             'postal_code' => 'nullable|string',
             'country' => 'nullable|string',
-            'role' => 'nullable|string',
-            'revoke_role' => 'nullable|string'
+            'manufacturer' => 'boolean',
+            'designer' => 'boolean'
         ]);
 
         $user = Auth::user();
@@ -76,15 +76,36 @@ class UserInformationController extends Controller
             ], 404);
         }
 
-        if(!empty($request->role))
+        if($user->hasRole('manufacturer'))
         {
-            $role = $user->assignRole($validData['role']);
+            if(!$request->manufacturer)
+            {
+                $user->removeRole('manufacturer');
+            }
+        }
+        else
+        {
+            if($request->manufacturer)
+            {
+                $user->assignRole('manufacturer');
+            }
         }
 
-        if(!empty($request->revoke_role))
+        if($user->hasRole('designer'))
         {
-            $user->removeRole($validData['revoke_role']);
+            if(!$request->designer)
+            {
+                $user->removeRole('designer');
+            }
         }
+        else
+        {
+            if($request->designer)
+            {
+                $user->assignRole('designer');
+            }
+        }
+
         return response()->json([
             'message' => 'Successfully updated user information.'
         ], 201);
