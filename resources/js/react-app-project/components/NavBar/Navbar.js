@@ -38,7 +38,7 @@ const useStyles = makeStyles((theme) => ({
 
 const NavBar = (props) => {
     const classes = useStyles();
-    const { history, location, handleLogout, loggedIn } = props;
+    const { history, location, handleLogout, loggedIn, roles } = props;
     const [anchorEl, setAnchorEl] = React.useState(null);
     const [anchorElAccount, setAnchorElAccount] = React.useState(null);
     const open = Boolean(anchorEl);
@@ -47,7 +47,7 @@ const NavBar = (props) => {
     const isMobile = useMediaQuery(theme.breakpoints.down('sm'), { noSsr: true });
     const [currentLocationURL, setCurrentLocationURL] = React.useState(location.pathname);
     const [currentAccountType, setCurrentAccountType] = React.useState('Buyer');
-    const roles = ['Buyer', 'Designer', 'Manufacturer'];
+    // const roles = ['Buyer', 'Designer', 'Manufacturer'];
     // const loggedIn = props.loggedIn;
 
     const navItems = [
@@ -146,7 +146,7 @@ const NavBar = (props) => {
                                             {roles.map((item, i) => (
                                                 <MenuItem key={i} onClick={() => handleAccountClick(item)}>
                                                     <Typography>
-                                                        {item}
+                                                        {item.charAt(0).toUpperCase() + item.slice(1)}
                                                     </Typography>
                                                 </MenuItem>
                                             ))}
@@ -282,7 +282,7 @@ const NavBar = (props) => {
                                                 {roles.map((item, i) => (
                                                     <MenuItem key={i} onClick={() => handleAccountClick(item)}>
                                                         <Typography>
-                                                            {item}
+                                                            {item.charAt(0).toUpperCase() + item.slice(1)}
                                                         </Typography>
                                                     </MenuItem>
                                                 ))}
