@@ -35,7 +35,7 @@ const GetStarted = (props) => {
 
     return (
         <div>
-            <NavBar loggedIn={props.loggedIn} handleLogout={props.handleLogout} />
+            <NavBar loggedIn={props.loggedIn} handleLogout={props.handleLogout} roles={props.roles} />
             <div>
                 <Container style={{ margin: 0, padding: 0 }}>
 

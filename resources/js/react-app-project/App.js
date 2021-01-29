@@ -60,7 +60,7 @@ const App = () => {
         console.log('app load');
 
         runRefresh(() => {
-            setLoading(false);
+            // setLoading(false);
             const jwToken = auth.getToken();
             getUserInfo(jwToken);
         });
@@ -136,6 +136,9 @@ const App = () => {
             })
             .catch(err => {
                 console.log(err);
+            })
+            .then(()=>{
+                setLoading(false);
             });
     };
 
@@ -225,13 +228,13 @@ const App = () => {
                 <CssBaseline />
                 <Router>
                     <Switch>
-                        <Route exact path='/' component={() => <Home loggedIn={loggedIn} handleLogout={handleLogout} />} />
-                        <Route exact path='/sell' component={() => <Sell loggedIn={loggedIn} handleLogout={handleLogout} />} />
-                        <Route exact path='/buy' component={() => <Buy loggedIn={loggedIn} handleLogout={handleLogout} />} />
-                        <Route exact path='/build' component={() => <Build loggedIn={loggedIn} handleLogout={handleLogout} />} />
-                        <Route exact path='/about' component={() => <About loggedIn={loggedIn} handleLogout={handleLogout} />} />
-                        <Route exact path='/get-started' component={() => <GetStarted loggedIn={loggedIn} handleLogout={handleLogout} />} />
-                        <ProtectedRoute exact path='/profile' component={() => <Profile loggedIn={loggedIn} handleLogout={handleLogout} userInfo={userInfo} getUserInfo={getUserInfo} />} />
+                        <Route exact path='/' component={() => <Home loggedIn={loggedIn} handleLogout={handleLogout} roles={userInfo.roles} />} />
+                        <Route exact path='/sell' component={() => <Sell loggedIn={loggedIn} handleLogout={handleLogout} roles={userInfo.roles} />} />
+                        <Route exact path='/buy' component={() => <Buy loggedIn={loggedIn} handleLogout={handleLogout} roles={userInfo.roles} />} />
+                        <Route exact path='/build' component={() => <Build loggedIn={loggedIn} handleLogout={handleLogout} roles={userInfo.roles} />} />
+                        <Route exact path='/about' component={() => <About loggedIn={loggedIn} handleLogout={handleLogout} roles={userInfo.roles} />} />
+                        <Route exact path='/get-started' component={() => <GetStarted loggedIn={loggedIn} handleLogout={handleLogout} roles={userInfo.roles} />} />
+                        <ProtectedRoute exact path='/profile' component={() => <Profile loggedIn={loggedIn} handleLogout={handleLogout} userInfo={userInfo} getUserInfo={getUserInfo} roles={userInfo.roles}/>} />
                         <Route exact path='/create-account' component={CreateAccount} />
                         <Route exact path='/login' component={() => <Login setLoggedIn={setLoggedIn} tokenTimeKeeper={tokenTimeKeeper} getUserInfo={getUserInfo} />} />
                         <Route exact path='/forgot-password' component={PasswordForgotRequest} />
@@ -240,7 +243,7 @@ const App = () => {
                             <PasswordReset />
                         </Route>
                         <Route path='/product/:id'>
-                            <Product loggedIn={loggedIn} handleLogout={handleLogout} />
+                            <Product loggedIn={loggedIn} handleLogout={handleLogout} roles={userInfo.roles} />
                         </Route>
 
                         <Route exact path='/register' component={Register} />

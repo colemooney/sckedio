@@ -77,8 +77,8 @@ const Profile = (props) => {
             newState: userInfo.state,
             newPostalCode: userInfo.postalCode,
             newCountry: userInfo.country,
-            newDesigner: false,
-            newManufacturer: false
+            newDesigner: userInfo.roles.includes('designer'),
+            newManufacturer: userInfo.roles.includes('manufacturer')
         });
 
     }, [userInfo]);
@@ -140,7 +140,9 @@ const Profile = (props) => {
             postal_code: newUserInfo.newPostalCode,
             country: newUserInfo.newCountry,
             username: newUserInfo.newUsername,
-            email: newUserInfo.newEmail
+            email: newUserInfo.newEmail,
+            designer: newUserInfo.newDesigner,
+            manufacturer: newUserInfo.newManufacturer
 
         };
 
@@ -216,7 +218,7 @@ const Profile = (props) => {
 
     return (
         <div>
-            <NavBar loggedIn={props.loggedIn} handleLogout={props.handleLogout} />
+            <NavBar loggedIn={props.loggedIn} handleLogout={props.handleLogout} roles={props.roles} />
             <Container >
                 <Box my={3}>
                     <Typography variant='h2'>Profile</Typography>

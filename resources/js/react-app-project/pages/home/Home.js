@@ -13,6 +13,7 @@ import { useHistory } from "react-router-dom";
 const Home = (props) => {
 
     useEffect(() => {
+        
     }, []);
 
     let history = useHistory();
@@ -52,7 +53,7 @@ const Home = (props) => {
 
     return (
         <div>
-            <NavBar loggedIn={props.loggedIn} handleLogout={props.handleLogout} />
+            <NavBar loggedIn={props.loggedIn} handleLogout={props.handleLogout} roles={props.roles} />
             {/* <h1>Home Page</h1> */}
             <div>
                 <Container style={{ margin: 0, padding: 0 }}>
