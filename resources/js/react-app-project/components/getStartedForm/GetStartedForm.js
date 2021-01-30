@@ -71,7 +71,7 @@ function getStepContent(step) {
                                     required
                                     id="form-idea-name"
                                     label="Name of Idea"
-                                    defaultValue=""
+                                    helperText="ex.: Electric Tricycle"
                                     variant="outlined"
                                 />
                             </div>
@@ -81,12 +81,12 @@ function getStepContent(step) {
                                     label="Describe what the finished product is/does"
                                     multiline
                                     rows={4}
-                                    defaultValue=""
+                                    helperText="ex.: This is a fast-charging electric tricycle available in custom skins. It can reach speeds of 30 mph and run continuously for 4 hours on a single charge..."
                                     variant="outlined"
                                 />
                             </div>
                             <div>
-                                <FormControl component="fieldset">
+                                <FormControl component="fieldset" >
                                     <FormLabel component="legend">Category</FormLabel>
                                     <RadioGroup aria-label="category" name="category1" value={categoryValue} onChange={handleCategoryChange}>
                                         <FormControlLabel value="clothing-accessories" control={<Radio />} label="Clothing/Accessories" />
@@ -172,8 +172,9 @@ function getStepContent(step) {
                                 required
                                 id="form-idea-cost"
                                 label="How much does your idea cost?"
-                                defaultValue=""
+                                helperText="ex.: $50,000"
                                 variant="outlined"
+                                type="number"
                             />
                         </div>
                         {/* <div>
