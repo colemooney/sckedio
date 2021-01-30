@@ -40,7 +40,7 @@ function getSteps() {
 
 function getStepContent(step) {
 
-    const [categoryValue, setCategory] = React.useState('fashion');
+    const [categoryValue, setCategory] = React.useState('clothing-accessories');
 
     const handleCategoryChange = (event) => {
         setCategory(event.target.value);
@@ -89,10 +89,14 @@ function getStepContent(step) {
                                 <FormControl component="fieldset">
                                     <FormLabel component="legend">Category</FormLabel>
                                     <RadioGroup aria-label="category" name="category1" value={categoryValue} onChange={handleCategoryChange}>
-                                        <FormControlLabel value="fashion" control={<Radio />} label="Fashion" />
-                                        <FormControlLabel value="art" control={<Radio />} label="Art" />
+                                        <FormControlLabel value="clothing-accessories" control={<Radio />} label="Clothing/Accessories" />
+                                        <FormControlLabel value="toys-games" control={<Radio />} label="Toys/Games" />
                                         <FormControlLabel value="technology" control={<Radio />} label="Technology" />
-                                        <FormControlLabel value="toy" control={<Radio />} label="Toy" />
+                                        <FormControlLabel value="transport" control={<Radio />} label="Transport" />
+                                        <FormControlLabel value="furniture-interior" control={<Radio />} label="Furniture/Interior Design" />
+                                        <FormControlLabel value="art" control={<Radio />} label="Art" />
+                                        <FormControlLabel value="home-goods" control={<Radio />} label="Home Goods" />
+                                        <FormControlLabel value="everyday-use" control={<Radio />} label="Everyday Use" />
                                         <FormControlLabel value="other" control={<Radio />} label="Other" />
                                     </RadioGroup>
                                 </FormControl>
