@@ -176,7 +176,7 @@ function getStepContent(step) {
                                 variant="outlined"
                             />
                         </div>
-                        <div>
+                        {/* <div>
                             <FormControl component="fieldset">
                                 <FormLabel component="legend">How many times can your idea be bought?</FormLabel>
                                 <RadioGroup aria-label="idea-limit" name="idea-limit1" value={ideaLimitValue} onChange={handleIdeaLimitChange}>
@@ -184,7 +184,7 @@ function getStepContent(step) {
                                     <FormControlLabel value="limited" control={<Radio />} label="A limited number" />
                                 </RadioGroup>
                             </FormControl>
-                        </div>
+                        </div> */}
                     </form>
                 </Grid>
             </div>
