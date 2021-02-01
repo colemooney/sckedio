@@ -40,7 +40,7 @@ function getSteps() {
 
 function getStepContent(step) {
 
-    const [categoryValue, setCategory] = React.useState('fashion');
+    const [categoryValue, setCategory] = React.useState('clothing-accessories');
 
     const handleCategoryChange = (event) => {
         setCategory(event.target.value);
@@ -71,7 +71,7 @@ function getStepContent(step) {
                                     required
                                     id="form-idea-name"
                                     label="Name of Idea"
-                                    defaultValue=""
+                                    helperText="ex.: Electric Tricycle"
                                     variant="outlined"
                                 />
                             </div>
@@ -81,18 +81,22 @@ function getStepContent(step) {
                                     label="Describe what the finished product is/does"
                                     multiline
                                     rows={4}
-                                    defaultValue=""
+                                    helperText="ex.: This is a fast-charging electric tricycle available in custom skins. It can reach speeds of 30 mph and run continuously for 4 hours on a single charge..."
                                     variant="outlined"
                                 />
                             </div>
                             <div>
-                                <FormControl component="fieldset">
+                                <FormControl component="fieldset" >
                                     <FormLabel component="legend">Category</FormLabel>
                                     <RadioGroup aria-label="category" name="category1" value={categoryValue} onChange={handleCategoryChange}>
-                                        <FormControlLabel value="fashion" control={<Radio />} label="Fashion" />
-                                        <FormControlLabel value="art" control={<Radio />} label="Art" />
+                                        <FormControlLabel value="clothing-accessories" control={<Radio />} label="Clothing/Accessories" />
+                                        <FormControlLabel value="toys-games" control={<Radio />} label="Toys/Games" />
                                         <FormControlLabel value="technology" control={<Radio />} label="Technology" />
-                                        <FormControlLabel value="toy" control={<Radio />} label="Toy" />
+                                        <FormControlLabel value="transport" control={<Radio />} label="Transport" />
+                                        <FormControlLabel value="furniture-interior" control={<Radio />} label="Furniture/Interior Design" />
+                                        <FormControlLabel value="art" control={<Radio />} label="Art" />
+                                        <FormControlLabel value="home-goods" control={<Radio />} label="Home Goods" />
+                                        <FormControlLabel value="everyday-use" control={<Radio />} label="Everyday Use" />
                                         <FormControlLabel value="other" control={<Radio />} label="Other" />
                                     </RadioGroup>
                                 </FormControl>
@@ -168,11 +172,12 @@ function getStepContent(step) {
                                 required
                                 id="form-idea-cost"
                                 label="How much does your idea cost?"
-                                defaultValue=""
+                                helperText="ex.: $50,000"
                                 variant="outlined"
+                                type="number"
                             />
                         </div>
-                        <div>
+                        {/* <div>
                             <FormControl component="fieldset">
                                 <FormLabel component="legend">How many times can your idea be bought?</FormLabel>
                                 <RadioGroup aria-label="idea-limit" name="idea-limit1" value={ideaLimitValue} onChange={handleIdeaLimitChange}>
@@ -180,7 +185,7 @@ function getStepContent(step) {
                                     <FormControlLabel value="limited" control={<Radio />} label="A limited number" />
                                 </RadioGroup>
                             </FormControl>
-                        </div>
+                        </div> */}
                     </form>
                 </Grid>
             </div>
