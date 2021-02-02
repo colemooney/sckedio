@@ -7,13 +7,11 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use App\Models\UserInformation;
 use App\Models\User;
+// Requests
+use App\Http\Requests\UserRequest\UpdateRequest;
 
 class UserInformationController extends Controller
 {
-    /**
-     * Get authenticated user's information
-     * @return [json] user_information object
-     */
     public function show(Request $request) {
         $user_id = Auth::id();
         $user_information = User::find($user_id)->user_information;
@@ -27,31 +25,9 @@ class UserInformationController extends Controller
         return response()->json([$user_information]);
     }
 
-    /**
-     * Update user information
-     * @param [string] first_name
-     * @param [string] last_name
-     * @param [string] state
-     * @param [string] city
-     * @param [string] street
-     * @param [string] postal_code
-     * @param [string] country
-     */
-    public function update(Request $request) 
+    public function update(UpdateRequest $request) 
     {
-        $validData = $request->validate([
-            'username' => 'nullable|string',
-            'email' => 'nullable|string',
-            'first_name' => 'nullable|string',
-            'last_name' => 'nullable|string',
-            'state' => 'nullable|string',
-            'city' => 'nullable|string',
-            'street' => 'nullable|string',
-            'postal_code' => 'nullable|string',
-            'country' => 'nullable|string',
-            'manufacturer' => 'boolean',
-            'designer' => 'boolean'
-        ]);
+        $validData = $request->validated();
 
         $user = Auth::user();
         $user_credentials = User::findOrFail($user->id);
