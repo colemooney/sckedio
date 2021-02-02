@@ -25,7 +25,7 @@ class Design extends Model
 
     public function design_files()
     {
-        return $this->hasMany(DesignFile::class);
+        return $this->hasMany(DesignFile::class, 'design_id');
     }
 
     public function design_information()

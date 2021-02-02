@@ -66,6 +66,7 @@ Route::group([
         'middleware' => 'auth:api'
     ], function() {
         Route::post('create', [DesignController::class, 'create']);
+        Route::get('show', [DesignController::class, 'show']);
     });
 });
 
