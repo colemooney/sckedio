@@ -14,6 +14,7 @@ import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormControl from '@material-ui/core/FormControl';
 import FormLabel from '@material-ui/core/FormLabel';
+import { DropzoneArea } from 'material-ui-dropzone';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -131,12 +132,10 @@ function getStepContent(step) {
                                         <Box>
                                             <Typography variant='h7' border={5}>Upload any publicly available files</Typography>
                                         </Box>
-                                        <Box>
-                                            <Typography variant='h7' border={5}>(File upload not yet implemented)</Typography>
-                                        </Box>
-                                        <Box>
-                                            <Typography variant='h7' border={5}>Add any images, sketches, or files to give people an idea of what your product is and to get them excited!</Typography>
-                                        </Box>
+                                        <DropzoneArea
+                                        // dropzoneText={'Upload any publicly available files'}
+                                            onChange={(files) => console.log('Files:', files)}
+                                        />
                                     </Box>
                                 </Box>
                             </div>
@@ -147,12 +146,10 @@ function getStepContent(step) {
                                         <Box>
                                             <Typography variant='h7' border={5}>Upload any private files</Typography>
                                         </Box>
-                                        <Box>
-                                            <Typography variant='h7' border={5}>(File upload not yet implemented)</Typography>
-                                        </Box>
-                                        <Box>
-                                            <Typography variant='h7' border={5}>(Here's where you upload anything that people need to pay to see, whether it's more detailed sketches or a blueprint. Don't worry if you don't have anything to upload here.)</Typography>
-                                        </Box>
+                                        <DropzoneArea
+                                            // dropzoneText={'Upload any private files'}
+                                            onChange={(files) => console.log('Files:', files)}
+                                        />
                                     </Box>
                                 </Box>
                             </div>
@@ -162,22 +159,22 @@ function getStepContent(step) {
                 </div>
             )
 
-        case 2:{/*Idea cost step */}
-        return (
-            <div>
-                <Grid container>
-                    <form className={useStyles.root} noValidate autoComplete="off">
-                        <div>
-                            <TextField
-                                required
-                                id="form-idea-cost"
-                                label="How much does your idea cost?"
-                                helperText="ex.: $50,000"
-                                variant="outlined"
-                                type="number"
-                            />
-                        </div>
-                        {/* <div>
+        case 2: {/*Idea cost step */ }
+            return (
+                <div>
+                    <Grid container>
+                        <form className={useStyles.root} noValidate autoComplete="off">
+                            <div>
+                                <TextField
+                                    required
+                                    id="form-idea-cost"
+                                    label="How much does your idea cost?"
+                                    helperText="ex.: $50,000"
+                                    variant="outlined"
+                                    type="number"
+                                />
+                            </div>
+                            {/* <div>
                             <FormControl component="fieldset">
                                 <FormLabel component="legend">How many times can your idea be bought?</FormLabel>
                                 <RadioGroup aria-label="idea-limit" name="idea-limit1" value={ideaLimitValue} onChange={handleIdeaLimitChange}>
@@ -186,10 +183,10 @@ function getStepContent(step) {
                                 </RadioGroup>
                             </FormControl>
                         </div> */}
-                    </form>
-                </Grid>
-            </div>
-        )
+                        </form>
+                    </Grid>
+                </div>
+            )
         default:
             return 'Unknown step';
     }
