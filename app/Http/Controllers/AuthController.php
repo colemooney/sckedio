@@ -7,8 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Services\UserAuthentication\UserAuthenticationService;
 use App\Http\Requests\UserRequest\SignUpRequest;
 use App\Http\Requests\UserRequest\LogInRequest;
-//TEMPORARY
-use Illuminate\Support\Facades\Route;
+
 class AuthController extends Controller
 {
 

@@ -9,7 +9,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Passport\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
-use App\Http\Models\Designer\Design;
+use App\Models\Designer\Design;
 
 
 class User extends Authenticatable implements MustVerifyEmail
@@ -62,7 +62,7 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function design()
     {
-        return $this->hasMany(Design::class);
+        return $this->hasMany(Design::class, 'owner_id');
     }
 
     public function findForPassport($username) 

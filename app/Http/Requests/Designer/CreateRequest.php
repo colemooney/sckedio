@@ -31,13 +31,13 @@ class CreateRequest extends FormRequest
     {
         return [
             'idea_name' => 'required|string',
+            'description' => 'required|string',
             'category' => 'required|string',
-            'total_cost' => 'required|numeric',
-            'stock_type' => 'required|string',
+            'design_cost' => 'required|numeric',
+            'stock_type' => 'nullable|string',
             'idea_type' => 'required|string',
-            'public_files' => 'mimes:jpeg,jpg,png,gif|max:204800',
-            'private_files' => 'mimes:jpeg,jpg,png,gif|max:204800',
-            // 'private_file' => 'image',
+            'public_files.*' => 'file|image|mimes:docx,pdf,jpeg,jpg,png,gif|max:204800',
+            'private_files.*' => 'file|image|mimes:docx,pdf,jpeg,jpg,png,gif|max:204800',
         ];
     }
 }
