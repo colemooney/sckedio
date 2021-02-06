@@ -51,18 +51,6 @@ const Home = (props) => {
         }
     }
 
-    // return (
-    //     <div>
-    //         <NavBar loggedIn={props.loggedIn} handleLogout={props.handleLogout} roles={props.roles} />
-
-    //             <h1>Home</h1>
-    //             <Grid container spacing={0} >
-    //                 <Grid item style={styles.topSectionBackground} />
-
-    //             </Grid>
-    //     </div>
-    // );
-
     return (
         <div>
             <NavBar loggedIn={props.loggedIn} handleLogout={props.handleLogout} roles={props.roles} />
