@@ -39,19 +39,37 @@ function getSteps() {
     return ['Describe', 'Share', 'Cost'];
 }
 
-function getStepContent(step) {
+function getStepContent(step,props) {
+    const {
+        ideaName,
+        setIdeaName,
+        description,
+        setDescription,
+        productCategory,
+        setProductCategory,
+        totalCost,
+        setTotalCost,
+        stockType,
+        setStockType,
+        ideaType,
+        setIdeaType,
+        publicFiles,
+        setPublicFiles,
+        privateFiles,
+        setPrivateFiles
+    } = props;
 
-    const [categoryValue, setCategory] = React.useState('clothing-accessories');
+    // const [categoryValue, setCategory] = React.useState('clothing-accessories');
 
-    const handleCategoryChange = (event) => {
-        setCategory(event.target.value);
-    };
+    // const handleCategoryChange = (event) => {
+    //     setCategory(event.target.value);
+    // };
 
-    const [includedValue, setIncluded] = React.useState('idea');
+    // const [includedValue, setIncluded] = React.useState('idea');
 
-    const handleIncludedChange = (event) => {
-        setIncluded(event.target.value);
-    };
+    // const handleIncludedChange = (event) => {
+    //     setIncluded(event.target.value);
+    // };
 
     const [ideaLimitValue, setIdeaLimit] = React.useState('unlimited');
 
@@ -74,6 +92,8 @@ function getStepContent(step) {
                                     label="Name of Idea"
                                     helperText="ex.: Electric Tricycle"
                                     variant="outlined"
+                                    value={ideaName}
+                                    onChange={event=>setIdeaName(event.target.value)}
                                 />
                             </div>
                             <div>
@@ -84,12 +104,14 @@ function getStepContent(step) {
                                     rows={4}
                                     helperText="ex.: This is a fast-charging electric tricycle available in custom skins. It can reach speeds of 30 mph and run continuously for 4 hours on a single charge..."
                                     variant="outlined"
+                                    value={description}
+                                    onChange={event=>setDescription(event.target.value)}
                                 />
                             </div>
                             <div>
                                 <FormControl component="fieldset" >
                                     <FormLabel component="legend">Category</FormLabel>
-                                    <RadioGroup aria-label="category" name="category1" value={categoryValue} onChange={handleCategoryChange}>
+                                    <RadioGroup aria-label="category" name="category1" value={productCategory} onChange={event=>setProductCategory(event.target.value)}>
                                         <FormControlLabel value="clothing-accessories" control={<Radio />} label="Clothing/Accessories" />
                                         <FormControlLabel value="toys-games" control={<Radio />} label="Toys/Games" />
                                         <FormControlLabel value="technology" control={<Radio />} label="Technology" />
@@ -116,7 +138,7 @@ function getStepContent(step) {
                             <div>
                                 <FormControl component="fieldset">
                                     <FormLabel component="legend">What is included in your upload?</FormLabel>
-                                    <RadioGroup aria-label="included" name="included1" value={includedValue} onChange={handleIncludedChange}>
+                                    <RadioGroup aria-label="included" name="included1" value={ideaType} onChange={event=>setIdeaType(event.target.value)}>
                                         <FormControlLabel value="idea" control={<Radio />} label="Just an idea" />
                                         <FormControlLabel value="sketches" control={<Radio />} label="A few sketches" />
                                         <FormControlLabel value="drawings" control={<Radio />} label="Some detailed drawings" />
@@ -130,7 +152,7 @@ function getStepContent(step) {
                                 <Box display='flex'>
                                     <Box border={1}>
                                         <Box>
-                                            <Typography variant='h7' border={5}>Upload any publicly available files</Typography>
+                                            <Typography  border={5}>Upload any publicly available files</Typography>
                                         </Box>
                                         <DropzoneArea
                                         // dropzoneText={'Upload any publicly available files'}
@@ -144,7 +166,7 @@ function getStepContent(step) {
                                 <Box display='flex'>
                                     <Box border={1}>
                                         <Box>
-                                            <Typography variant='h7' border={5}>Upload any private files</Typography>
+                                            <Typography  border={5}>Upload any private files</Typography>
                                         </Box>
                                         <DropzoneArea
                                             // dropzoneText={'Upload any private files'}
@@ -172,6 +194,8 @@ function getStepContent(step) {
                                     helperText="ex.: $50,000"
                                     variant="outlined"
                                     type="number"
+                                    value={totalCost}
+                                    onChange={event=>setTotalCost(event.target.value)}
                                 />
                             </div>
                             {/* <div>
@@ -271,7 +295,9 @@ const GetStartedForm = (props) => {
                     </div>
                 ) : (
                         <div>
-                            <Typography className={classes.instructions}>{getStepContent(activeStep)}</Typography>
+                            {/* <Typography className={classes.instructions}> */}
+                                {getStepContent(activeStep,props)}
+                                {/* </Typography> */}
                             <div>
                                 <Button disabled={activeStep === 0} onClick={handleBack} className={classes.button}>
                                     Back
