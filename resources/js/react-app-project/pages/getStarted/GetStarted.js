@@ -11,6 +11,14 @@ import GetStartedForm from '../../components/getStartedForm/GetStartedForm';
 import axios from 'axios';
 
 const GetStarted = (props) => {
+    const [ideaName, setIdeaName] = React.useState('');
+    const [description, setDescription] = React.useState('');
+    const [productCategory, setProductCategory] = React.useState('clothing-accessories');
+    const [totalCost, setTotalCost] = React.useState('');
+    const [stockType, setStockType] = React.useState('');
+    const [ideaType, setIdeaType] = React.useState('idea');
+    const [publicFiles, setPublicFiles] = React.useState();
+    const [privateFiles, setPrivateFiles] = React.useState();
     useEffect(() => {
     }, []);
 
@@ -21,7 +29,7 @@ const GetStarted = (props) => {
             backgroundSize: 'cover',
             backgroundPosition: 'top-center',
             backgroundRepeat: 'no-repeat',
-            width: `calc(100vw + 40px)`,
+            // width: `calc(100vw + 40px)`,
             // width: "100%",
             // margin: 0,
             padding: 0,
@@ -37,48 +45,62 @@ const GetStarted = (props) => {
         <div>
             <NavBar loggedIn={props.loggedIn} handleLogout={props.handleLogout} roles={props.roles} />
             <div>
-                <Container style={{ margin: 0, padding: 0 }}>
 
-                    <Grid container spacing={0} direction="column" >{/*All page content */}
+                <Grid container spacing={0} direction="column" >{/*All page content */}
 
-                        {/*Top section */}
-                        <Grid item style={styles.topSectionBackground}>
-                            <Box m={4} alignItems='center' justifyContent='center'>
-                                <Grid item container xs={12} >
-                                    <Grid item xs={false} md={3}>
+                    {/*Top section */}
+                    <Grid item style={styles.topSectionBackground}>
+                        <Box m={4} alignItems='center' justifyContent='center'>
+                            <Grid item container xs={12} >
+                                <Grid item xs={false} md={3}>
 
-                                    </Grid>
-                                    <Grid item xs={12} md={6}>
-                                        <Typography variant='h2'>Share your idea with the world</Typography>
-                                        <Typography variant='h5'>Follow the quick steps below to get your idea onto Sckedio.</Typography>
-                                    </Grid>
+                                </Grid>
+                                <Grid item xs={12} md={6}>
+                                    <Typography variant='h2'>Share your idea with the world</Typography>
+                                    <Typography variant='h5'>Follow the quick steps below to get your idea onto Sckedio.</Typography>
+                                </Grid>
+                            </Grid>
+                        </Box>
+
+                    </Grid>
+
+                    {/* Bottom section */}
+                    <Grid item container>
+
+                        <Grid item xs={12} md={4}>
+                            <Box margin={5}>
+                                <Typography variant='h3'>Get your idea into the world!</Typography>
+                            </Box>
+                        </Grid>
+                        <Grid item xs={12} md={8}>
+                            <Box m={10}>
+                                <Grid item container>
+                                    <GetStartedForm 
+                                        ideaName={ideaName}
+                                        setIdeaName={setIdeaName}
+                                        description={description}
+                                        setDescription={setDescription}
+                                        productCategory={productCategory}
+                                        setProductCategory={setProductCategory}
+                                        totalCost={totalCost}
+                                        setTotalCost={setTotalCost}
+                                        stockType={stockType}
+                                        setStockType={setStockType}
+                                        ideaType={ideaType}
+                                        setIdeaType={setIdeaType}
+                                        publicFiles={publicFiles}
+                                        setPublicFiles={setPublicFiles}
+                                        privateFiles={privateFiles}
+                                        setPrivateFiles={setPrivateFiles}
+                                    />
                                 </Grid>
                             </Box>
 
                         </Grid>
 
-                        {/* Bottom section */}
-                        <Grid item container>
-
-                            <Grid item xs={12} md={4}>
-                                <Box margin={5}>
-                                    <Typography variant='h3'>Get your idea into the world!</Typography>
-                                </Box>
-                            </Grid>
-                            <Grid item xs={12} md={8}>
-                                <Box m={10}>
-                                    <Grid item container>
-                                        <GetStartedForm />
-                                    </Grid>
-                                </Box>
-
-                            </Grid>
-
-                        </Grid>
-
                     </Grid>
 
-                </Container>
+                </Grid>
 
             </div>
         </div>
