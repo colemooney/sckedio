@@ -5,7 +5,7 @@ namespace App\Http\Requests\Designer;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 
-class CreateRequest extends FormRequest
+class UpdateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -18,7 +18,6 @@ class CreateRequest extends FormRequest
         {
             return true;
         }
-
         return false;
     }
 
@@ -30,13 +29,10 @@ class CreateRequest extends FormRequest
     public function rules()
     {
         return [
-            'idea_name' => 'required|string',
-            'description' => 'required|string',
-            'category' => 'required|numeric',
-            'design_cost' => 'required|numeric',
-            'idea_type' => 'required|string',
-            'public_files.*' => 'file|image|mimes:docx,pdf,jpeg,jpg,png,gif|max:204800',
-            'private_files.*' => 'file|image|mimes:docx,pdf,jpeg,jpg,png,gif|max:204800',
+            'category_id' => 'nullable|numeric',
+            'description' => 'nullable|string',
+            'design_cost' => 'nullable|numeric',
+            'idea_type' => 'nullable|numeric',
         ];
     }
 }

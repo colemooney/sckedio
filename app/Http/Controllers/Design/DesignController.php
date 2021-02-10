@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Design;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Services\Design\DesignService;
 use App\Http\Requests\Designer\CreateRequest;
+use App\Http\Requests\Designer\UpdateRequest;
+use App\Http\Requests\Designer\UploadFileRequest;
 
 class DesignController extends Controller
 {
@@ -15,9 +17,17 @@ class DesignController extends Controller
         $this->designService = $service;
     }
 
-    public function show()
+    public function list()
     {
-        $status = $this->designService->handleShowDesign();
+        $status = $this->designService->handleList();
+        return response()->json([
+            'designs' => $status
+        ]);
+    }
+
+    public function show($id)
+    {
+        $status = $this->designService->handleShow($id);
         return $status;
     }
 
@@ -26,5 +36,16 @@ class DesignController extends Controller
         $status = $this->designService->handleCreateDesign($request);
         return $status;
     }
-}
 
+    public function uploadFiles($id, UploadFileRequest $request)
+    {
+        $status = $this->designService->handleUploadFile($id, $request);
+        return $status;
+    }
+
+    public function update($id, UpdateRequest $request)
+    {
+        $status = $this->designService->handleUpdate($id, $request);
+        return $status;
+    }
+}
