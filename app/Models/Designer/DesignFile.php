@@ -13,6 +13,14 @@ class DesignFile extends Model
     protected $fillable = [
         'file_route',
         'is_private',
+        'created_at',
+        'updated_at',
+    ];
+
+    protected $hidden = [
+        'id',
+        'design_id',
+        'is_private',
     ];
 
     public function design()
