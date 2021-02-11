@@ -21,6 +21,7 @@ const GetStarted = (props) => {
     const [publicFiles, setPublicFiles] = React.useState();
     const [privateFiles, setPrivateFiles] = React.useState();
     useEffect(() => {
+        console.log(publicFiles);
     }, []);
 
     const styles = {
@@ -43,17 +44,31 @@ const GetStarted = (props) => {
     }
 
     const handleSubmit = () => {
-        const submitObj = {
-            idea_name: ideaName,
-            category: parseInt(productCategory),
-            description: description,
-            design_cost: parseFloat(totalCost),
-            idea_type: parseInt(ideaType),
-            public_files: publicFiles,
-            private_files: privateFiles
-        };
+        const formData = new FormData();
+        formData.append('idea_name', ideaName);
+        formData.append('category', parseInt(productCategory));
+        formData.append('description', description);
+        formData.append('design_cost', parseFloat(totalCost));
+        // formData.append('idea_type', parseInt(ideaType));
+        formData.append('idea_type', ideaType);
+        formData.append('public_files', publicFiles);
+        formData.append('private_files', privateFiles);
 
-        console.log('type of cost: ' + typeof submitObj.design_cost);
+        for (let [key, value] of formData) {
+            console.log(key + ': ' + JSON.stringify(value));
+          }
+
+        // const submitObj = {
+        //     idea_name: ideaName,
+        //     category: parseInt(productCategory),
+        //     description: description,
+        //     design_cost: parseFloat(totalCost),
+        //     idea_type: parseInt(ideaType),
+        //     public_files: publicFiles,
+        //     private_files: privateFiles
+        // };
+
+        // console.log(JSON.stringify(submitObj));
         const jwToken = auth.getToken();
         const authAxios = axios.create({
             headers: {
@@ -61,7 +76,7 @@ const GetStarted = (props) => {
             }
         })
 
-        authAxios.post('/api/designer/create', submitObj)
+        authAxios.post('/api/designer/create', formData)
             .then (res => {
                 console.log(res);
             })

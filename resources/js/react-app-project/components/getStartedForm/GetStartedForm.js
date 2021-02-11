@@ -165,11 +165,21 @@ function getStepContent(step, props) {
                                         <Box>
                                             <Typography border={5}>Upload any publicly available files</Typography>
                                         </Box>
-                                        <DropzoneArea
+                                        <input 
+                                            type='file'
+                                            id='public-files'
+                                            name='public-files'
+                                            onChange={event=> {
+                                                setPublicFiles(event.target.files);
+                                            }}
+                                        />
+
+                                        {/* <DropzoneArea
                                             // dropzoneText={'Upload any publicly available files'}
                                             // onChange={(files) => console.log('Files:', files)}
                                             onChange={files => setPublicFiles(files)}
-                                        />
+                                            // onChange={event => setPublicFiles(event.target.files)}
+                                        /> */}
                                     </Box>
                                 </Box>
                             </div>
@@ -182,7 +192,7 @@ function getStepContent(step, props) {
                                         </Box>
                                         <DropzoneArea
                                             // dropzoneText={'Upload any private files'}
-                                            onChange={(files) => console.log('Files:', files)}
+                                            // onChange={(files) => console.log('Files:', files)}
                                             onChange={files => setPrivateFiles(files)}
                                         />
                                     </Box>
