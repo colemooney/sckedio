@@ -22,7 +22,8 @@ const GetStarted = (props) => {
     const [privateFiles, setPrivateFiles] = React.useState();
     useEffect(() => {
         console.log(publicFiles);
-    }, []);
+        console.log(privateFiles);
+    }, [publicFiles, privateFiles]);
 
     const styles = {
         topSectionBackground: {
@@ -51,28 +52,22 @@ const GetStarted = (props) => {
         formData.append('design_cost', parseFloat(totalCost));
         // formData.append('idea_type', parseInt(ideaType));
         formData.append('idea_type', ideaType);
-        formData.append('public_files', publicFiles);
-        formData.append('private_files', privateFiles);
+        if (publicFiles) {
+            formData.append('public_files', publicFiles[0]);
+        }
+        if (privateFiles) {
+            formData.append('private_files', privateFiles[0]);
+        }
 
-        for (let [key, value] of formData) {
-            console.log(key + ': ' + JSON.stringify(value));
-          }
+        // for (let [key, value] of formData) {
+        //     console.log(key + ': ' + JSON.stringify(value));
+        //   }
 
-        // const submitObj = {
-        //     idea_name: ideaName,
-        //     category: parseInt(productCategory),
-        //     description: description,
-        //     design_cost: parseFloat(totalCost),
-        //     idea_type: parseInt(ideaType),
-        //     public_files: publicFiles,
-        //     private_files: privateFiles
-        // };
-
-        // console.log(JSON.stringify(submitObj));
         const jwToken = auth.getToken();
         const authAxios = axios.create({
             headers: {
-                Authorization: `Bearer ${jwToken}`
+                Authorization: `Bearer ${jwToken}`,
+                'Content-Type': 'multipart/form-data' 
             }
         })
 
