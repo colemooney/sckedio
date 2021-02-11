@@ -26,6 +26,9 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 
 Route::get('users/', [ApiController::class, 'list']);
+Route::get('categories', [ApiController::class, 'getCategories']);
+Route::get('idea-types', [ApiController::class, 'getIdeaTypes']);
+Route::get('stock-types', [ApiController::class, 'getStockTypes']);
 
 Route::group([
     'prefix'=> 'auth'
@@ -66,7 +69,10 @@ Route::group([
         'middleware' => 'auth:api'
     ], function() {
         Route::post('create', [DesignController::class, 'create']);
-        Route::get('show', [DesignController::class, 'show']);
+        Route::get('show', [DesignController::class, 'list']);
+        Route::get('show/{id}', [DesignController::class, 'show']);
+        Route::post('upload/file/{id}', [DesignController::class, 'uploadFiles']);
+        Route::put('update/{id}', [DesignController::class, 'update']);
     });
 });
 

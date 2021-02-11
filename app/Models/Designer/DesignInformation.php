@@ -14,10 +14,11 @@ class DesignInformation extends Model
     protected $fillable = [
         'design_id',
         'description',
-        'category',
+        'category_id',
         'design_cost',
-        'stock_type_id',
         'idea_type_id',
+        'created_at',
+        'updated_at',
     ];
 
     public function design()
@@ -30,8 +31,4 @@ class DesignInformation extends Model
         return $this->hasOne(IdeaType::class);
     }
 
-    public function stockType()
-    {
-        return $this->hasOne(StockType::class);
-    }
 }

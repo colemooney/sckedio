@@ -16,6 +16,8 @@ class Design extends Model
     protected $fillable = [
         'owner_id',
         'idea_name',
+        'created_at',
+        'updated_at',
     ];
 
     public function user()

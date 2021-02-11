@@ -25,10 +25,14 @@ class LookUpSeeder extends Seeder
         // File classification values
 
         // Category values
-        Category::create(['category' => 'Fashion']);
-        Category::create(['category' => 'Art']);
+        Category::create(['category' => 'Clothing/Accessories']);
+        Category::create(['category' => 'Toys/Games']);
         Category::create(['category' => 'Technology']);
-        Category::create(['category' => 'Toy']);
+        Category::create(['category' => 'Transport']);
+        Category::create(['category' => 'Furniture/Interior Design']);
+        Category::create(['category' => 'Art']);
+        Category::create(['category' => 'Home Goods']);
+        Category::create(['category' => 'Everyday Use']);
         Category::create(['category' => 'Other']);
     }
 }
