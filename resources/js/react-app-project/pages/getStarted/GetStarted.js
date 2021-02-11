@@ -8,15 +8,16 @@ import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
 import Button from '@material-ui/core/Button';
 import GetStartedForm from '../../components/getStartedForm/GetStartedForm';
+import auth from '../../auth';
 import axios from 'axios';
 
 const GetStarted = (props) => {
     const [ideaName, setIdeaName] = React.useState('');
     const [description, setDescription] = React.useState('');
-    const [productCategory, setProductCategory] = React.useState('clothing-accessories');
+    const [productCategory, setProductCategory] = React.useState('1');
     const [totalCost, setTotalCost] = React.useState('');
     const [stockType, setStockType] = React.useState('');
-    const [ideaType, setIdeaType] = React.useState('idea');
+    const [ideaType, setIdeaType] = React.useState('1');
     const [publicFiles, setPublicFiles] = React.useState();
     const [privateFiles, setPrivateFiles] = React.useState();
     useEffect(() => {
@@ -40,6 +41,34 @@ const GetStarted = (props) => {
             color: 'white'
         }
     }
+
+    const handleSubmit = () => {
+        const submitObj = {
+            idea_name: ideaName,
+            category: parseInt(productCategory),
+            description: description,
+            design_cost: parseFloat(totalCost),
+            idea_type: parseInt(ideaType),
+            public_files: publicFiles,
+            private_files: privateFiles
+        };
+
+        console.log('type of cost: ' + typeof submitObj.design_cost);
+        const jwToken = auth.getToken();
+        const authAxios = axios.create({
+            headers: {
+                Authorization: `Bearer ${jwToken}`
+            }
+        })
+
+        authAxios.post('/api/designer/create', submitObj)
+            .then (res => {
+                console.log(res);
+            })
+            .catch(err => {
+                console.log(err);
+            });
+    };
 
     return (
         <div>
@@ -92,6 +121,7 @@ const GetStarted = (props) => {
                                         setPublicFiles={setPublicFiles}
                                         privateFiles={privateFiles}
                                         setPrivateFiles={setPrivateFiles}
+                                        handleSubmit={handleSubmit}
                                     />
                                 </Grid>
                             </Box>
