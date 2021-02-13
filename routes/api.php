@@ -65,6 +65,7 @@ Route::group([
 Route::group([
     'prefix' => 'designer'
 ], function() {
+    Route::get('list', [DesignController::class, 'listAllDesigns']);
     Route::group([
         'middleware' => 'auth:api'
     ], function() {

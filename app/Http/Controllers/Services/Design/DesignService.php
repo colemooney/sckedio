@@ -21,10 +21,38 @@ class DesignService
         return Auth::user();
     }
 
+    public function handleListAllDesigns()
+    {
+        $designs = Design::all();
+        
+        // foreach($designs as $design)
+        // {
+        //     $design->design_information;
+        // }
+
+        foreach($designs as $design)
+        {
+            $designFiles = $this->getPublicFiles($design);
+        }
+
+
+        return response()->json([
+            'designs' => $designs,
+            'public_files' => $designFiles,
+        ], 200);
+    }
+
+
+
     public function handleList()
     {
-        $authenticatedUserDesign = $this->getAuthenticatedUser()->design;
-        return $authenticatedUserDesign;
+        $authenticatedUserDesigns = $this->getAuthenticatedUser()->design;
+        $designInformation = $this->getDesignInformation($authenticatedUserDesigns);
+        $publicFiles = $this->getPublicFiles($designInformation);
+
+        return response()->json([
+            'idea_name' => $authenticatedUserDesigns->idea_name,
+        ], 200);
     }
 
     public function handleShow($id)
