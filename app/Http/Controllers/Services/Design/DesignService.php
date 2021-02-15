@@ -31,7 +31,6 @@ class DesignService
             $publicFiles = $this->getPublicFiles($design);
         }
 
-        $publicFiles = $publicFiles->where('is_private', '0');
         return response()->json([
             'designs' => $designs,
             'design_information' => $designInformation,
