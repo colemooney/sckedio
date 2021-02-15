@@ -17,6 +17,12 @@ class DesignController extends Controller
         $this->designService = $service;
     }
 
+    public function listAllDesigns()
+    {
+        $status = $this->designService->handleListAllDesigns();
+        return $status;
+    }
+
     public function list()
     {
         $status = $this->designService->handleList();
@@ -33,6 +39,7 @@ class DesignController extends Controller
 
     public function create(CreateRequest $request)
     {
+        // return $request->allFiles('public_files');
         $status = $this->designService->handleCreateDesign($request);
         return $status;
     }
