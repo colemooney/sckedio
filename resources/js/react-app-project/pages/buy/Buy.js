@@ -6,12 +6,15 @@ import NavBar from '../../components/navBar/NavBar';
 import DesignCard from '../../components/designCard/DesignCard';
 import Typography from '@material-ui/core/Typography';
 import fakeProducts from './fakeProducts';
+import axios from 'axios';
 
 const Buy = (props) => {
 
-    // useEffect(()=>{
-    //     const fakeProducts = fakeProducts;
-    // });
+    useEffect(()=>{
+        axios.get('/api/designer/list')
+        .then(res=>console.log(res))
+        .catch(err=>console.log(err));
+    });
 
     return (
         <div>

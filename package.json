@@ -30,6 +30,7 @@
         "@material-ui/lab": "^4.0.0-alpha.57",
         "jsonwebtoken": "^8.5.1",
         "material-ui-dropzone": "^3.5.0",
-        "react-router-dom": "^5.2.0"
+        "react-router-dom": "^5.2.0",
+        "react-visibility-sensor": "^5.1.1"
     }
 }
