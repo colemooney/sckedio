@@ -38,8 +38,6 @@ class DesignService
         ], 200);
     }
 
-
-
     public function handleList()
     {
         $authenticatedUserDesigns = $this->getAuthenticatedUser()->design;
@@ -161,7 +159,7 @@ class DesignService
 
     protected function storePrivateFiles(object $request, object $authenticatedUser, object $design,string $idea_name)
     {
-        $private_files = $request->file('private_files');
+        $private_files = $request->allFiles('private_files');
         $modified_idea_name = strtolower(str_replace(' ', '_', $idea_name));
         $image_directory = "images/".$authenticatedUser->username."/".$modified_idea_name."/"."private";
 
