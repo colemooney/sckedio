@@ -23,8 +23,6 @@ class CreateDesignsInformationsTable extends Migration
             $table->foreignId('idea_type_id')->before('created_at');
             $table->foreign('idea_type_id')->references('id')->on('idea_types');
             $table->decimal('design_cost', 10, 2);
-            $table->foreignId('idea_type_id')->before('created_at');
-            $table->foreign('idea_type_id')->references('id')->on('idea_types');
             $table->timestamps();
         });
     }
