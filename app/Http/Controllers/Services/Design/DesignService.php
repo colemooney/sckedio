@@ -24,17 +24,24 @@ class DesignService
     public function handleListAllDesigns()
     {
         $designs = Design::all();
-
         foreach($designs as $design)
         {
-            $designInformation = $this->getDesignInformation($design);
+            $this->getDesignInformation($design);
             $publicFiles = $this->getPublicFiles($design);
+            
+            if($publicFiles->isNotEmpty())
+            {
+                foreach($publicFiles as $publicFile)
+                {
+                    $design->push([
+                        'file_route' => $publicFile->file_route
+                        ]);
+                }
+            }
         }
 
         return response()->json([
             'designs' => $designs,
-            'design_information' => $designInformation,
-            'public_files' => $publicFiles,
         ], 200);
     }
 
