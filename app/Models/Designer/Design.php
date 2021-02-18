@@ -27,9 +27,14 @@ class Design extends Model
         return $this->belongsTo(User::class, 'owner_id');
     }
 
-    public function design_files()
+    public function public_files()
     {
         return $this->hasMany(DesignFile::class, 'design_id')->where('is_private', 0);
+    }
+
+    public function private_files()
+    {
+        return $this->hasMany(DesignFile::class, 'design_id')->where('is_private', 1);
     }
 
     public function design_information()

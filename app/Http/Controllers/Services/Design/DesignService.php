@@ -59,7 +59,8 @@ class DesignService
     public function handleShow($id)
     {
         $authenticatedUser = $this->getAuthenticatedUser();
-        $design = Design::where('id', $id)->where('owner_id', $authenticatedUser->id)->first();
+        // $design = Design::where('id', $id)->where('owner_id', $authenticatedUser->id)->first();
+        $design = $authenticatedUser->design->where('id', $id)->first();
         
         if(empty($design))
         {
@@ -69,11 +70,13 @@ class DesignService
         }
         $designInformation = $this->getDesignInformation($design);
         $publicFiles = $this->getPublicFiles($design);
+        $privateFiles = $this->getPrivateFiles($design);
 
         return response()->json([
             'idea_name' => $design->idea_name,
             'design_information' => $designInformation,
-            'public_files' => $publicFiles
+            'public_files' => $publicFiles,
+            'private_files' => $privateFiles
         ], 200);
     }
     
@@ -204,20 +207,19 @@ class DesignService
 
     protected function getPublicFiles(object $design)
     {
-        $publicFiles = $design->design_files->where('is_private', '0');
+        $publicFiles = $design->public_files;
         return $publicFiles;
     }
 
     protected function getPrivateFiles(object $design)
     {
-        $privateFiles = $design->design_files->where('is_private', '1');
+        $privateFiles = $design->private_files;
         return $privateFiles;
     }
 
     protected function getDesignInformation(object $design)
     {
         $designInformation = $design->design_information;
-
         return $designInformation;
     }
 }
