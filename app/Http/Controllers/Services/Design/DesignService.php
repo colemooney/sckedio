@@ -182,7 +182,7 @@ class DesignService
     protected function uploadPublicFiles(string $filename, string $image_directory, object $design)
     {
         $designFile = new DesignFile([
-                    'file_route' => config('app.url').$image_directory,
+                    'file_route' => $image_directory,
                     'is_private' => 0,
                 ]);
         $this->saveDesign($designFile, $design);
@@ -191,7 +191,7 @@ class DesignService
     protected function uploadPrivateFiles(string $filename, string $image_directory, object $design)
     {
         $designFile = new DesignFile([
-                    'file_route' => config('app.url').$image_directory,
+                    'file_route' => $image_directory,
                     'is_private' => 1,
                 ]);
         $this->saveDesign($designFile, $design);
