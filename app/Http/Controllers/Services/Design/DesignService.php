@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Storage;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Designer\CreateRequest;
 use App\Models\Designer\Design;
+use App\Models\User;
 use App\Models\Designer\DesignInformation;
 use App\Models\Designer\IdeaType;
 use App\Models\Designer\DesignFile;
@@ -23,25 +24,20 @@ class DesignService
 
     public function handleListAllDesigns()
     {
-        $designs = Design::all();
-        foreach($designs as $design)
+        // $designs = Design::all();
+        $users = User::all();
+
+        foreach($users as $user)
         {
-            $this->getDesignInformation($design);
-            $publicFiles = $this->getPublicFiles($design);
-            
-            if($publicFiles->isNotEmpty())
+            $designs = $user->design->all();
+            foreach($designs as $design)
             {
-                foreach($publicFiles as $publicFile)
-                {
-                    $design->push([
-                        'file_route' => $publicFile->file_route
-                        ]);
-                }
+                $this->getDesignInformation($design);
+                $this->getPublicFiles($design);
             }
         }
-
         return response()->json([
-            'designs' => $designs,
+            'designs' => $users,
         ], 200);
     }
 
