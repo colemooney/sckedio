@@ -137,7 +137,7 @@ class DesignService
         // Design Upload
         if(!empty($request['public_files']))
         {
-            $this->storePublicFiles($request, $authenticatedUser, $design, $request->idea_name);
+           $status = $this->storePublicFiles($request, $authenticatedUser, $design, $request->idea_name);
         }
 
         if(!empty($request['private_files']))
@@ -146,7 +146,7 @@ class DesignService
         }
 
         return response()->json([
-            'message' => 'Successfully uploaded design!'
+            'message' => 'Successful!'
         ], 200);
     }
 
@@ -154,12 +154,13 @@ class DesignService
     {
         $public_files = $request->allFiles('public_files');
         $modified_idea_name = strtolower(str_replace(' ', '_', $idea_name));
-        $image_directory = "images/".$authenticatedUser->username."/".$modified_idea_name."/"."public";
+        $image_directory = "public/".$authenticatedUser->username."/".$modified_idea_name."/"."public";
         foreach($public_files as $public_file)
             {
                 $filename = $public_file->getClientOriginalName();
-                $this->uploadPublicFiles($filename, $image_directory, $design);
                 Storage::putFileAs($image_directory, $public_file, $filename);
+                $image_temp = Storage::url("public/".$authenticatedUser->username."/".$modified_idea_name."/public/".$filename);
+                $this->uploadPublicFiles($filename, $image_temp, $design);
             }
     }
 
@@ -167,20 +168,21 @@ class DesignService
     {
         $private_files = $request->allFiles('private_files');
         $modified_idea_name = strtolower(str_replace(' ', '_', $idea_name));
-        $image_directory = "images/".$authenticatedUser->username."/".$modified_idea_name."/"."private";
+        $image_directory = "public/".$authenticatedUser->username."/".$modified_idea_name."/"."private";
 
         foreach($private_files as $private_file)
         {
             $filename = $private_file->getClientOriginalName();
-            $this->uploadPrivateFiles($filename, $image_directory, $design);
             Storage::putFileAs($image_directory, $private_file, $filename);
+            $image_temp = Storage::url("public/".$authenticatedUser->username."/".$modified_idea_name."/private/".$filename);
+            $this->uploadPrivateFiles($filename, $image_temp, $design);
         }
     }
 
     protected function uploadPublicFiles(string $filename, string $image_directory, object $design)
     {
         $designFile = new DesignFile([
-                    'file_route' => $image_directory."/".$filename,
+                    'file_route' => config('app.url').$image_directory,
                     'is_private' => 0,
                 ]);
         $this->saveDesign($designFile, $design);
@@ -189,7 +191,7 @@ class DesignService
     protected function uploadPrivateFiles(string $filename, string $image_directory, object $design)
     {
         $designFile = new DesignFile([
-                    'file_route' => $image_directory."/".$filename,
+                    'file_route' => config('app.url').$image_directory,
                     'is_private' => 1,
                 ]);
         $this->saveDesign($designFile, $design);
