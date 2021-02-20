@@ -47,7 +47,9 @@ class DesignService
                     ->join('designs', 'users.id', '=', 'owner_id')
                     ->join('designs_information', 'designs.id', '=', 'design_id')
                     ->join('design_files', 'designs.id', '=', 'design_files.design_id')->where('is_private', 0)
-                    ->select('users.username', 
+                    ->select(
+                    'users.id as user_id',
+                    'users.username', 
                     'designs.id as design_id',
                     'designs.idea_name',
                     'designs.created_at', 
@@ -57,6 +59,7 @@ class DesignService
                     'designs_information.idea_type_id',
                     DB::raw('group_concat(design_files.file_route) as images'))
                     ->groupBy(
+                    'users.id',
                     'users.username', 
                     'designs.id',
                     'designs.idea_name',
