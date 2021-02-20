@@ -72,7 +72,9 @@ class DesignService
             $user->images = explode(',', $user->images);
         }
         
-        return $users;
+        return response()->json([
+            'designs' => $users
+        ], 200);
                                 
     }
 
