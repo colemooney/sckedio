@@ -21,6 +21,14 @@ class DesignInformation extends Model
         'updated_at',
     ];
 
+    protected $visible = [
+        'design_id',
+        'description',
+        'category_id',
+        'design_cost',
+        'idea_type_id',
+    ];
+
     public function design()
     {
         return $this->belongsTo(Design::class);

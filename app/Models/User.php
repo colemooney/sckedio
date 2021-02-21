@@ -10,7 +10,7 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Passport\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
 use App\Models\Designer\Design;
-
+use App\Models\BuyerQueue;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
@@ -35,7 +35,7 @@ class User extends Authenticatable implements MustVerifyEmail
     protected $hidden = [
         'password',
         'remember_token',
-        'id',
+        // 'id',
         'role',
         'email_verified_at',
         'created_at',
@@ -70,6 +70,11 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->where('username', $username)->first();
     }
 
+    public function buyer_queue()
+    {
+        return $this->hasMany(BuyerQueue::class, 'buyer_id');
+    }
+    
     // public function getRoleNamesAttribute()
     // {
     //     return $this->roles->pluck('name');

@@ -17,10 +17,13 @@ class DesignFile extends Model
         'updated_at',
     ];
 
-    protected $hidden = [
-        'id',
-        'design_id',
+    protected $visible = [
+        'file_route',
         'is_private',
+    ];
+
+    protected $hidden = [
+        'id'
     ];
 
     public function design()

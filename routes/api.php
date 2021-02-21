@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Design\DesignController;
+use App\Http\Controllers\Buyer\BuyerController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ApiController;
 use App\Http\Controllers\PasswordController;
@@ -66,6 +67,8 @@ Route::group([
     'prefix' => 'designer'
 ], function() {
     Route::get('list', [DesignController::class, 'listAllDesigns']);
+    Route::get('show-design/{id}', [DesignController::class, 'showDesign']);
+    
     Route::group([
         'middleware' => 'auth:api'
     ], function() {
@@ -74,6 +77,16 @@ Route::group([
         Route::get('show/{id}', [DesignController::class, 'show']);
         Route::post('upload/file/{id}', [DesignController::class, 'uploadFiles']);
         Route::put('update/{id}', [DesignController::class, 'update']);
+    });
+});
+
+Route::group([
+    'prefix' => 'buyer'
+], function() {
+    Route::group([
+        'middleware' => 'auth:api'
+    ], function() {
+        Route::post('create/{id}', [BuyerController::class, 'create']);
     });
 });
 

@@ -25,24 +25,6 @@ class DesignService
 
     public function handleListAllDesigns()
     {
-        $authenticatedUser = $this->getAuthenticatedUser();
-        // $designs = Design::all();
-        $users = User::all();
-
-        // foreach($users as $user)
-        // {
-        //     $designs = $user->design->all();
-        //     foreach($designs as $design)
-        //     {
-        //         $this->getDesignInformation($design);
-        //         $this->getPublicFiles($design);
-        //     }
-        // }
-        // return response()->json([
-        //     'designs' => $users,
-
-        // ], 200);
-
         $users = DB::table('users')
                     ->join('designs', 'users.id', '=', 'owner_id')
                     ->join('designs_information', 'designs.id', '=', 'design_id')
@@ -79,6 +61,46 @@ class DesignService
             'designs' => $users
         ], 200);
                                 
+    }
+
+    public function handleShowDesign($id)
+    {
+        $designs = DB::table('designs')
+        ->where('designs.id', $id)
+        ->join('users', 'users.id', '=', 'owner_id')
+        ->join('designs_information', 'designs.id', '=', 'design_id')
+        ->join('design_files', 'designs.id', '=', 'design_files.design_id')->where('is_private', 0)
+        ->select(
+        'users.id as user_id',
+        'users.username', 
+        'designs.id as design_id',
+        'designs.idea_name',
+        'designs.created_at', 
+        'designs_information.description', 
+        'designs_information.design_cost',
+        'designs_information.category_id',
+        'designs_information.idea_type_id',
+        DB::raw('group_concat(design_files.file_route) as images'))
+        ->groupBy(
+        'users.id',
+        'users.username', 
+        'designs.id',
+        'designs.idea_name',
+        'designs.created_at', 
+        'designs_information.description', 
+        'designs_information.design_cost',
+        'designs_information.category_id',
+        'designs_information.idea_type_id',)
+        ->get();
+
+        foreach($designs as $design)
+        {
+            $design->images = explode(',', $design->images);
+        }
+
+        return response()->json([
+            'design' => $design,
+        ]);
     }
 
     public function handleList()
