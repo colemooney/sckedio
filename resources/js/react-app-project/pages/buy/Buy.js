@@ -9,12 +9,16 @@ import fakeProducts from './fakeProducts';
 import axios from 'axios';
 
 const Buy = (props) => {
+    const [productArray, setProductArray] = React.useState([]);
 
     useEffect(()=>{
         axios.get('/api/designer/list')
-        .then(res=>console.log(res))
+        .then(res=>{
+            console.log(res);
+            setProductArray(res.data.designs);
+        })
         .catch(err=>console.log(err));
-    });
+    },[]);
 
     return (
         <div>
@@ -24,7 +28,14 @@ const Buy = (props) => {
                     <Typography variant='h2'>Shop</Typography>
                 </Box>
                 <Grid container spacing={3}>
-                    {fakeProducts.map((product, i) => (
+                    {/* {fakeProducts.map((product, i) => (
+                        <Grid item xs={12} sm={6} md={4} lg={3} key={i} align='center'>
+                            <DesignCard
+                                product={product}
+                            />
+                        </Grid>
+                    ))} */}
+                    {productArray.map((product,i) => (
                         <Grid item xs={12} sm={6} md={4} lg={3} key={i} align='center'>
                             <DesignCard
                                 product={product}
