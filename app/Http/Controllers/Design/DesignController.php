@@ -23,6 +23,12 @@ class DesignController extends Controller
         return $status;
     }
 
+    public function showDesign($id)
+    {
+        $status = $this->designService->handleShowDesign($id);
+        return $status;
+    }
+
     public function list()
     {
         $status = $this->designService->handleList();
