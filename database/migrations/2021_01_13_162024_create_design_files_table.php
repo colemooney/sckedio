@@ -16,7 +16,7 @@ class CreateDesignFilesTable extends Migration
         Schema::create('design_files', function (Blueprint $table) {
             $table->id();
             $table->foreignId('design_id');
-            $table->foreign('design_id')->references('id')->on('designs')->onDelete('cascade');
+            $table->foreign('design_id')->references('id')->on('designs');
             $table->boolean('is_private');
             $table->string('file_route');
             $table->timestamps();
