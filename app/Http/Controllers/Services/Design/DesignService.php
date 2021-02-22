@@ -214,7 +214,7 @@ class DesignService
 
     protected function storePublicFiles(object $request, object $authenticatedUser, object $design, string $idea_name)
     {
-        $public_files = $request->allFiles('public_files');
+        $public_files = $request->file('public_files');
         $modified_idea_name = strtolower(str_replace(' ', '_', $idea_name));
         $image_directory = "public/".$authenticatedUser->username."/".$modified_idea_name."/"."public";
         foreach($public_files as $public_file)
@@ -228,7 +228,7 @@ class DesignService
 
     protected function storePrivateFiles(object $request, object $authenticatedUser, object $design,string $idea_name)
     {
-        $private_files = $request->allFiles('private_files');
+        $private_files = $request->file('private_files');
         $modified_idea_name = strtolower(str_replace(' ', '_', $idea_name));
         $image_directory = "public/".$authenticatedUser->username."/".$modified_idea_name."/"."private";
 
