@@ -18,10 +18,11 @@ const GetStarted = (props) => {
     const [totalCost, setTotalCost] = React.useState('');
     const [stockType, setStockType] = React.useState('');
     const [ideaType, setIdeaType] = React.useState('1');
-    const [publicFiles, setPublicFiles] = React.useState();
-    const [privateFiles, setPrivateFiles] = React.useState();
+    const [publicFiles, setPublicFiles] = React.useState({});
+    const [privateFiles, setPrivateFiles] = React.useState({});
     useEffect(() => {
-        console.log(publicFiles);
+        console.log('public: ' + publicFiles);
+        // console.log(Object.keys(publicFiles).length === 0);
         console.log(privateFiles);
     }, [publicFiles, privateFiles]);
 
@@ -52,16 +53,17 @@ const GetStarted = (props) => {
         formData.append('design_cost', parseFloat(totalCost));
         // formData.append('idea_type', parseInt(ideaType));
         formData.append('idea_type', ideaType);
-        if (publicFiles) {
-            formData.append('public_files', publicFiles[0]);
-        }
-        if (privateFiles) {
-            formData.append('private_files', privateFiles[0]);
-        }
+        if (Object.keys(publicFiles).length !== 0) {
+            formData.append('public_files[]', publicFiles[0]);
+            console.log('public');
+        } 
 
-        // for (let [key, value] of formData) {
-        //     console.log(key + ': ' + JSON.stringify(value));
-        //   }
+        if (Object.keys(privateFiles).length !== 0) {
+            formData.append('private_files[]', privateFiles[0]);
+            console.log('private');
+        } 
+
+        console.log(formData);
 
         const jwToken = auth.getToken();
         const authAxios = axios.create({
