@@ -54,13 +54,13 @@ const GetStarted = (props) => {
         // formData.append('idea_type', parseInt(ideaType));
         formData.append('idea_type', ideaType);
         if (Object.keys(publicFiles).length !== 0) {
-            formData.append('public_files[]', publicFiles);
-            // console.log('public');
+            formData.append('public_files[]', publicFiles[0]);
+            console.log('public');
         } 
 
         if (Object.keys(privateFiles).length !== 0) {
-            formData.append('private_files[]', privateFiles);
-            // console.log('private');
+            formData.append('private_files[]', privateFiles[0]);
+            console.log('private');
         } 
 
         console.log(formData);
