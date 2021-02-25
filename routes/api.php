@@ -86,7 +86,7 @@ Route::group([
     Route::group([
         'middleware' => 'auth:api'
     ], function() {
-        Route::post('create/{id}', [BuyerController::class, 'create']);
+        Route::get('create/{id}', [BuyerController::class, 'create']);
     });
 });
 

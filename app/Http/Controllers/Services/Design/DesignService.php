@@ -55,6 +55,7 @@ class DesignService
         foreach($users as $user)
         {
             $user->images = explode(',', $user->images);
+            $user->interests = DB::table('buyer_queue')->where('design_id', $user->design_id)->count();
         }
         
         return response()->json([
@@ -96,6 +97,7 @@ class DesignService
         foreach($designs as $design)
         {
             $design->images = explode(',', $design->images);
+            $design->interests = DB::table('buyer_queue')->where('design_id', $design->design_id)->count();
         }
 
         return response()->json([
