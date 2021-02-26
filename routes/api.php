@@ -70,7 +70,7 @@ Route::group([
     Route::get('show-design/{id}', [DesignController::class, 'showDesign']);
     
     Route::group([
-        'middleware' => 'auth:api'
+        'middleware' => 'auth:api', 'prefix' => 'auth'
     ], function() {
         Route::post('create', [DesignController::class, 'create']);
         Route::get('show', [DesignController::class, 'list']);
@@ -86,7 +86,7 @@ Route::group([
     Route::group([
         'middleware' => 'auth:api'
     ], function() {
-        Route::get('create/{id}', [BuyerController::class, 'create']);
+        Route::post('create/{id}', [BuyerController::class, 'create']);
     });
 });
 
