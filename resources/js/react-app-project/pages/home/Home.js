@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import NavBar from '../../components/navBar/NavBar';
+import Footer from '../../components/footer/Footer';
 import AddIcon from '@material-ui/icons/Add';
 import Box from '@material-ui/core/Box';
 import Fade from '@material-ui/core/Fade';
@@ -18,18 +19,28 @@ import workImage from '../../../../assets/work.jpg';
 import whiteboard from '../../../../assets/whiteboard4.jpg'
 import lightbulbImage from '../../../../assets/lightbulb2.jpg'
 
+
 const useStyles = makeStyles((theme) => ({
     circleGrid: {
-        width: 80,
-        height: 80
+        fontSize: 80,
+        [theme.breakpoints.down('xs')]: {
+            fontSize: 40,
+        },
+    },
+    stepGridIcon: {
+        [theme.breakpoints.down('xs')]: {
+            width: 50,
+            height: 50
+        },
     },
     root: {
         marginTop: theme.spacing(3)
     },
     stepGrid: {
         marginTop: 100,
-        marginBottom: 100
+        marginBottom: 100,
     },
+
     topSectionBackground: {
         height: 450,
         width: '100%',
@@ -39,6 +50,30 @@ const useStyles = makeStyles((theme) => ({
         backgroundRepeat: 'no-repeat',
         padding: 0,
         color: 'white'
+    },
+    stepGridText: {
+        [theme.breakpoints.down('xs')]: {
+            fontSize: 18,
+        },
+    },
+    forms: {
+        direction: 'column',
+        [theme.breakpoints.up('xs')]: {
+            direction: 'row'
+        },
+    },
+    formSubtitle: {
+        [theme.breakpoints.down('xs')]: {
+            marginBottom: theme.spacing(2),
+            marginTop: theme.spacing(2),
+            fontSize: 16,
+        },
+    },
+    subscribe: {
+        marginBottom: theme.spacing(2),
+        [theme.breakpoints.down('xs')]: {
+            marginBottom: theme.spacing(4),
+        },
     }
 }))
 
@@ -90,12 +125,12 @@ const Home = (props) => {
                                 <Fade in={stepOneActive} timeout={500}>
                                     <Grid item container xs={12} className={classes.stepGrid}>
                                         <Grid item container xs={4} align='center' >
-                                            <Box borderRadius='50%' border={1} height={80} width={80} display='flex' alignItems='center' justifyContent='center'>
+                                            <Box borderRadius='50%' border={1} height={80} width={80} display='flex' alignItems='center' justifyContent='center' className={classes.stepGridIcon}>
                                                 <AddIcon className={classes.circleGrid} />
                                             </Box>
                                         </Grid>
                                         <Grid item container xs={8} alignItems='center'>
-                                            <Typography variant='h4'>Step 1: Create the idea of your dreams!</Typography>
+                                            <Typography variant='h4' className={classes.stepGridText}>Step 1: Create the idea of your dreams!</Typography>
                                         </Grid>
                                     </Grid>
                                 </Fade>
@@ -105,12 +140,12 @@ const Home = (props) => {
                                 <Fade in={stepTwoActive} timeout={500}>
                                     <Grid item container xs={12} className={classes.stepGrid}>
                                         <Grid item container xs={4} align='center' >
-                                            <Box borderRadius='50%' border={1} height={80} width={80} display='flex' alignItems='center' justifyContent='center'>
+                                            <Box borderRadius='50%' border={1} height={80} width={80} display='flex' alignItems='center' justifyContent='center' className={classes.stepGridIcon}>
                                                 <AddIcon className={classes.circleGrid} />
                                             </Box>
                                         </Grid>
                                         <Grid item container xs={8} alignItems='center'>
-                                            <Typography variant='h4'>Step 2: Upload your design to Sckedio! Include images, plans, or just an idea!</Typography>
+                                            <Typography variant='h4' className={classes.stepGridText}>Step 2: Upload your design to Sckedio! Include images, plans, or just an idea!</Typography>
                                         </Grid>
                                     </Grid>
                                 </Fade>
@@ -120,12 +155,12 @@ const Home = (props) => {
                                 <Fade in={stepThreeActive} timeout={500}>
                                     <Grid item container xs={12} className={classes.stepGrid}>
                                         <Grid item container xs={4} align='center' >
-                                            <Box borderRadius='50%' border={1} height={80} width={80} display='flex' alignItems='center' justifyContent='center'>
+                                            <Box borderRadius='50%' border={1} height={80} width={80} display='flex' alignItems='center' justifyContent='center' className={classes.stepGridIcon}>
                                                 <AddIcon className={classes.circleGrid} />
                                             </Box>
                                         </Grid>
-                                        <Grid item container xs={8} alignItems='center'>
-                                            <Typography variant='h4'>Step 3: Manufactors find design and put in bids.</Typography>
+                                        <Grid item container xs={8} alignItems='center' >
+                                            <Typography variant='h4' className={classes.stepGridText} >Step 3: Manufactors find design and put in bids.</Typography>
                                         </Grid>
                                     </Grid>
                                 </Fade>
@@ -135,12 +170,12 @@ const Home = (props) => {
                                 <Fade in={stepFourActive}>
                                     <Grid item container xs={12} className={classes.stepGrid}>
                                         <Grid item container xs={4} align='center' >
-                                            <Box borderRadius='50%' border={1} height={80} width={80} display='flex' alignItems='center' justifyContent='center'>
+                                            <Box borderRadius='50%' border={1} height={80} width={80} display='flex' alignItems='center' justifyContent='center' className={classes.stepGridIcon}>
                                                 <AddIcon className={classes.circleGrid} />
                                             </Box>
                                         </Grid>
                                         <Grid item container xs={8} alignItems='center'>
-                                            <Typography variant='h4'>Step 4: Buyers find products they like and denote their interest in them.</Typography>
+                                            <Typography variant='h4' className={classes.stepGridText}>Step 4: Buyers find products they like and denote their interest in them.</Typography>
                                         </Grid>
                                     </Grid>
                                 </Fade>
@@ -152,28 +187,27 @@ const Home = (props) => {
                                 <img src={artisanImage} width='100%' />
                             </Grid>
                             <Grid item container xs={12} sm={6} md={7} justify='space-around'>
-                                <Typography variant='h4' align='center'>Stay tuned in</Typography>
-                                <Typography variant='h5' align='center'>Sckedio embraces the spirit of innovation, so make sure to keep up to date on our big changes</Typography>
-                                <Grid item container xs={12} spacing={1} align='center'>
-                                    <Grid item xs={4} sm={12} md={4}>
+                                <Typography variant='h4' align='center' gutter="true">Stay tuned in</Typography>
+                                <Typography variant='h5' align='center' gutter="true" className={classes.formSubtitle}>Sckedio embraces the spirit of innovation, so make sure to keep up to date on our big changes</Typography>
+                                <Grid item container xs={12} spacing={1} align='center' className="forms">
+                                    <Grid item xs={12} sm={12} md={4}>
                                         <TextField id="form-name" label="Name" variant="outlined" size='small' />
                                     </Grid>
 
-                                    <Grid item xs={4} sm={12} md={4}>
+                                    <Grid item xs={12} sm={12} md={4}>
                                         <TextField id="form-email" label="Email" variant="outlined" size='small' />
                                     </Grid>
 
-                                    <Grid item xs={4} sm={12} md={4}>
-                                        <Button variant="contained" color="primary">Subscribe</Button>
+                                    <Grid item xs={12} sm={12} md={4}>
+                                        <Button variant="contained" color="primary" className={classes.subscribe}>Subscribe</Button>
                                     </Grid>
                                 </Grid>
                             </Grid>
                         </Grid>
                     </Grid>
                 </Grid>
-
-
             </div>
+            <Footer />
         </div>
     );
 };
