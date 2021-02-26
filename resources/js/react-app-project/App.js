@@ -95,7 +95,7 @@ const App = () => {
         //             setLoggedIn(true);
         //         });
         //     }
-        // } 
+        // }
         // setLoading(false);
     }, []);
 
@@ -144,7 +144,7 @@ const App = () => {
 
     const runRefresh = (callback) => {
         console.log('refresh');
-        
+
         axios.get('/api/auth/refresh')
             .then(res => {
                 console.log(res);
