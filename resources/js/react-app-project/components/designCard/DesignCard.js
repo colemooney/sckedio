@@ -62,6 +62,9 @@ const DesignCard = (props) => {
     const itemNum = props.product.design_id;
     const image = props.product.images[0];
     const category = props.product.category_id;
+    const {
+        sendInterest
+    } = props;
 
 
     return (
@@ -88,7 +91,7 @@ const DesignCard = (props) => {
                 </CardContent>
             </CardActionArea>
             <CardActions>
-                <Button size='small' color='primary'>
+                <Button size='small' color='primary' onClick={()=>sendInterest()}>
                     Interested
                 </Button>
                 <Button size='small' color='primary' onClick={()=>history.push(`/product/${itemNum}`)}>

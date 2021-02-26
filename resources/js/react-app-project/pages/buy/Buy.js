@@ -20,6 +20,10 @@ const Buy = (props) => {
         .catch(err=>console.log(err));
     },[]);
 
+    const sendInterest = () => {
+        console.log('interest');
+    };
+
     return (
         <div>
             <NavBar loggedIn={props.loggedIn} handleLogout={props.handleLogout} roles={props.roles} />
@@ -39,6 +43,7 @@ const Buy = (props) => {
                         <Grid item xs={12} sm={6} md={4} lg={3} key={i} align='center'>
                             <DesignCard
                                 product={product}
+                                sendInterest={sendInterest}
                             />
                         </Grid>
                     ))}
