@@ -23,6 +23,8 @@ class DesignService
         return Auth::user();
     }
 
+    // For unautheniticated users.
+
     public function handleListAllDesigns()
     {
         $users = DB::table('users')
@@ -107,38 +109,110 @@ class DesignService
 
     public function handleList()
     {
-        $authenticatedUserDesigns = $this->getAuthenticatedUser()->design;
-        $designInformation = $this->getDesignInformation($authenticatedUserDesigns);
-        $publicFiles = $this->getPublicFiles($designInformation);
+        $designs = DB::table('users')
+                    ->join('designs', 'users.id', '=', 'owner_id')->where('users.id','!=', auth()->user()->id)
+                    ->join('designs_information', 'designs.id', '=', 'design_id')
+                    ->join('design_files', 'designs.id', '=', 'design_files.design_id')->where('is_private', 0)
+                    ->select(
+                    'users.id as user_id',
+                    'users.username', 
+                    'designs.id as design_id',
+                    'designs.idea_name',
+                    'designs.created_at', 
+                    'designs_information.description', 
+                    'designs_information.design_cost',
+                    'designs_information.category_id',
+                    'designs_information.idea_type_id',
+                    DB::raw('group_concat(design_files.file_route) as images'))
+                    ->groupBy(
+                    'users.id',
+                    'users.username', 
+                    'designs.id',
+                    'designs.idea_name',
+                    'designs.created_at', 
+                    'designs_information.description', 
+                    'designs_information.design_cost',
+                    'designs_information.category_id',
+                    'designs_information.idea_type_id',)
+                    ->get();
 
-        return response()->json([
-            'idea_name' => $authenticatedUserDesigns->idea_name,
-        ], 200);
+        foreach($designs as $design)
+        {
+            $design->images = explode(',', $design->images);
+            $design->interests = DB::table('buyer_queue')->where('design_id', $design->design_id)->count();
+            $buyerInterest = $this->buyerInterested($design->design_id);
+            $design->is_interested = $buyerInterest;
+        }
+
+        $designs = json_encode($designs);
+        return json_decode($designs, true);
     }
+
 
     public function handleShow($id)
     {
-        $authenticatedUser = $this->getAuthenticatedUser();
-        // $design = Design::where('id', $id)->where('owner_id', $authenticatedUser->id)->first();
-        $design = $authenticatedUser->design->where('id', $id)->first();
-        
-        if(empty($design))
+        $designs = DB::table('designs')
+        ->where('designs.id', $id)
+        ->join('users', 'users.id', '=', 'owner_id')
+        ->join('designs_information', 'designs.id', '=', 'design_id')
+        ->join('design_files', 'designs.id', '=', 'design_files.design_id')->where('is_private', 0)
+        ->select(
+        'users.id as user_id',
+        'users.username', 
+        'designs.id as design_id',
+        'designs.idea_name',
+        'designs.created_at', 
+        'designs_information.description', 
+        'designs_information.design_cost',
+        'designs_information.category_id',
+        'designs_information.idea_type_id',
+        DB::raw('group_concat(design_files.file_route) as images'))
+        ->groupBy(
+        'users.id',
+        'users.username', 
+        'designs.id',
+        'designs.idea_name',
+        'designs.created_at', 
+        'designs_information.description', 
+        'designs_information.design_cost',
+        'designs_information.category_id',
+        'designs_information.idea_type_id',)
+        ->get();
+
+        foreach($designs as $design)
         {
-            return response()->json([
-                'message' => 'Error! Could not find design associated with the user.'
-            ]);
+            $design->images = explode(',', $design->images);
+            $design->interests = DB::table('buyer_queue')->where('design_id', $design->design_id)->count();
+            $buyerInterest = $this->buyerInterested($design->design_id);
+            $design->is_interested = $buyerInterest;
         }
-        $designInformation = $this->getDesignInformation($design);
-        $publicFiles = $this->getPublicFiles($design);
-        $privateFiles = $this->getPrivateFiles($design);
 
         return response()->json([
-            'idea_name' => $design->idea_name,
-            'design_information' => $designInformation,
-            'public_files' => $publicFiles,
-            'private_files' => $privateFiles
-        ], 200);
+            'design' => $designs,
+        ]);
     }
+    // public function handleShow($id)
+    // {
+    //     $authenticatedUser = $this->getAuthenticatedUser();
+    //     $design = $authenticatedUser->design->where('id', $id)->first();
+        
+    //     if(empty($design))
+    //     {
+    //         return response()->json([
+    //             'message' => 'Error! Could not find design associated with the user.'
+    //         ]);
+    //     }
+    //     $designInformation = $this->getDesignInformation($design);
+    //     $publicFiles = $this->getPublicFiles($design);
+    //     $privateFiles = $this->getPrivateFiles($design);
+
+    //     return response()->json([
+    //         'idea_name' => $design->idea_name,
+    //         'design_information' => $designInformation,
+    //         'public_files' => $publicFiles,
+    //         'private_files' => $privateFiles
+    //     ], 200);
+    // }
     
     //TODO: Update design
     public function handleUpdate($id, object $request)
@@ -283,5 +357,19 @@ class DesignService
     {
         $designInformation = $design->design_information;
         return $designInformation;
+    }
+
+    protected function buyerInterested($id)
+    {
+        $buyerInterest = auth()->user()->buyer_queue->where('design_id', $id);
+
+        if($buyerInterest->first())
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
 }

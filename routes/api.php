@@ -73,7 +73,7 @@ Route::group([
         'middleware' => 'auth:api', 'prefix' => 'auth'
     ], function() {
         Route::post('create', [DesignController::class, 'create']);
-        Route::get('show', [DesignController::class, 'list']);
+        Route::get('list', [DesignController::class, 'list']);
         Route::get('show/{id}', [DesignController::class, 'show']);
         Route::post('upload/file/{id}', [DesignController::class, 'uploadFiles']);
         Route::put('update/{id}', [DesignController::class, 'update']);

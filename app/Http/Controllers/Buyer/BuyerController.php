@@ -56,7 +56,7 @@ class BuyerController extends Controller
     protected function checkBuyerOwnDesign($id, $userId)
     {
         $design = Design::where('id', $id)->where('owner_id', $userId);
-        // return $design;
+        
         if(!$design->first())
         {
             return false;
