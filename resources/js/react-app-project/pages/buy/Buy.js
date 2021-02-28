@@ -6,19 +6,35 @@ import NavBar from '../../components/navBar/NavBar';
 import DesignCard from '../../components/designCard/DesignCard';
 import Typography from '@material-ui/core/Typography';
 import fakeProducts from './fakeProducts';
+import auth from '../../auth';
 import axios from 'axios';
 
 const Buy = (props) => {
     const [productArray, setProductArray] = React.useState([]);
 
-    useEffect(()=>{
-        axios.get('/api/designer/list')
-        .then(res=>{
-            console.log(res);
-            setProductArray(res.data.designs);
-        })
-        .catch(err=>console.log(err));
-    },[]);
+    useEffect(() => {
+        const jwToken = auth.getToken();
+
+        const authAxios = axios.create({
+            headers: {
+                Authorization: `Bearer ${jwToken}`
+            }
+        });
+
+        authAxios.get('/api/designer/auth/list')
+            .then(res => {
+                console.log(res);
+                // setProductArray(res.data.designs);
+            })
+            .catch(err => console.log(err));
+
+        // axios.get('/api/designer/list')
+        // .then(res=>{
+        //     console.log(res);
+        //     setProductArray(res.data.designs);
+        // })
+        // .catch(err=>console.log(err));
+    }, []);
 
     const sendInterest = () => {
         console.log('interest');
@@ -39,7 +55,7 @@ const Buy = (props) => {
                             />
                         </Grid>
                     ))} */}
-                    {productArray.map((product,i) => (
+                    {productArray.map((product, i) => (
                         <Grid item xs={12} sm={6} md={4} lg={3} key={i} align='center'>
                             <DesignCard
                                 product={product}
