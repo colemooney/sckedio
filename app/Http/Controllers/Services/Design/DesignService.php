@@ -179,6 +179,8 @@ class DesignService
         'designs_information.idea_type_id',)
         ->get();
 
+        $design = str_replace (array('[', ']'), '' , $designs);
+
         foreach($designs as $design)
         {
             $design->images = explode(',', $design->images);
@@ -188,7 +190,7 @@ class DesignService
         }
 
         return response()->json([
-            'design' => $designs,
+            'design' => $design
         ]);
     }
     // public function handleShow($id)
