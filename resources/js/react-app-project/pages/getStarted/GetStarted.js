@@ -77,7 +77,7 @@ const GetStarted = (props) => {
             }
         })
 
-        authAxios.post('/api/designer/create', formData)
+        authAxios.post('/api/designer/auth/create', formData)
             .then (res => {
                 console.log(res);
             })
