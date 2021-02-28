@@ -24,23 +24,23 @@ const useStyles = makeStyles({
 })
 
 const convertCategory = (number) => {
-    if (number===1) {
+    if (number === 1) {
         return 'Clothing/Accessories'
-    } else if (number===2) {
+    } else if (number === 2) {
         return 'Toys/Games'
-    } else if (number==3) {
+    } else if (number == 3) {
         return 'Technology'
-    } else if (number===4) {
+    } else if (number === 4) {
         return 'Transport'
-    } else if (number===5) {
+    } else if (number === 5) {
         return 'Furniture/Interior Design'
-    } else if (number===6) {
+    } else if (number === 6) {
         return 'Art'
-    } else if (number===7) {
+    } else if (number === 7) {
         return 'Home Goods'
-    } else if (number===8) {
+    } else if (number === 8) {
         return 'Everyday Use'
-    } else if (number===9) {
+    } else if (number === 9) {
         return 'Other'
     }
 };
@@ -58,18 +58,19 @@ const DesignCard = (props) => {
     // } = props.product;
     const designer = props.product.username;
     const productTitle = props.product.idea_name;
-    const interest = 14;
+    const interest = props.product.interests;
     const itemNum = props.product.design_id;
     const image = props.product.images[0];
     const category = props.product.category_id;
+    const interestBool = props.product.is_interested;
     const {
-        sendInterest
+        handleInterest
     } = props;
 
 
     return (
         <Card className={classes.root}>
-            <CardActionArea onClick={()=>history.push(`/product/${itemNum}`)}>
+            <CardActionArea onClick={() => history.push(`/product/${itemNum}`)}>
                 <CardMedia
                     className={classes.media}
                     image={image}
@@ -91,10 +92,12 @@ const DesignCard = (props) => {
                 </CardContent>
             </CardActionArea>
             <CardActions>
-                <Button size='small' color='primary' onClick={()=>sendInterest()}>
-                    Interested
-                </Button>
-                <Button size='small' color='primary' onClick={()=>history.push(`/product/${itemNum}`)}>
+                {!interestBool &&
+                    <Button size='small' color='primary' onClick={() => handleInterest(itemNum)}>
+                        Interested
+                    </Button>
+                }
+                <Button size='small' color='primary' onClick={() => history.push(`/product/${itemNum}`)}>
                     Learn More
                 </Button>
             </CardActions>

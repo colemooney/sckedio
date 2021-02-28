@@ -24,7 +24,7 @@ const Buy = (props) => {
         authAxios.get('/api/designer/auth/list')
             .then(res => {
                 console.log(res);
-                // setProductArray(res.data.designs);
+                setProductArray(res.data.designs);
             })
             .catch(err => console.log(err));
 
@@ -36,8 +36,41 @@ const Buy = (props) => {
         // .catch(err=>console.log(err));
     }, []);
 
-    const sendInterest = () => {
-        console.log('interest');
+    const getDesigns = () => {
+        const jwToken = auth.getToken();
+
+        const authAxios = axios.create({
+            headers: {
+                Authorization: `Bearer ${jwToken}`
+            }
+        });
+
+        authAxios.get('/api/designer/auth/list')
+            .then(res => {
+                console.log(res);
+                setProductArray(res.data.designs);
+            })
+            .catch(err => console.log(err));
+    };
+
+    const handleInterest = (designId) => {
+        console.log('interest: ' + designId);
+        const jwToken = auth.getToken();
+
+        const authAxios = axios.create({
+            headers: {
+                Authorization: `Bearer ${jwToken}`
+            }
+        });
+
+        authAxios.post('/api/buyer/create/' + designId)
+            .then (res => {
+                console.log(res);
+                getDesigns();
+            })
+            .catch(err => {
+                console.log(err);
+            });
     };
 
     return (
@@ -59,7 +92,7 @@ const Buy = (props) => {
                         <Grid item xs={12} sm={6} md={4} lg={3} key={i} align='center'>
                             <DesignCard
                                 product={product}
-                                sendInterest={sendInterest}
+                                handleInterest={handleInterest}
                             />
                         </Grid>
                     ))}
