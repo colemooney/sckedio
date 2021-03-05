@@ -7,15 +7,29 @@ const SellPage = {
     },
     main: [
         {
+            image: '../images/design.jpeg',
+            position: 'left',
+            matches: ''
+        },
+
+        {
             title: 'Step 1: Come Up with an Idea',
             subtitle: 'Anyone is able to submit a product design on Sckedio for free- whether it’s just an idea or a factory-ready project. These designs can be for any consumer product, whether its a unique fashion item, a technological innocation, or a custom toy.',
-            image: '../../images/artisan.jpg',
-            position: 'left'
+            position: 'right'
         },
         {
             title: 'Step 2: Create Your Design',
             subtitle: 'Now that you have your idea, it’s time to make your designs. These designs will inform manufacturers how your product is made. Your designs can be anything from a quick description to a factory-ready design.',
+            position: 'left'
+        },
+        {
+            image: '../../../assets/design1.jpeg',
             position: 'right'
+        },
+        {
+            image: '../../../assets/design1.jpeg',
+            position: 'left',
+            matches: ''
         },
         {
             title: 'Step 3: Upload Your Idea',
@@ -25,9 +39,13 @@ const SellPage = {
         {
             title: 'Step 4: Make Money',
             subtitle: 'Once you’ve uploaded your design, it’s time to sit back and wait for a buyer to take interest. When your design is bought, you get paid!',
-            image: '../../images/artisan.jpg',
             position: 'left'
-        }
+        },
+        {
+            image: '../../../assets/design1.jpeg',
+            position: 'right'
+        },
+
     ]
 };
 
@@ -36,15 +54,23 @@ const BuildPage = {
         title: 'Build with Sckedio',
         subtitle: 'Join Sckedio as a manufacturer and make money building new and innovative products! Anyone can sign up to be a builder and you will have the ability to make any product you feel comfortable with.',
         button: 'Our Work',
-        image: '../../images/pexels-christina-morillo-1181345.jpg'
+        image: '../images/pexels-christina-morillo-1181345.jpg'
     },
     main: [
         {
             title: 'Step 1: Signing Up',
             subtitle: 'Anyone is able to submit a design on Sckedio for free- whether it’s just an idea or a factory-ready project. As a designer, you will be able to price your design yourself. If a buyer browsing available designs and ideas expresses interest, the material you have uploaded gets sent to a manufacturer with just the right skillset to make your product.',
+            position: 'left'
+        },
+        {
+            image: '../../images/artisan.jpg',
+            position: 'right'
+        },
+        {
             image: '../../images/artisan.jpg',
             position: 'left'
         },
+
         {
             title: 'Step 2: Bidding on projects',
             subtitle: 'If your profile matches the skills needed for a specific design that has received interest from buyers, you will be sent all available information for that design. Then you are able to determine how much you will charge to make the product. The buyer receives your price and the price of the design as the total cost for buying a product on Sckedio.',
@@ -53,13 +79,20 @@ const BuildPage = {
         {
             title: 'Step 3: Putting your skills to use',
             subtitle: 'Browse innovative ideas and designs and have the ability to buy a completely unique and customizable design. Take a look at the ideas on our site, click on the ones you like, and we’ll do the rest.',
+            position: 'left'
+        },
+        {
+            image: '../../images/artisan.jpg',
             position: 'right'
+        },
+        {
+            image: '../../images/artisan.jpg',
+            position: 'left'
         },
         {
             title: 'Step 4: Getting paid',
             subtitle: 'Sckedio takes a percentage of the final price that a buyer pays. This percentage comes out of the designer and manufacturer pay.',
-            image: '../../images/artisan.jpg',
-            position: 'left'
+            position: 'right'
         }
     ]
 };
@@ -75,6 +108,13 @@ const AboutPage = {
         {
             title: 'Designers',
             subtitle: 'Anyone is able to submit a design on Sckedio for free- whether it’s just an idea or a factory-ready project. As a designer, you will be able to price your design yourself. If a buyer browsing available designs and ideas expresses interest, the material you have uploaded gets sent to a manufacturer with just the right skillset to make your product.',
+            position: 'left'
+        },
+        {
+            image: '../../images/artisan.jpg',
+            position: 'right'
+        },
+        {
             image: '../../images/artisan.jpg',
             position: 'left'
         },
@@ -86,14 +126,23 @@ const AboutPage = {
         {
             title: 'Buyers',
             subtitle: 'Browse innovative ideas and designs and have the ability to buy a completely unique and customizable design. Take a look at the ideas on our site, click on the ones you like, and we’ll do the rest.',
+            position: 'left'
+        },
+        {
+            image: '../../images/artisan.jpg',
             position: 'right'
+        },
+        {
+            image: '../../images/artisan.jpg',
+            position: 'left'
         },
         {
             title: 'How Sckedio Makes Money.',
             subtitle: 'Sckedio takes a percentage of the final price that a buyer pays. This percentage comes out of the designer and manufacturer pay.',
-            image: '../../images/artisan.jpg',
-            position: 'left'
-        }
+            position: 'right'
+        },
+
+
     ]
 }
 
