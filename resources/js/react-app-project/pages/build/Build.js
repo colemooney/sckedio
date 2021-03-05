@@ -1,6 +1,6 @@
 import React from 'react';
 import NavBar from '../../components/navBar/NavBar';
-import PageLayout from '../../components/pagelayout/pagelayout';
+import PageLayout from '../../components/pagelayout/PageLayout';
 import { BuildPage } from '../../data/PageData';
 
 const Build = (props) => {

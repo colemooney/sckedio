@@ -48,6 +48,7 @@ const useStyles = makeStyles((theme) => ({
         backgroundSize: 'cover',
         backgroundPosition: 'top-center',
         backgroundRepeat: 'no-repeat',
+        width: `calc(100vw + 40px)`,
         padding: 0,
         color: 'white'
     },
@@ -78,7 +79,7 @@ const useStyles = makeStyles((theme) => ({
 }))
 
 const Home = (props) => {
-    const classes = useStyles()
+    const classes = useStyles();
     let history = useHistory();
 
     const [stepOneActive, setStepOneActive] = React.useState(false);
@@ -96,7 +97,6 @@ const Home = (props) => {
                         <Grid item container xs={12} justify='center' spacing={3} className={classes.topSectionBackground}>
 
                             <Grid item xs={12}>
-
                                 <Typography variant='h2' align='center'>The Marketplace for Ideas</Typography>
                             </Grid>
 
