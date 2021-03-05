@@ -88,7 +88,7 @@ const Home = (props) => {
 
     return (
         <div>
-            <NavBar loggedIn={props.loggedIn} handleLogout={props.handleLogout} roles={props.roles} />
+            <NavBar loggedIn={props.loggedIn} handleLogout={props.handleLogout} roles={props.roles} currentRoleType={props.currentRoleType} handleRoleType={props.handleRoleType} />
             {/* <h1>Home Page</h1> */}
             <div className={classes.root}>
                 <Grid container justify='center'>
