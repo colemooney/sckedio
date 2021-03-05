@@ -179,12 +179,12 @@ const App = () => {
                 <Router>
                     <Switch>
                         <Route exact path='/' component={() => <Home loggedIn={loggedIn} handleLogout={handleLogout} roles={userInfo.roles} currentRoleType={currentRoleType} handleRoleType={handleRoleType} />} />
-                        <Route exact path='/sell' component={() => <Sell loggedIn={loggedIn} handleLogout={handleLogout} roles={userInfo.roles} />} />
-                        <Route exact path='/buy' component={() => <Buy loggedIn={loggedIn} handleLogout={handleLogout} roles={userInfo.roles} />} />
-                        <Route exact path='/build' component={() => <Build loggedIn={loggedIn} handleLogout={handleLogout} roles={userInfo.roles} />} />
-                        <Route exact path='/about' component={() => <About loggedIn={loggedIn} handleLogout={handleLogout} roles={userInfo.roles} />} />
+                        <Route exact path='/sell' component={() => <Sell loggedIn={loggedIn} handleLogout={handleLogout} roles={userInfo.roles} currentRoleType={currentRoleType} handleRoleType={handleRoleType} />} />
+                        <Route exact path='/buy' component={() => <Buy loggedIn={loggedIn} handleLogout={handleLogout} roles={userInfo.roles} currentRoleType={currentRoleType} handleRoleType={handleRoleType} />} />
+                        <Route exact path='/build' component={() => <Build loggedIn={loggedIn} handleLogout={handleLogout} roles={userInfo.roles} currentRoleType={currentRoleType} handleRoleType={handleRoleType} />} />
+                        <Route exact path='/about' component={() => <About loggedIn={loggedIn} handleLogout={handleLogout} roles={userInfo.roles} currentRoleType={currentRoleType} handleRoleType={handleRoleType} />} />
                         <Route exact path='/get-started' component={() => <GetStarted loggedIn={loggedIn} handleLogout={handleLogout} roles={userInfo.roles} currentRoleType={currentRoleType} handleRoleType={handleRoleType} />} />
-                        <ProtectedRoute exact path='/profile' component={() => <Profile loggedIn={loggedIn} handleLogout={handleLogout} userInfo={userInfo} getUserInfo={getUserInfo} roles={userInfo.roles}/>} />
+                        <ProtectedRoute exact path='/profile' component={() => <Profile loggedIn={loggedIn} handleLogout={handleLogout} userInfo={userInfo} getUserInfo={getUserInfo} roles={userInfo.roles} currentRoleType={currentRoleType} handleRoleType={handleRoleType} />} />
                         <Route exact path='/create-account' component={CreateAccount} />
                         <Route exact path='/login' component={() => <Login setLoggedIn={setLoggedIn} tokenTimeKeeper={tokenTimeKeeper} getUserInfo={getUserInfo} />} />
                         <Route exact path='/forgot-password' component={PasswordForgotRequest} />
@@ -192,7 +192,7 @@ const App = () => {
                             <PasswordReset />
                         </Route>
                         <Route path='/product/:id'>
-                            <Product loggedIn={loggedIn} handleLogout={handleLogout} roles={userInfo.roles} />
+                            <Product loggedIn={loggedIn} handleLogout={handleLogout} roles={userInfo.roles} currentRoleType={currentRoleType} handleRoleType={handleRoleType} />
                         </Route>
 
                         <Route path='*' component={() => '404 NOT FOUND'} />
