@@ -1,15 +1,18 @@
+import tableImage from '../images/pexels-pixabay-509922.jpg';
+
+
+
 const SellPage = {
     header: {
         title: 'Sell Your Idea',
         subtitle: 'Do you have an awesome idea for a product? Then Sckedio is the right place for you! Sckedio is a platform to sell your unique product ideas and designs. You can upload anything from just an idea to a fully designed product.',
         button: 'Get Started',
-        image: '../../images/pexels-christina-morillo-1181345.jpg'
+        image: '../images/pexels-christina-morillo-1181345.jpg'
     },
     main: [
         {
             image: '../images/design.jpeg',
-            position: 'left',
-            matches: ''
+            position: 'left'
         },
 
         {
@@ -23,13 +26,12 @@ const SellPage = {
             position: 'left'
         },
         {
-            image: '../../../assets/design1.jpeg',
+            image: '../images/design1.jpeg',
             position: 'right'
         },
         {
-            image: '../../../assets/design1.jpeg',
+            image: '../images/design1.jpeg',
             position: 'left',
-            matches: ''
         },
         {
             title: 'Step 3: Upload Your Idea',
@@ -42,7 +44,7 @@ const SellPage = {
             position: 'left'
         },
         {
-            image: '../../../assets/design1.jpeg',
+            image: tableImage,
             position: 'right'
         },
 
@@ -54,7 +56,7 @@ const BuildPage = {
         title: 'Build with Sckedio',
         subtitle: 'Join Sckedio as a manufacturer and make money building new and innovative products! Anyone can sign up to be a builder and you will have the ability to make any product you feel comfortable with.',
         button: 'Our Work',
-        image: '../images/pexels-christina-morillo-1181345.jpg'
+        image: '../images/pexels-igor-starkov-1117452.jpg'
     },
     main: [
         {
@@ -63,11 +65,11 @@ const BuildPage = {
             position: 'left'
         },
         {
-            image: '../../images/artisan.jpg',
+            image: '../images/pexels-suzy-hazelwood-2564604.jpg',
             position: 'right'
         },
         {
-            image: '../../images/artisan.jpg',
+            image: '../images/design1.jpeg',
             position: 'left'
         },
 
@@ -82,11 +84,11 @@ const BuildPage = {
             position: 'left'
         },
         {
-            image: '../../images/artisan.jpg',
+            image: '../images/design.jpeg',
             position: 'right'
         },
         {
-            image: '../../images/artisan.jpg',
+            image: '../images/pexels-gabby-k-5302946.jpg',
             position: 'left'
         },
         {
@@ -102,7 +104,7 @@ const AboutPage = {
         title: 'How Skedio Works',
         subtitle: 'Sckedio serves as a platform to connect designers, manufacturers, and buyers. Designers submit their ideas, manufacturers place bids on what they can build, and buyers are able to purchase the whole package to receive a unique and customizable product. ',
         button: 'Our Work',
-        image: '../../images/pexels-christina-morillo-1181345.jpg'
+        image: '../images/pexels-christina-morillo-1181345.jpg'
     },
     main: [
         {
@@ -111,11 +113,11 @@ const AboutPage = {
             position: 'left'
         },
         {
-            image: '../../images/artisan.jpg',
+            image: '../images/design.jpeg',
             position: 'right'
         },
         {
-            image: '../../images/artisan.jpg',
+            image: '../images/pexels-andrea-piacquadio-3771055.jpg',
             position: 'left'
         },
         {
@@ -129,11 +131,11 @@ const AboutPage = {
             position: 'left'
         },
         {
-            image: '../../images/artisan.jpg',
+            image: '../images/design.jpeg',
             position: 'right'
         },
         {
-            image: '../../images/artisan.jpg',
+            image: '../images/design.jpeg',
             position: 'left'
         },
         {

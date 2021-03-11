@@ -15,6 +15,7 @@ import axios from 'axios';
 import VisibilitySensor from 'react-visibility-sensor';
 import { useHistory } from "react-router-dom";
 import artisanImage from '../../../../assets/artisan2.jpg';
+import stayTunedImage from '../../images/pexels-andrea-piacquadio-842554.jpg'
 import workImage from '../../../../assets/work.jpg';
 import whiteboard from '../../../../assets/whiteboard4.jpg'
 import lightbulbImage from '../../../../assets/lightbulb2.jpg'
@@ -184,7 +185,7 @@ const Home = (props) => {
                         </Grid>
                         <Grid item container xs={12} justify='space-between' spacing={1}>
                             <Grid item xs={12} sm={6} md={5}>
-                                <img src={artisanImage} width='100%' />
+                                <img src={stayTunedImage} width='100%'/>
                             </Grid>
                             <Grid item container xs={12} sm={6} md={7} justify='space-around'>
                                 <Typography variant='h4' align='center' gutter="true">Stay tuned in</Typography>
