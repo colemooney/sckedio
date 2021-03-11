@@ -1,5 +1,8 @@
 import tableImage from '../images/pexels-pixabay-509922.jpg';
-
+import designImage from '../images/design.jpeg';
+import threadImage from '../images/pexels-suzy-hazelwood-2564604.jpg';
+import clayImage from '../images/pexels-gabby-k-5302946.jpg';
+import buildPageBG from '../images/starkov1117452.jpeg'
 
 
 const SellPage = {
@@ -11,7 +14,7 @@ const SellPage = {
     },
     main: [
         {
-            image: '../images/design.jpeg',
+            image: designImage,
             position: 'left'
         },
 
@@ -56,7 +59,7 @@ const BuildPage = {
         title: 'Build with Sckedio',
         subtitle: 'Join Sckedio as a manufacturer and make money building new and innovative products! Anyone can sign up to be a builder and you will have the ability to make any product you feel comfortable with.',
         button: 'Our Work',
-        image: '../images/pexels-igor-starkov-1117452.jpg'
+        image: buildPageBG,
     },
     main: [
         {
@@ -65,7 +68,7 @@ const BuildPage = {
             position: 'left'
         },
         {
-            image: '../images/pexels-suzy-hazelwood-2564604.jpg',
+            image: threadImage,
             position: 'right'
         },
         {
@@ -88,7 +91,7 @@ const BuildPage = {
             position: 'right'
         },
         {
-            image: '../images/pexels-gabby-k-5302946.jpg',
+            image: clayImage,
             position: 'left'
         },
         {
