@@ -10,6 +10,7 @@ import Button from '@material-ui/core/Button';
 import GetStartedForm from '../../components/getStartedForm/GetStartedForm';
 import auth from '../../auth';
 import axios from 'axios';
+import backgroundImage from '../../images/pexels-gratisography-2255.jpg';
 
 const GetStarted = (props) => {
     const [ideaName, setIdeaName] = React.useState('');
@@ -29,7 +30,7 @@ const GetStarted = (props) => {
     const styles = {
         topSectionBackground: {
             height: 500,
-            backgroundImage: `url(${"../../images/pexels-lisa-fotios-1090638.jpg"})`,
+            backgroundImage: `url(${backgroundImage})`,
             backgroundSize: 'cover',
             backgroundPosition: 'top-center',
             backgroundRepeat: 'no-repeat',
@@ -58,14 +59,14 @@ const GetStarted = (props) => {
                 formData.append('public_files[]', publicFile);
             })
             console.log('public');
-        } 
+        }
 
         if (Object.keys(privateFiles).length !== 0) {
             privateFiles.forEach(function(privateFile){
                 formData.append('private_files[]', privateFile);
             })
             console.log('private');
-        } 
+        }
 
         console.log(formData);
 
@@ -73,7 +74,7 @@ const GetStarted = (props) => {
         const authAxios = axios.create({
             headers: {
                 Authorization: `Bearer ${jwToken}`,
-                'Content-Type': 'multipart/form-data' 
+                'Content-Type': 'multipart/form-data'
             }
         })
 
@@ -123,7 +124,7 @@ const GetStarted = (props) => {
                                     {
                                         props.currentRoleType==='designer' ?
 
-                                        <GetStartedForm 
+                                        <GetStartedForm
                                             ideaName={ideaName}
                                             setIdeaName={setIdeaName}
                                             description={description}
