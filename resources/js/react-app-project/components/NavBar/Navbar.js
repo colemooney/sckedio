@@ -46,7 +46,7 @@ const NavBar = (props) => {
     const theme = useTheme();
     const isMobile = useMediaQuery(theme.breakpoints.down('sm'), { noSsr: true });
     const [currentLocationURL, setCurrentLocationURL] = React.useState(location.pathname);
-    const [currentAccountType, setCurrentAccountType] = React.useState('Buyer');
+    // const [currentAccountType, setCurrentAccountType] = React.useState('Buyer');
     // const roles = ['Buyer', 'Designer', 'Manufacturer'];
     // const loggedIn = props.loggedIn;
 
@@ -95,6 +95,10 @@ const NavBar = (props) => {
         setAnchorElAccount(null);
     };
 
+    const capFirstLetter = (string) => {
+        return string.charAt(0).toUpperCase() + string.slice(1);
+    };
+
     return (
         <div className={classes.root}>
             <AppBar
@@ -124,7 +128,7 @@ const NavBar = (props) => {
                                                 border={1}
                                                 justifyContent='flex-end'
                                             >
-                                                <Typography>{currentRoleType}</Typography>
+                                                <Typography>{capFirstLetter(currentRoleType)}</Typography>
                                                 <ArrowDropDownIcon />
                                             </Box>
                                         </Button>
