@@ -67,10 +67,10 @@ const NavBar = (props) => {
             itemName: 'Build',
             itemPath: '/build'
         },
-        {
-            itemName: 'About',
-            itemPath: '/about'
-        }
+        // {
+            // itemName: 'About',
+            // itemPath: '/about'
+        // }
     ];
 
     const handleMenu = (event) => {
