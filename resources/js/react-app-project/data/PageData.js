@@ -2,8 +2,8 @@ import tableImage from '../images/pexels-pixabay-509922.jpg';
 import designImage from '../images/design.jpeg';
 import threadImage from '../images/pexels-suzy-hazelwood-2564604.jpg';
 import clayImage from '../images/pexels-gabby-k-5302946.jpg';
-import buildPageBG from '../images/starkov1117452.jpeg'
-
+import buildPageBG from '../images/starkov1117452.jpeg';
+import labImage from '../images/labartisan.jpg';
 
 const SellPage = {
     header: {
@@ -14,7 +14,7 @@ const SellPage = {
     },
     main: [
         {
-            image: designImage,
+            image: labImage,
             position: 'left'
         },
 
@@ -29,7 +29,7 @@ const SellPage = {
             position: 'left'
         },
         {
-            image: '../images/design1.jpeg',
+            image: designImage,
             position: 'right'
         },
         {

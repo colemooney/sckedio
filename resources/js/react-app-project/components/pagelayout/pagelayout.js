@@ -19,6 +19,7 @@ const PageLayout = ({ pageData }) => {
             },
         },
         subtitle: {
+           
             marginBottom: theme.spacing(3),
             [theme.breakpoints.down('xs')]: {
                 fontSize: 18,
@@ -112,7 +113,7 @@ const PageLayout = ({ pageData }) => {
                             </Grid>
                         }
                     </Grid>
-                ))} 
+                ))}
             </Grid>
             <FeedbackForm mt={20}/>
         </Grid>
