@@ -86,7 +86,7 @@ const Product = (props) => {
 
         if (props.loggedIn) {
 
-            authAxios.get('/api/designer/show-design/' + id)
+            authAxios.get('/api/designer/auth/show/' + id)
                 .then(res => {
                     console.log(res);
                     setProduct(res.data.design);
@@ -102,7 +102,7 @@ const Product = (props) => {
                 })
                 .catch(err => console.log(err));
         } else {
-            axios.get('/api/designer/auth/show/' + id)
+            axios.get('/api/designer/show-design/' + id)
                 .then(res => {
                     console.log(res);
                     setProduct(res.data.design);
