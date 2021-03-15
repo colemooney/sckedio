@@ -37,7 +37,7 @@ const Product = (props) => {
         });
 
         if (props.loggedIn) {
-
+            console.log('role type:' + props.currentRoleType);
             authAxios.get('/api/designer/auth/show/' + id)
                 .then(res => {
                     console.log(res);
@@ -49,7 +49,21 @@ const Product = (props) => {
                             active: i === 0
                         }
                     });
+
+                    if (props.currentRoleType === 'manufacturer') {
+                        console.log('manufacturer images');
+                        console.log(res.data.design.private_images);
+                        res.data.design.private_images.forEach((individualImage) => {
+                            const newArrEntry = {
+                                src: individualImage,
+                                active: false
+                            };
+                            newImageArr.push(newArrEntry);
+                        });
+                    }
+
                     setImageArr(newImageArr);
+
                     setLoading(false);
                 })
                 .catch(err => console.log(err));
@@ -73,7 +87,7 @@ const Product = (props) => {
         }
 
 
-    }, []);
+    }, [props.currentRoleType]);
 
     const getDesign = () => {
         const jwToken = auth.getToken();
@@ -85,8 +99,7 @@ const Product = (props) => {
         });
 
         if (props.loggedIn) {
-
-            authAxios.get('/api/designer/show-design/' + id)
+            authAxios.get('/api/designer/auth/show/' + id)
                 .then(res => {
                     console.log(res);
                     setProduct(res.data.design);
@@ -97,12 +110,30 @@ const Product = (props) => {
                             active: i === 0
                         }
                     });
+
+                    if (props.currentRoleType === 'manufacturer') {
+                        console.log('manufacturer images');
+                        console.log(res.data.design.private_images);
+                        res.data.design.private_images.forEach((individualImage) => {
+                            const newArrEntry = {
+                                src: individualImage,
+                                active: false
+                            };
+                            newImageArr.push(newArrEntry);
+                        });
+                    }
+
                     setImageArr(newImageArr);
+
+                    if (props.currentRoleType === 'manufacturer') {
+                        console.log('manufacturer images');
+                        setPrivateImageArr(res.data.design.private_images);
+                    }
                     // setLoading(false);
                 })
                 .catch(err => console.log(err));
         } else {
-            axios.get('/api/designer/auth/show/' + id)
+            axios.get('/api/designer/show-design/' + id)
                 .then(res => {
                     console.log(res);
                     setProduct(res.data.design);
@@ -123,12 +154,17 @@ const Product = (props) => {
 
     const handleImageClick = (eventTarget) => {
         setCurrentImage(eventTarget.src);
-        const newImageArr = product.images.map((individualImage, i) => {
+        let allImages = product.images;
+        if (props.currentRoleType === 'manufacturer') {
+            allImages = allImages.concat(product.private_images);
+        };
+        const newImageArr = allImages.map((individualImage, i) => {
             return {
                 src: individualImage,
                 active: i == eventTarget.dataset.key
             }
         });
+
         setImageArr(newImageArr);
     };
 
@@ -168,6 +204,7 @@ const Product = (props) => {
                         loggedIn={props.loggedIn}
                         product={product}
                         setCurrentImage={setCurrentImage}
+                        currentRoleType={props.currentRoleType}
                     />
                 </Container>}
         </div>
