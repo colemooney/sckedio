@@ -50,9 +50,8 @@ const Product = (props) => {
                         }
                     });
 
-                    if (props.currentRoleType === 'manufacturer') {
-                        console.log('manufacturer images');
-                        console.log(res.data.design.private_images);
+                    if (res.data.design.private_images) {
+                        // console.log(res.data.design.private_images);
                         res.data.design.private_images.forEach((individualImage) => {
                             const newArrEntry = {
                                 src: individualImage,
@@ -111,9 +110,8 @@ const Product = (props) => {
                         }
                     });
 
-                    if (props.currentRoleType === 'manufacturer') {
-                        console.log('manufacturer images');
-                        console.log(res.data.design.private_images);
+                    if (res.data.design.private_images) {
+                        // console.log(res.data.design.private_images);
                         res.data.design.private_images.forEach((individualImage) => {
                             const newArrEntry = {
                                 src: individualImage,
@@ -124,11 +122,6 @@ const Product = (props) => {
                     }
 
                     setImageArr(newImageArr);
-
-                    if (props.currentRoleType === 'manufacturer') {
-                        console.log('manufacturer images');
-                        setPrivateImageArr(res.data.design.private_images);
-                    }
                     // setLoading(false);
                 })
                 .catch(err => console.log(err));
@@ -155,7 +148,7 @@ const Product = (props) => {
     const handleImageClick = (eventTarget) => {
         setCurrentImage(eventTarget.src);
         let allImages = product.images;
-        if (props.currentRoleType === 'manufacturer') {
+        if (product.private_images) {
             allImages = allImages.concat(product.private_images);
         };
         const newImageArr = allImages.map((individualImage, i) => {
