@@ -105,7 +105,7 @@ class DesignService
         }
 
         return response()->json([
-            'design' => $design,
+            'design' => $designs,
         ]);
     }
 
