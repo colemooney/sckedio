@@ -3,6 +3,7 @@ import { makeStyles, useTheme } from '@material-ui/core/styles';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
+import ArrowDownwardIcon from '@material-ui/icons/ArrowDownward';
 import AssignmentIcon from '@material-ui/icons/Assignment';
 import BuildIcon from '@material-ui/icons/Build';
 import ChatIcon from '@material-ui/icons/Chat';
@@ -65,6 +66,28 @@ const useStyles = makeStyles((theme) => ({
         top: '3%',
         left: '31%',
     },
+    mobileContainer: {
+        margin: '40px 0'
+    },
+    mobileSmallCircle: {
+        border: '#3f51b5 3px solid',
+    },
+    mobileSmallCircleContainer: {
+        display: 'flex', 
+        alignItems: 'center'
+    },
+    mobileStepContainer: {
+        width: 280,
+        margin: '30px 0'
+    },
+    mobileStepText: {
+        width: 190
+    },
+    mobileStepTextContainer: {
+        display: 'flex',
+        alignItems: 'center',
+        // textAlign: 'center'
+    },
     numCircle: {
         height: 32,
         width: 32,
@@ -74,7 +97,7 @@ const useStyles = makeStyles((theme) => ({
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
-        [theme.breakpoints.only('sm')]: {
+        [theme.breakpoints.down('sm')]: {
             height: 27,
             width: 27
         }
@@ -146,16 +169,14 @@ const useStyles = makeStyles((theme) => ({
         [theme.breakpoints.only('xs')]: {
             position: 'relative',
             transform: 'none',
-            height: 92,
-            width: 92
+            height: 80,
+            width: 80
         }
     },
     smallCircleOne: {
         border: '#3f51b5 3px solid',
-        [theme.breakpoints.up('sm')]: {
-            top: '8%',
-            left: '78%',
-        }
+        top: '8%',
+        left: '78%',
     },
     smallCircleTwo: {
         top: '49%',
@@ -329,25 +350,225 @@ const Infographic = () => {
     return (
         <div>
             {isMobile ?
-                <Grid item container xs={12} >
-                    <Grid item xs={4} >
-                        <div className={`${classes.smallCircle} ${classes.smallCircleOne}`}>
-                            <div className={classes.iconContainer}>
-                                <EmojiObjectsIcon
-                                    style={iconOneStyle}
-                                />
-                            </div>
-                            <div className={`${classes.numCircle} ${classes.numCircleOne}`}>
-                                    <Typography className={classes.numText} variant='h6'>1</Typography>
+                <Grid item container justify='center' className={classes.mobileContainer}>
+
+                    {/* STEP ONE */}
+                    <Grid item container justify='space-between' className={classes.mobileStepContainer}>
+                        <div className={classes.mobileSmallCircleContainer}>
+                            <div className={`${classes.smallCircle} ${classes.mobileSmallCircle}`}>
+                                <div className={classes.iconContainer}>
+                                    <EmojiObjectsIcon style={{ fontSize: 62 }} />
                                 </div>
+                            </div>
+                        </div>
+                        <div className={classes.mobileStepTextContainer}>
+                            <Typography className={classes.mobileStepText}>
+                                Anyone comes up with an idea for a new product
+                            </Typography>
                         </div>
                     </Grid>
-                    <Grid item xs={8} container alignItems='center'>
-                        <Typography
-                        // className={`${classes.stepText} ${classes.stepTextOne}`}
-                        >Anyone comes up with an idea for a new product</Typography>
+
+                    <Grid item container xs={12} justify='center'>
+                        <ArrowDownwardIcon fontSize='large' />
                     </Grid>
+
+                    {/* STEP TWO */}
+                    <Grid item container justify='space-between' className={classes.mobileStepContainer}>
+                        <div className={classes.mobileSmallCircleContainer}>
+                            <div className={`${classes.smallCircle} ${classes.mobileSmallCircle}`}>
+                                <div className={classes.iconContainer}>
+                                    <LockIcon style={{ fontSize: 52 }} />
+                                </div>
+                            </div>
+                        </div>
+                        <div className={classes.mobileStepTextContainer}>
+                            <Typography className={classes.mobileStepText}>
+                                The designer uploads their idea onto the site using our quick, easy, and secure submission portal
+                            </Typography>
+                        </div>
+                    </Grid>
+
+                    <Grid item container xs={12} justify='center'>
+                        <ArrowDownwardIcon fontSize='large' />
+                    </Grid>
+
+                    {/* STEP THREE */}
+                    <Grid item container justify='space-between' className={classes.mobileStepContainer}>
+                        <div className={classes.mobileSmallCircleContainer}>
+                            <div className={`${classes.smallCircle} ${classes.mobileSmallCircle}`}>
+                                <div className={classes.iconContainer}>
+                                    <TouchAppIcon style={{ fontSize: 52 }} />
+                                </div>
+                            </div>
+                        </div>
+                        <div className={classes.mobileStepTextContainer}>
+                            <Typography className={classes.mobileStepText}>
+                            People indicate their interest in buying or building the product
+                            </Typography>
+                        </div>
+                    </Grid>
+
+                    <Grid item container xs={12} justify='center'>
+                        <ArrowDownwardIcon fontSize='large' />
+                    </Grid>
+
+                    {/* STEP FOUR */}
+                    <Grid item container justify='space-between' className={classes.mobileStepContainer}>
+                        <div className={classes.mobileSmallCircleContainer}>
+                            <div className={`${classes.smallCircle} ${classes.mobileSmallCircle}`}>
+                                <div className={classes.iconContainer}>
+                                    <AssignmentIcon style={{ fontSize: 52 }} />
+                                </div>
+                            </div>
+                        </div>
+                        <div className={classes.mobileStepTextContainer}>
+                            <Typography className={classes.mobileStepText}>
+                            People who want to make money building products place manufacturing bids on designs
+                            </Typography>
+                        </div>
+                    </Grid>
+
+                    <Grid item container xs={12} justify='center'>
+                        <ArrowDownwardIcon fontSize='large' />
+                    </Grid>
+
+                    {/* STEP FIVE */}
+                    <Grid item container justify='space-between' className={classes.mobileStepContainer}>
+                        <div className={classes.mobileSmallCircleContainer}>
+                            <div className={`${classes.smallCircle} ${classes.mobileSmallCircle}`}>
+                                <div className={classes.iconContainer}>
+                                    <ShoppingCartIcon style={{ fontSize: 48 }} />
+                                </div>
+                            </div>
+                        </div>
+                        <div className={classes.mobileStepTextContainer}>
+                            <Typography className={classes.mobileStepText}>
+                            Anyone who wants to buy a product purchases the design and the bid
+                            </Typography>
+                        </div>
+                    </Grid>
+
+                    <Grid item container xs={12} justify='center'>
+                        <ArrowDownwardIcon fontSize='large' />
+                    </Grid>
+
+                    {/* STEP SIX */}
+                    <Grid item container justify='space-between' className={classes.mobileStepContainer}>
+                        <div className={classes.mobileSmallCircleContainer}>
+                            <div className={`${classes.smallCircle} ${classes.mobileSmallCircle}`}>
+                                <div className={classes.iconContainer}>
+                                    <MonetizationOnIcon style={{ fontSize: 52 }} />
+                                </div>
+                            </div>
+                        </div>
+                        <div className={classes.mobileStepTextContainer}>
+                            <Typography className={classes.mobileStepText}>
+                            The designer receives payment
+                            </Typography>
+                        </div>
+                    </Grid>
+
+                    <Grid item container xs={12} justify='center'>
+                        <ArrowDownwardIcon fontSize='large' />
+                    </Grid>
+
+                    {/* STEP SEVEN */}
+                    <Grid item container justify='space-between' className={classes.mobileStepContainer}>
+                        <div className={classes.mobileSmallCircleContainer}>
+                            <div className={`${classes.smallCircle} ${classes.mobileSmallCircle}`}>
+                                <div className={classes.iconContainer}>
+                                    <ChatIcon style={{ fontSize: 52 }} />
+                                </div>
+                            </div>
+                        </div>
+                        <div className={classes.mobileStepTextContainer}>
+                            <Typography className={classes.mobileStepText}>
+                            The buyer and builder work together to customize the design
+                            </Typography>
+                        </div>
+                    </Grid>
+
+                    <Grid item container xs={12} justify='center'>
+                        <ArrowDownwardIcon fontSize='large' />
+                    </Grid>
+
+                    {/* STEP EIGHT */}
+                    <Grid item container justify='space-between' className={classes.mobileStepContainer}>
+                        <div className={classes.mobileSmallCircleContainer}>
+                            <div className={`${classes.smallCircle} ${classes.mobileSmallCircle}`}>
+                                <div className={classes.iconContainer}>
+                                    <BuildIcon style={{ fontSize: 52 }} />
+                                </div>
+                            </div>
+                        </div>
+                        <div className={classes.mobileStepTextContainer}>
+                            <Typography className={classes.mobileStepText}>
+                            The builder makes the product based on the customized design
+                            </Typography>
+                        </div>
+                    </Grid>
+
+                    <Grid item container xs={12} justify='center'>
+                        <ArrowDownwardIcon fontSize='large' />
+                    </Grid>
+
+                    {/* STEP NINE */}
+                    <Grid item container justify='space-between' className={classes.mobileStepContainer}>
+                        <div className={classes.mobileSmallCircleContainer}>
+                            <div className={`${classes.smallCircle} ${classes.mobileSmallCircle}`}>
+                                <div className={classes.iconContainer}>
+                                    <MailIcon style={{ fontSize: 52 }} />
+                                </div>
+                            </div>
+                        </div>
+                        <div className={classes.mobileStepTextContainer}>
+                            <Typography className={classes.mobileStepText}>
+                            The buyer receives finished product from the builder
+                            </Typography>
+                        </div>
+                    </Grid>
+
+                    <Grid item container xs={12} justify='center'>
+                        <ArrowDownwardIcon fontSize='large' />
+                    </Grid>
+
+                    {/* STEP TEN */}
+                    <Grid item container justify='space-between' className={classes.mobileStepContainer}>
+                        <div className={classes.mobileSmallCircleContainer}>
+                            <div className={`${classes.smallCircle} ${classes.mobileSmallCircle}`}>
+                                <div className={classes.iconContainer}>
+                                    <MonetizationOnIcon style={{ fontSize: 52 }} />
+                                </div>
+                            </div>
+                        </div>
+                        <div className={classes.mobileStepTextContainer}>
+                            <Typography className={classes.mobileStepText}>
+                            The builder receives payment
+                            </Typography>
+                        </div>
+                    </Grid>
+
+
                 </Grid>
+                // <div style={{ display: 'flex', justifyContent: 'space-between', width: 280 }}>
+                //     <div className={`${classes.smallCircle} ${classes.smallCircleOne}`}>
+                //         <div className={classes.iconContainer}>
+                //             <EmojiObjectsIcon
+                //                 style={iconOneStyle}
+                //             />
+                //         </div>
+                //         <div className={`${classes.numCircle} ${classes.numCircleOne}`}>
+                //             <Typography className={classes.numText} variant='h6'>1</Typography>
+                //         </div>
+                //     </div>
+                //     <div style={{display:'flex',alignItems:'center'}}>
+
+                //     <Typography style={{ width: 160 }}>
+                //         Anyone comes up with an idea for a new product
+                //     </Typography>
+                //     </div>
+                // </div>
+
                 :
                 <div className={classes.infoContainer}>
                     <div className={classes.bigCircle}>
