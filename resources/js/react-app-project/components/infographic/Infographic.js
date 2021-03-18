@@ -73,7 +73,7 @@ const useStyles = makeStyles((theme) => ({
         border: '#3f51b5 3px solid',
     },
     mobileSmallCircleContainer: {
-        display: 'flex', 
+        display: 'flex',
         alignItems: 'center'
     },
     mobileStepContainer: {
@@ -403,7 +403,7 @@ const Infographic = () => {
                         </div>
                         <div className={classes.mobileStepTextContainer}>
                             <Typography className={classes.mobileStepText}>
-                            People indicate their interest in buying or building the product
+                                People indicate their interest in buying or building the product
                             </Typography>
                         </div>
                     </Grid>
@@ -423,7 +423,7 @@ const Infographic = () => {
                         </div>
                         <div className={classes.mobileStepTextContainer}>
                             <Typography className={classes.mobileStepText}>
-                            People who want to make money building products place manufacturing bids on designs
+                                People who want to make money building products place manufacturing bids on designs
                             </Typography>
                         </div>
                     </Grid>
@@ -443,7 +443,7 @@ const Infographic = () => {
                         </div>
                         <div className={classes.mobileStepTextContainer}>
                             <Typography className={classes.mobileStepText}>
-                            Anyone who wants to buy a product purchases the design and the bid
+                                Anyone who wants to buy a product purchases the design and the bid
                             </Typography>
                         </div>
                     </Grid>
@@ -463,7 +463,7 @@ const Infographic = () => {
                         </div>
                         <div className={classes.mobileStepTextContainer}>
                             <Typography className={classes.mobileStepText}>
-                            The designer receives payment
+                                The designer receives payment
                             </Typography>
                         </div>
                     </Grid>
@@ -483,7 +483,7 @@ const Infographic = () => {
                         </div>
                         <div className={classes.mobileStepTextContainer}>
                             <Typography className={classes.mobileStepText}>
-                            The buyer and builder work together to customize the design
+                                The buyer and builder work together to customize the design
                             </Typography>
                         </div>
                     </Grid>
@@ -503,7 +503,7 @@ const Infographic = () => {
                         </div>
                         <div className={classes.mobileStepTextContainer}>
                             <Typography className={classes.mobileStepText}>
-                            The builder makes the product based on the customized design
+                                The builder makes the product based on the customized design
                             </Typography>
                         </div>
                     </Grid>
@@ -523,7 +523,7 @@ const Infographic = () => {
                         </div>
                         <div className={classes.mobileStepTextContainer}>
                             <Typography className={classes.mobileStepText}>
-                            The buyer receives finished product from the builder
+                                The buyer receives finished product from the builder
                             </Typography>
                         </div>
                     </Grid>
@@ -543,31 +543,12 @@ const Infographic = () => {
                         </div>
                         <div className={classes.mobileStepTextContainer}>
                             <Typography className={classes.mobileStepText}>
-                            The builder receives payment
+                                The builder receives payment
                             </Typography>
                         </div>
                     </Grid>
 
-
                 </Grid>
-                // <div style={{ display: 'flex', justifyContent: 'space-between', width: 280 }}>
-                //     <div className={`${classes.smallCircle} ${classes.smallCircleOne}`}>
-                //         <div className={classes.iconContainer}>
-                //             <EmojiObjectsIcon
-                //                 style={iconOneStyle}
-                //             />
-                //         </div>
-                //         <div className={`${classes.numCircle} ${classes.numCircleOne}`}>
-                //             <Typography className={classes.numText} variant='h6'>1</Typography>
-                //         </div>
-                //     </div>
-                //     <div style={{display:'flex',alignItems:'center'}}>
-
-                //     <Typography style={{ width: 160 }}>
-                //         Anyone comes up with an idea for a new product
-                //     </Typography>
-                //     </div>
-                // </div>
 
                 :
                 <div className={classes.infoContainer}>
