@@ -13,6 +13,13 @@ const Buy = (props) => {
     const [productArray, setProductArray] = React.useState([]);
 
     useEffect(() => {
+        // axios.get('/api/categories')
+        //     .then(res => {
+                
+        //         console.log(res);
+        //     })
+        //     .catch(err=>console.log(err));
+
         const jwToken = auth.getToken();
 
         const authAxios = axios.create({
@@ -25,14 +32,14 @@ const Buy = (props) => {
 
             authAxios.get('/api/designer/auth/list')
                 .then(res => {
-                    console.log(res);
+                    // console.log(res);
                     setProductArray(res.data.designs);
                 })
                 .catch(err => console.log(err));
         } else {
             axios.get('/api/designer/list')
             .then(res=>{
-                console.log(res);
+                // console.log(res);
                 setProductArray(res.data.designs);
             })
             .catch(err=>console.log(err));
