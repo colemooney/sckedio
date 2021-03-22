@@ -13,37 +13,53 @@ const Buy = (props) => {
     const [productArray, setProductArray] = React.useState([]);
 
     useEffect(() => {
-        // axios.get('/api/categories')
-        //     .then(res => {
-                
-        //         console.log(res);
-        //     })
-        //     .catch(err=>console.log(err));
 
-        const jwToken = auth.getToken();
-
-        const authAxios = axios.create({
-            headers: {
-                Authorization: `Bearer ${jwToken}`
-            }
-        });
-
-        if (props.loggedIn) {
-
-            authAxios.get('/api/designer/auth/list')
-                .then(res => {
-                    // console.log(res);
-                    setProductArray(res.data.designs);
-                })
-                .catch(err => console.log(err));
-        } else {
-            axios.get('/api/designer/list')
-            .then(res=>{
-                // console.log(res);
-                setProductArray(res.data.designs);
+        const catConvert = (design, arr) => {
+            let newDesign = design;
+            arr.forEach(catIndex => {
+                if (design.category_id === catIndex.id) {
+                    newDesign.category_id = catIndex.category;
+                }
             })
-            .catch(err=>console.log(err));
-        }
+            // console.log(newDesign);
+            return newDesign;
+        };
+
+        axios.get('/api/categories')
+            .then(resOne => {
+
+                console.log(resOne);
+
+                const jwToken = auth.getToken();
+
+                const authAxios = axios.create({
+                    headers: {
+                        Authorization: `Bearer ${jwToken}`
+                    }
+                });
+
+                if (props.loggedIn) {
+
+                    authAxios.get('/api/designer/auth/list')
+                        .then(res => {
+                            console.log(res);
+                            const convertedProducts = res.data.designs.map(design => catConvert(design, resOne.data));
+                            setProductArray(convertedProducts);
+                        })
+                        .catch(err => console.log(err));
+                } else {
+                    axios.get('/api/designer/list')
+                        .then(res => {
+                            // console.log(res);
+                            const convertedProducts = res.data.designs.map(design => catConvert(design, resOne.data));
+                            setProductArray(convertedProducts);
+                        })
+                        .catch(err => console.log(err));
+                }
+            })
+            .catch(err => console.log(err));
+
+
 
     }, []);
 
@@ -66,11 +82,11 @@ const Buy = (props) => {
                 .catch(err => console.log(err));
         } else {
             axios.get('/api/designer/list')
-            .then(res=>{
-                console.log(res);
-                setProductArray(res.data.designs);
-            })
-            .catch(err=>console.log(err));
+                .then(res => {
+                    console.log(res);
+                    setProductArray(res.data.designs);
+                })
+                .catch(err => console.log(err));
         }
     };
 
