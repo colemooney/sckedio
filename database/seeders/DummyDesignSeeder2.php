@@ -30,9 +30,9 @@ class DummyDesignSeeder2 extends Seeder
 
         DesignInformation::create([
             'design_id' => $design->id,
-            'category_id' => 21,
+            'category_id' => 39,
             'design_cost' => 1800,
-            'idea_type_id' => 17,
+            'idea_type_id' => 31,
             'description' => 'An interesting idea.'
         ]);
 
