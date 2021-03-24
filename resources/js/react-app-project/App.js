@@ -19,6 +19,8 @@ import GetStarted from './pages/getStarted/GetStarted';
 import auth from './auth';
 import axios from 'axios';
 
+import lightbulbImage from '../../assets/lightbulb2.jpg';
+
 const useStyles = makeStyles((theme) => ({
     center: {
         display: 'flex',
@@ -45,7 +47,8 @@ const App = () => {
         postalCode: null,
         country: null,
         roles: [],
-        profilePhoto: 'https://thumbs.dreamstime.com/b/default-avatar-photo-placeholder-profile-picture-default-avatar-photo-placeholder-profile-picture-eps-file-easy-to-edit-125707135.jpg'
+        // profilePhoto: 'https://thumbs.dreamstime.com/b/default-avatar-photo-placeholder-profile-picture-default-avatar-photo-placeholder-profile-picture-eps-file-easy-to-edit-125707135.jpg'
+        profilePhoto: lightbulbImage
     });
 
     // setTimeout variable
