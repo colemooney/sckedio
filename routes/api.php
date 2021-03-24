@@ -11,7 +11,7 @@ use App\Http\Controllers\PasswordController;
 use App\Http\Controllers\UserInformationController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\OAuthTokenController;
-
+use App\Http\Controllers\SubscriberController;
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
@@ -22,6 +22,13 @@ Route::get('users/', [ApiController::class, 'list']);
 Route::get('categories', [ApiController::class, 'getCategories']);
 Route::get('idea-types', [ApiController::class, 'getIdeaTypes']);
 Route::get('stock-types', [ApiController::class, 'getStockTypes']);
+
+Route::group([
+    'prefix' => 'subscriber'
+], function() {
+    Route::post('create', [SubscriberController::class, 'create']);
+    Route::delete('delete/{email}', [SubscriberController::class, 'delete']);
+});
 
 Route::group([
     'prefix'=> 'auth'
