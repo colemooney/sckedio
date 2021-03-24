@@ -93,17 +93,23 @@ const Home = (props) => {
 
     const handleSendForm = () => {
         const formObj = {
-            formName: formName,
-            formEmail: formEmail
+            name: formName,
+            email: formEmail
         };
 
         const isValid = validateInputs();
 
         if (isValid) {
-            console.log(formObj);
-            setFormButtonText('Success!');
-            setFormName('');
-            setFormEmail('');
+            axios.post('/api/subscriber/create', formObj)
+                .then(res => {
+                    console.log(res);
+                })
+                .catch(err => console.log(err))
+                .then(() => {
+                    setFormButtonText('Success!');
+                    setFormName('');
+                    setFormEmail('');
+                });
         }
 
     };
