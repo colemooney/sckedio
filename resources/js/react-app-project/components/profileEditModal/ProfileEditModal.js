@@ -12,6 +12,7 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Grid from '@material-ui/core/Grid';
 import MenuItem from '@material-ui/core/MenuItem';
 import TextField from '@material-ui/core/TextField';
+import { DropzoneArea } from 'material-ui-dropzone';
 
 const useStyles = makeStyles((theme) => ({
 
@@ -247,7 +248,9 @@ const ProfileEditModal = (props) => {
         handleUpdateUserSubmit,
         usernameHelper,
         emailHelper,
-        modalType
+        modalType,
+        setNewProfileImage,
+        handleProfilePicUpdate
     } = props;
 
     return (
@@ -255,18 +258,28 @@ const ProfileEditModal = (props) => {
             {modalType === 'picture' &&
                 <div>
                     <DialogTitle id="form-dialog-title">Edit Profile Picture</DialogTitle>
+                    <DialogContent>
+                        <Grid container spacing={2}>
+                            <Grid item xs={12}>
+                                <DropzoneArea
+                                    filesLimit={1}
+                                    onChange={files => setNewProfileImage(files)}
+                                />
+                            </Grid>
+                        </Grid>
+                    </DialogContent>
                     <DialogActions>
                         <Button onClick={handleClose} color="secondary">
                             Cancel
                         </Button>
-                        {/* <Button
+                        <Button
                             onClick={() => {
-                                handleUpdateUserSubmit();
+                                handleProfilePicUpdate();
                             }}
                             color="primary"
                         >
                             Submit
-                        </Button> */}
+                        </Button>
                     </DialogActions>
                 </div>
             }

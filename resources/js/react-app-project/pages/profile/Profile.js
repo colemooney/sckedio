@@ -35,6 +35,7 @@ const Profile = (props) => {
     const handleClose = () => {
         setOpen(false);
         setModalType('');
+        setNewProfileImage({});
     };
 
     const [usernameHelper, setUsernameHelper] = React.useState('');
@@ -136,6 +137,31 @@ const Profile = (props) => {
         setModalType('');
     };
 
+    const handleProfilePicUpdate = () => {
+        const formData = new FormData();
+        formData.append('display_picture', newProfileImage);
+        console.log(newProfileImage);
+        console.log(formData);
+        const jwToken = auth.getToken();
+        const authAxios = axios.create({
+            headers: {
+                Authorization: `Bearer ${jwToken}`,
+                'Content-Type': 'multipart/form-data'
+            }
+        });
+
+        authAxios.post('/api/auth/update-user-information', formData)
+            .then(res => {
+                console.log(res);
+                const jwToken = auth.getToken();
+                getUserInfo(jwToken);
+            })
+            .catch(err => console.log(err))
+            .then(() => {
+                handleClose();
+            });
+    };
+
     const validateInputs = () => {
         const usernameIsValid = /^[a-zA-Z0-9]+$/.test(newUserInfo.newUsername);
         const usernameIsLength = stringLengthTest(newUserInfo.newUsername, 4, 25);
@@ -186,7 +212,7 @@ const Profile = (props) => {
                 <ProfileInfoDisplay userInfo={userInfo} handleOpen={handleOpen} />
                 <Grid container spacing={0}>
                     <Grid item xs={12}>
-                        <Button className={classes.editButton} variant='contained' onClick={()=>handleOpen('info')}>Edit</Button>
+                        <Button className={classes.editButton} variant='contained' onClick={() => handleOpen('info')}>Edit</Button>
                     </Grid>
                 </Grid>
                 <ProfileEditModal
@@ -198,6 +224,8 @@ const Profile = (props) => {
                     setNewUserInfo={setNewUserInfo}
                     usernameHelper={usernameHelper}
                     emailHelper={emailHelper}
+                    setNewProfileImage={setNewProfileImage}
+                    handleProfilePicUpdate={handleProfilePicUpdate}
                 />
             </Container>
         </div>

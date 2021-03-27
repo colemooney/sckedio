@@ -47,8 +47,8 @@ const App = () => {
         postalCode: null,
         country: null,
         roles: [],
-        // profilePhoto: 'https://thumbs.dreamstime.com/b/default-avatar-photo-placeholder-profile-picture-default-avatar-photo-placeholder-profile-picture-eps-file-easy-to-edit-125707135.jpg'
-        profilePhoto: lightbulbImage
+        profilePhoto: 'https://thumbs.dreamstime.com/b/default-avatar-photo-placeholder-profile-picture-default-avatar-photo-placeholder-profile-picture-eps-file-easy-to-edit-125707135.jpg'
+        // profilePhoto: lightbulbImage
     });
 
     // setTimeout variable
@@ -85,7 +85,8 @@ const App = () => {
                     state: res.data[1].state,
                     postalCode: res.data[1].postal_code,
                     country: res.data[1].country,
-                    roles: res.data[2]
+                    roles: res.data[2],
+                    profilePhoto: res.data[0].display_picture ? res.data[0].display_picture : 'https://thumbs.dreamstime.com/b/default-avatar-photo-placeholder-profile-picture-default-avatar-photo-placeholder-profile-picture-eps-file-easy-to-edit-125707135.jpg'
                 });
             })
             .catch(err => {
