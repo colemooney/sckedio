@@ -69,7 +69,7 @@ class UserInformationController extends Controller
                 'message' => 'Successfully uploaded picture.'
             ], 200);
         }
-        
+
         // Checks if username, role and/or email are blank.
         if(!empty($request->username) || !empty($request->email)) 
         {
@@ -89,7 +89,7 @@ class UserInformationController extends Controller
             ], 404);
         }
 
-        if(!empty($request->manufacturer) && $user->hasRole('manufacturer'))
+        if($user->hasRole('manufacturer'))
         {
             if(!$request->manufacturer)
             {
