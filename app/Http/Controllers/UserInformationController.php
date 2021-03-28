@@ -25,6 +25,10 @@ class UserInformationController extends Controller
         {
             $userInformation->display_picture = auth()->user()->activeDisplayPicture->pluck('url')->first();
         }
+        else
+        {
+            $userInformation->display_picture = "";
+        }
 
         if(empty($userInformation)){
             return response()->json([
@@ -44,9 +48,9 @@ class UserInformationController extends Controller
         $userInformation = $userCredentials->user_information;
         
         $date = str_replace('-', '_', Carbon::now()->toDateString());
-
+        
         // Checks if display_picture has data.
-        if(!empty($request->file('display_picture')))
+        if(!empty($request->display_picture))
         {
             $fileDirectory = "users/".$user->username."/"."display_pictures";
             $displayPicture = $request->file('display_picture');
@@ -61,6 +65,9 @@ class UserInformationController extends Controller
 
             $displayPictureFile->user()->associate($user);
             $displayPictureFile->save();
+            return response()->json([
+                'message' => 'Successfully uploaded picture.'
+            ], 200);
         }
 
         // Checks if username, role and/or email are blank.

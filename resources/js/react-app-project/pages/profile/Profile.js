@@ -139,7 +139,7 @@ const Profile = (props) => {
 
     const handleProfilePicUpdate = () => {
         const formData = new FormData();
-        formData.append('display_picture', newProfileImage);
+        formData.append('display_picture', newProfileImage[0]);
         console.log(newProfileImage);
         console.log(formData);
         const jwToken = auth.getToken();
