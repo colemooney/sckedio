@@ -140,8 +140,8 @@ const Profile = (props) => {
     const handleProfilePicUpdate = () => {
         const formData = new FormData();
         formData.append('display_picture', newProfileImage[0]);
-        console.log(newProfileImage);
-        console.log(formData);
+        // console.log(newProfileImage[0]);
+        // console.log(formData.get('display_picture'));
         const jwToken = auth.getToken();
         const authAxios = axios.create({
             headers: {
