@@ -52,6 +52,14 @@ class UserInformationController extends Controller
         // Checks if display_picture has data.
         if(!empty($request->display_picture))
         {
+            $activeDisplayPictures = auth()->user()->activeDisplayPicture;
+
+            foreach($activeDisplayPictures as $activeDisplayPicture)
+            {
+                $activeDisplayPicture->is_active = 0;
+                $activeDisplayPicture->save();
+            }
+
             $fileDirectory = "users/".$user->username."/"."display_pictures";
             $displayPicture = $request->file('display_picture');
             $filename = $date.'_'.$displayPicture->getClientOriginalName();
