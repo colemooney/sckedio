@@ -26,7 +26,7 @@ class CreateRequest extends FormRequest
         return [
             'name' => 'required|string',
             'email' => 'required|email|unique:feedbacks',
-            'message' => 'required|text'
+            'message' => 'required|string'
         ];
     }
 }
