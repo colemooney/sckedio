@@ -6,9 +6,11 @@ import Button from '@material-ui/core/Button';
 import FeedbackForm from '../feedbackform/feedbackform';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import Hidden from '@material-ui/core/Hidden';
+import { useHistory } from "react-router-dom";
 
 
 const PageLayout = ({ pageData }) => {
+    let history = useHistory();
     const theme = useTheme();
     const useStyles = makeStyles((theme) => ({
         title: {
@@ -75,6 +77,7 @@ const PageLayout = ({ pageData }) => {
         },
     }))
 
+
     const classes = useStyles();
 
 
@@ -88,7 +91,7 @@ const PageLayout = ({ pageData }) => {
                         <Typography variant='h2' align='center' className={classes.title}>{pageData.header.title}</Typography>
                         <Typography variant='h5' align='center' className={classes.subtitle}>{pageData.header.subtitle}</Typography>
                         <Box align="center">
-                            <Button variant="contained">{pageData.header.button}</Button>
+                            <Button variant="contained" onClick={() => history.push(pageData.header.url)}>{pageData.header.button}</Button>
                         </Box>
                     </Grid>
                 </Grid>

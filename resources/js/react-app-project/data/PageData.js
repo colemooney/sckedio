@@ -19,7 +19,8 @@ const SellPage = {
         title: 'Sell Your Idea',
         subtitle: 'Do you have an awesome idea for a product? Then Sckedio is the right place for you! Sckedio is a platform to sell your unique product ideas and designs. You can upload anything from just an idea to a fully designed product.',
         button: 'Get Started',
-        image: '../images/pexels-christina-morillo-1181345.jpg'
+        image: '../images/pexels-christina-morillo-1181345.jpg',
+        url: '/get-started',
     },
     main: [
         {
@@ -67,8 +68,9 @@ const BuildPage = {
     header: {
         title: 'Build with Sckedio',
         subtitle: 'Join Sckedio as a manufacturer and make money building new and innovative products! Anyone can sign up to be a builder and you will have the ability to make any product you feel comfortable with.',
-        button: 'Our Work',
+        button: 'Create an Account',
         image: buildPageBG,
+        url: '/login',
     },
     main: [
         {
