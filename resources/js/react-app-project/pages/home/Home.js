@@ -100,7 +100,7 @@ const Home = (props) => {
         if (isValid) {
             axios.post('/api/subscriber/create', formObj)
                 .then(res => {
-                    console.log(res);
+                    // console.log(res);
                 })
                 .catch(err => console.log(err))
                 .then(() => {
@@ -156,7 +156,7 @@ const Home = (props) => {
                                     <Grid item container xs={12}>
                                         <Grid item xs={12}>
                                             <Box align="center">
-                                                <Button variant='contained' color='primary' onClick={() => history.push('/get-started')} >Submit an Idea</Button>
+                                                <Button variant='contained' color='primary' onClick={() => history.push('/sell')} >Submit an Idea</Button>
                                             </Box>
                                         </Grid>
                                         <Grid item xs={12}>
@@ -174,7 +174,7 @@ const Home = (props) => {
                                     <Grid item container xs={12} justify='space-between' >
                                         <Grid item>
 
-                                            <Button variant='contained' color='primary' onClick={() => history.push('/get-started')} >Submit an Idea</Button>
+                                            <Button variant='contained' color='primary' onClick={() => history.push('/sell')} >Submit an Idea</Button>
                                         </Grid>
                                         <Grid item>
 
