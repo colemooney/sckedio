@@ -100,7 +100,7 @@ const Home = (props) => {
         if (isValid) {
             axios.post('/api/subscriber/create', formObj)
                 .then(res => {
-                    console.log(res);
+                    // console.log(res);
                 })
                 .catch(err => console.log(err))
                 .then(() => {
