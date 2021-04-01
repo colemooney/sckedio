@@ -63,6 +63,9 @@ const PageLayout = ({ pageData }) => {
             backgroundColor: '#232227',
         },
 
+        uploadButton: {
+            marginTop: theme.spacing(2)
+        },
         topSectionBackground: {
             height: 600,
             backgroundImage: `url(${pageData.header.image})`,
@@ -110,9 +113,23 @@ const PageLayout = ({ pageData }) => {
                             </Hidden>
                             :
                             <Grid container item  >{/* Image of artisan drawing on whiteboard*/}
-                                <Grid item md={12} className={classes.sectionText}>
+                                <Grid item container md={12} className={classes.sectionText}>
                                     <Typography variant='h4' gutterBottom className={classes.sectionTitle}>{section.title}</Typography>
                                     <Typography variant='h6' className={classes.sectionSubtitle}>{section.subtitle}</Typography>
+                                    {section.buttons &&
+                                    <Grid item container md={12}>
+                                        <Grid item xs={12} sm={6}>
+                                            <Box align="center">
+                                                <Button variant="contained" className={classes.uploadButton} onClick={() => history.push('/get-started')}>Upload Design</Button>
+                                            </Box>
+                                        </Grid>
+                                        <Grid item xs={12} sm={6}>
+                                            <Box align="center">
+                                                <Button variant="contained" className={classes.uploadButton} onClick={() => history.push('/login')}>Login</Button>
+                                            </Box>
+                                        </Grid>
+                                    </Grid>
+                                    }
                                 </Grid>
                             </Grid>
                         }
