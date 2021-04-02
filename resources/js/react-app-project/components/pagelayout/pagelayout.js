@@ -1,13 +1,14 @@
 import React from 'react';
-import Grid from '@material-ui/core/Grid';
-import Box from '@material-ui/core/Box';
-import Typography from '@material-ui/core/Typography';
-import Button from '@material-ui/core/Button';
-import FeedbackForm from '../feedbackform/feedbackform';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
-import Hidden from '@material-ui/core/Hidden';
 import { useHistory } from "react-router-dom";
 
+import Box from '@material-ui/core/Box';
+import Button from '@material-ui/core/Button';
+import Grid from '@material-ui/core/Grid';
+import Hidden from '@material-ui/core/Hidden';
+import Typography from '@material-ui/core/Typography';
+
+import FeedbackForm from '../feedbackform/feedbackform';
 
 const PageLayout = ({ pageData }) => {
     let history = useHistory();
@@ -70,11 +71,8 @@ const PageLayout = ({ pageData }) => {
             height: 600,
             backgroundImage: `url(${pageData.header.image})`,
             backgroundSize: 'cover',
-            // backgroundPosition: 'top-center',
             backgroundRepeat: 'no-repeat',
             width: `calc(100vw + 40px)`,
-            // width: "100%",
-            // margin: 0,
             padding: 70,
             paddingBottom: 0,
         },
@@ -117,18 +115,18 @@ const PageLayout = ({ pageData }) => {
                                     <Typography variant='h4' gutterBottom className={classes.sectionTitle}>{section.title}</Typography>
                                     <Typography variant='h6' className={classes.sectionSubtitle}>{section.subtitle}</Typography>
                                     {section.buttons &&
-                                    <Grid item container md={12}>
-                                        <Grid item xs={12} sm={6}>
-                                            <Box align="center">
-                                                <Button variant="contained" className={classes.uploadButton} onClick={() => history.push('/get-started')}>Upload Design</Button>
-                                            </Box>
+                                        <Grid item container md={12}>
+                                            <Grid item xs={12} sm={6}>
+                                                <Box align="center">
+                                                    <Button variant="contained" className={classes.uploadButton} onClick={() => history.push('/get-started')}>Upload Design</Button>
+                                                </Box>
+                                            </Grid>
+                                            <Grid item xs={12} sm={6}>
+                                                <Box align="center">
+                                                    <Button variant="contained" className={classes.uploadButton} onClick={() => history.push('/login')}>Login</Button>
+                                                </Box>
+                                            </Grid>
                                         </Grid>
-                                        <Grid item xs={12} sm={6}>
-                                            <Box align="center">
-                                                <Button variant="contained" className={classes.uploadButton} onClick={() => history.push('/login')}>Login</Button>
-                                            </Box>
-                                        </Grid>
-                                    </Grid>
                                     }
                                 </Grid>
                             </Grid>
