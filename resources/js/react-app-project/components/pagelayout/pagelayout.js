@@ -10,7 +10,13 @@ import Typography from '@material-ui/core/Typography';
 
 import FeedbackForm from '../feedbackform/feedbackform';
 
-const PageLayout = ({ pageData }) => {
+const PageLayout = (props) => {
+    // const pageData = props.pageData;
+    // const loggedIn = props.loggedIn;
+    const {
+        pageData,
+        loggedIn
+    } = props;
     let history = useHistory();
     const theme = useTheme();
     const useStyles = makeStyles((theme) => ({
@@ -91,9 +97,11 @@ const PageLayout = ({ pageData }) => {
                     <Grid item xs={12} md={6}>{/*The marketplace for ideas...+Sckedio connects... */}
                         <Typography variant='h2' align='center' className={classes.title}>{pageData.header.title}</Typography>
                         <Typography variant='h5' align='center' className={classes.subtitle}>{pageData.header.subtitle}</Typography>
-                        <Box align="center">
-                            <Button variant="contained" onClick={() => history.push(pageData.header.url)}>{pageData.header.button}</Button>
-                        </Box>
+                        {pageData.header.title === 'Build with Sckedio' && !loggedIn &&
+                            <Box align="center">
+                                <Button variant="contained" onClick={() => history.push(pageData.header.url)}>{pageData.header.button}</Button>
+                            </Box>
+                        }
                     </Grid>
                 </Grid>
             </Grid>
