@@ -97,7 +97,14 @@ const PageLayout = (props) => {
                     <Grid item xs={12} md={6}>{/*The marketplace for ideas...+Sckedio connects... */}
                         <Typography variant='h2' align='center' className={classes.title}>{pageData.header.title}</Typography>
                         <Typography variant='h5' align='center' className={classes.subtitle}>{pageData.header.subtitle}</Typography>
+                        {/* BUTTON FOR BUILD PAGE */}
                         {pageData.header.title === 'Build with Sckedio' && !loggedIn &&
+                            <Box align="center">
+                                <Button variant="contained" onClick={() => history.push(pageData.header.url)}>{pageData.header.button}</Button>
+                            </Box>
+                        }
+                        {/* BUTTON FOR SELL PAGE */}
+                        {pageData.header.title === 'Sell Your Idea' &&
                             <Box align="center">
                                 <Button variant="contained" onClick={() => history.push(pageData.header.url)}>{pageData.header.button}</Button>
                             </Box>
