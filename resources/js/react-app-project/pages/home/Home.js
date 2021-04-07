@@ -150,7 +150,7 @@ const Home = (props) => {
                             </Grid>
 
                             <Grid item container xs={12} sm={10} md={6} spacing={3}>
-                                <Typography variant='h5' align='center'><span className={classes.blackTextBackground}>Sckedio connects people who have an idea for a product with people who want to build and buy their idea</span></Typography>
+                                <Typography variant='h5' align='center'><span className={classes.blackTextBackground}>Sckedio connects people who have an idea for a product with people who want to build and buy their idea.</span></Typography>
 
                                 {isMobile ?
                                     <Grid item container xs={12}>
