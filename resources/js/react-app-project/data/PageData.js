@@ -7,10 +7,10 @@ import labImage from '../images/labartisan.jpg';
 import sellSecondPic from '../images/pexels-anna-shvets-3727459.jpeg';
 import sellFourthPic from '../images/pexels-yan-krukov-4458419.jpeg';
 import sellFifthPic from '../images/pexels-andrea-piacquadio-3811830.jpeg';
-import buildSecondPic from '../images/pexels-ivan-samkov-4458550.jpeg';
+import buildSecondPic from '../images/pexels-ivan-samkov-4491881.jpeg';
 import buildThirdPic from '../images/pexels-cottonbro-3738088.jpg';
-import buildFourthPic from '../images/pexels-gabby-k-5302946.jpg';
-import buildFifthPic from '../images/pexels-yan-krukov-4458419.jpeg';
+import buildFourthPic from '../images/pexels-luis-quintero-1659748.jpeg';
+import buildFifthPic from '../images/pexels-alexander-suhorucov-6457556.jpeg';
 
 
 
