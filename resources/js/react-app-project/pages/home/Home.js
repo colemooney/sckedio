@@ -13,7 +13,7 @@ import Infographic from '../../components/infographic/Infographic';
 import NavBar from '../../components/navBar/NavBar';
 
 import axios from 'axios';
-import notebookImage from '../../../../assets/notebook.jpg'
+import starsBG from '../../images/pexels-marc-schulte-2779948.jpeg'
 import stayTunedImage from '../../images/pexels-andrea-piacquadio-842554.jpg'
 
 const useStyles = makeStyles((theme) => ({
@@ -67,7 +67,7 @@ const useStyles = makeStyles((theme) => ({
     },
     topSectionBackground: {
         height: 'calc(100vh - 66px)',
-        backgroundImage: `url(${notebookImage})`,
+        backgroundImage: `url(${starsBG})`,
         backgroundSize: 'cover',
         backgroundPosition: 'top-center',
         backgroundRepeat: 'no-repeat',
