@@ -64,6 +64,8 @@ const ProfileInfoDisplay = (props) => {
         username,
         firstName,
         lastName,
+        bio,
+        socialMedia,
         email,
         street,
         city,
@@ -125,7 +127,7 @@ const ProfileInfoDisplay = (props) => {
                         <Typography variant='h6' color='textSecondary'>
                             INFORMATION
                         </Typography>
-                        <Divider />
+                        <Divider/>
                     </Grid>
                     <Grid item xs={12}>
                         <Typography className={classes.bold}>
@@ -133,6 +135,22 @@ const ProfileInfoDisplay = (props) => {
                         </Typography>
                         <Typography>
                             {username}
+                        </Typography>
+                    </Grid>
+                    <Grid item xs={12}>
+                        <Typography className={classes.bold}>
+                            Bio:
+                        </Typography>
+                        <Typography>
+                            {bio}
+                        </Typography>
+                    </Grid>
+                    <Grid item xs={12}>
+                        <Typography className={classes.bold}>
+                            Social Media:
+                        </Typography>
+                        <Typography>
+                            {socialMedia}
                         </Typography>
                     </Grid>
                     <Grid item xs={12}>
@@ -201,6 +219,30 @@ const ProfileInfoDisplay = (props) => {
                             <Grid item xs={8} md={9}>
                                 <Typography>
                                     {username}
+                                </Typography>
+                            </Grid>
+                        </Grid>
+                        <Grid container item xs={12}>
+                            <Grid item xs={4} sm={3}>
+                                <Typography>
+                                    Bio:
+                                    </Typography>
+                            </Grid>
+                            <Grid item xs={8} md={9}>
+                                <Typography>
+                                    {bio}
+                                </Typography>
+                            </Grid>
+                        </Grid>
+                        <Grid container item xs={12}>
+                            <Grid item xs={4} sm={3}>
+                                <Typography>
+                                    Social Media:
+                                    </Typography>
+                            </Grid>
+                            <Grid item xs={8} md={9}>
+                                <Typography>
+                                    {socialMedia}
                                 </Typography>
                             </Grid>
                         </Grid>

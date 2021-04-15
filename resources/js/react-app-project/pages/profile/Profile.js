@@ -49,6 +49,8 @@ const Profile = (props) => {
         newUsername: null,
         newFirstName: null,
         newLastName: null,
+        newBio: null,
+        newSocialMedia: null,
         newEmail: null,
         newStreet: null,
         newCity: null,
@@ -63,6 +65,8 @@ const Profile = (props) => {
         setNewUserInfo({
             ...newUserInfo,
             newUsername: userInfo.username,
+            newBio: userInfo.bio,
+            newSocialMedia: userInfo.socialMedia,
             newEmail: userInfo.email,
             newFirstName: userInfo.firstName,
             newLastName: userInfo.lastName,
@@ -87,6 +91,8 @@ const Profile = (props) => {
             postal_code: newUserInfo.newPostalCode,
             country: newUserInfo.newCountry,
             username: newUserInfo.newUsername,
+            bio: newUserInfo.newBio,
+            socialMedia: newUserInfo.newSocialMedia,
             email: newUserInfo.newEmail,
             designer: newUserInfo.newDesigner,
             manufacturer: newUserInfo.newManufacturer
