@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use App\Models\UserInformation;
 use App\Models\User;
+use App\Models\SocialLink;
 use App\Models\DisplayPicture;
 
 // Requests
@@ -77,6 +78,7 @@ class UserInformationController extends Controller
                 'message' => 'Successfully uploaded picture.'
             ], 200);
         }
+        //END Display Picture
 
         // Checks if username, role and/or email are blank.
         if(!empty($request->username) || !empty($request->email)) 
@@ -95,6 +97,19 @@ class UserInformationController extends Controller
             return response()->json([
                 'message' => 'User information not found.'
             ], 404);
+        }
+
+        if(!empty($request->social_medias) && !empty($request->social_links))
+        {
+            for($i=0; count($request->social_medias) > $i; $i++)
+            {
+                $userSocialLink = new SocialLink([
+                    'social_media' => $request->social_medias[$i],
+                    'social_link' => $request->social_links[$i]
+                ]);
+                $userSocialLink->user()->associate($user);
+                $userSocialLink->save();
+            }
         }
 
         if($user->hasRole('manufacturer'))
