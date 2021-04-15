@@ -103,12 +103,16 @@ class UserInformationController extends Controller
         {
             for($i=0; count($request->social_medias) > $i; $i++)
             {
-                $userSocialLink = new SocialLink([
-                    'social_media' => $request->social_medias[$i],
-                    'social_link' => $request->social_links[$i]
-                ]);
-                $userSocialLink->user()->associate($user);
-                $userSocialLink->save();
+                $duplicateChecker = $this->checkDuplicateSocialLink($request->social_links[$i]);
+                if(!$duplicateChecker)
+                {
+                    $userSocialLink = new SocialLink([
+                        'social_media' => $request->social_medias[$i],
+                        'social_link' => $request->social_links[$i]
+                    ]);
+                    $userSocialLink->user()->associate($user);
+                    $userSocialLink->save();
+                }
             }
         }
 
@@ -145,5 +149,18 @@ class UserInformationController extends Controller
         return response()->json([
             'message' => 'Successfully updated user information.'
         ], 201);
+    }
+
+    protected function checkDuplicateSocialLink(string $socialLink)
+    {
+        $links = auth()->user()->social_link;
+        foreach($links as $link)
+        {
+            if($link->social_link === $socialLink)
+            {
+                return true;
+            }
+        }
+        return false;
     }
 }

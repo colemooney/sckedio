@@ -37,7 +37,7 @@ class UpdateRequest extends FormRequest
             'social_medias' => 'nullable|array',
             'social_medias.*' => 'nullable|string',
             'social_links' => 'nullable|array',
-            'social_links.*' => 'nullable|string|distinct',
+            'social_links.*' => 'nullable|string|distinct:strict',
             'username' => 'nullable|string',
             'email' => 'nullable|string',
             'first_name' => 'nullable|string',
