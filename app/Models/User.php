@@ -12,6 +12,7 @@ use Spatie\Permission\Traits\HasRoles;
 use App\Models\Designer\Design;
 use App\Models\BuyerQueue;
 use App\Models\DisplayPicture;
+use App\Models\SocialLink;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
@@ -64,6 +65,11 @@ class User extends Authenticatable implements MustVerifyEmail
     public function displayPicture()
     {
         return $this->hasMany(DisplayPicture::class, 'user_id');
+    }
+
+    public function social_link()
+    {
+        return $this->hasMany(SocialLink::class, 'user_id');
     }
 
     public function user_information()
