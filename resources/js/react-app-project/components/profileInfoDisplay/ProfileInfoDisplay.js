@@ -75,6 +75,7 @@ const ProfileInfoDisplay = (props) => {
         profilePhoto,
         roles
     } = props.userInfo;
+
     const theme = useTheme();
     const isMobile = useMediaQuery(theme.breakpoints.down('xs'));
 
@@ -124,10 +125,10 @@ const ProfileInfoDisplay = (props) => {
                         </Typography>
                     </Grid>
                     <Grid item xs={12}>
-                        <Typography variant='h6' color='textSecondary'>
+                        <Typography variant='h6' color='textSecondary' >
                             INFORMATION
                         </Typography>
-                        <Divider/>
+                        <Divider />
                     </Grid>
                     <Grid item xs={12}>
                         <Typography className={classes.bold}>

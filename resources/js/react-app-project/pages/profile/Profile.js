@@ -58,18 +58,18 @@ const Profile = (props) => {
         newPostalCode: null,
         newCountry: null,
         newDesigner: null,
-        newManufacturer: null
+        newManufacturer: null,
     });
 
     useEffect(() => {
         setNewUserInfo({
             ...newUserInfo,
             newUsername: userInfo.username,
-            newBio: userInfo.bio,
-            newSocialMedia: userInfo.socialMedia,
             newEmail: userInfo.email,
             newFirstName: userInfo.firstName,
             newLastName: userInfo.lastName,
+            newBio: userInfo.bio,
+            newSocialMedia: userInfo.socialMedia,
             newStreet: userInfo.street,
             newCity: userInfo.city,
             newState: userInfo.state,
@@ -79,25 +79,35 @@ const Profile = (props) => {
             newManufacturer: userInfo.roles.includes('manufacturer')
         });
 
+
     }, [userInfo]);
+
 
     const handleUpdateUserSubmit = () => {
         const userUpdateInfo = {
             first_name: newUserInfo.newFirstName,
             last_name: newUserInfo.newLastName,
+            bio: newUserInfo.newBio,
+            social_medias: [
+                "facebooke",
+                "twitter"
+            ],
+            social_links: [
+                "facebook.com/someone",
+                "twitter.com/someone"
+            ],
             state: newUserInfo.newState,
             city: newUserInfo.newCity,
             street: newUserInfo.newStreet,
             postal_code: newUserInfo.newPostalCode,
             country: newUserInfo.newCountry,
             username: newUserInfo.newUsername,
-            bio: newUserInfo.newBio,
-            socialMedia: newUserInfo.newSocialMedia,
             email: newUserInfo.newEmail,
             designer: newUserInfo.newDesigner,
             manufacturer: newUserInfo.newManufacturer
 
         };
+
 
         const isValid = validateInputs();
 

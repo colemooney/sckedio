@@ -236,6 +236,7 @@ const ProfileEditModal = (props) => {
         newDesigner,
         newManufacturer
     } = props.newUserInfo;
+
     const {
         open,
         handleClose,
@@ -341,7 +342,7 @@ const ProfileEditModal = (props) => {
                                     label="Bio"
                                     variant='outlined'
                                     type="text"
-                                    value={newBio}
+                                    value={newBio ? newBio : ''}
                                     onChange={event => setNewUserInfo(
                                         {
                                             ...newUserInfo,
@@ -357,15 +358,14 @@ const ProfileEditModal = (props) => {
                                     id="social-media"
                                     label="Social Media"
                                     variant='outlined'
-                                    type="text"
-                                    value={newSocialMedia}
+                                    type="url"
+                                    value={newSocialMedia ? newSocialMedia : ''}
                                     onChange={event => setNewUserInfo(
                                         {
                                             ...newUserInfo,
                                             newSocialMedia: event.target.value
                                         }
                                     )}
-
                                     fullWidth
                                 />
                             </Grid>
