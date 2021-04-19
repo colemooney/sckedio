@@ -78,6 +78,7 @@ Route::group([
         'middleware' => ['auth:api'], 'prefix' => 'design-rating'
     ], function() {
         Route::post('store', [DesignRatingController::class, 'store']);
+        Route::get('show/{id}', [DesignRatingController::class, 'show']);
     });
 });
 

@@ -101,7 +101,7 @@ class UserAuthenticationService
             $user,
             $userInformation,
             $roles,
-            $socialLinks
+            'social_links' => $socialLinks
         ], 200);
     }
 }
