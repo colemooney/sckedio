@@ -23,4 +23,12 @@ class DesignRatingController extends Controller
             'message' => 'Success!'
         ], 200);
     }
+
+    public function show($id)
+    {
+        $designRating = auth()->user()->design_rating->where('design_id', $id)->first();
+        return response()->json([
+            'design_rating' => $designRating
+        ]);
+    }
 }

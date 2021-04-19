@@ -17,6 +17,11 @@ class DesignRating extends Model
         'rate'
     ];
 
+    protected $visible = [
+        'rate',
+        'design_id'
+    ];
+
     public function user()
     {
         return $this->belongsTo(User::class, 'user_id');
