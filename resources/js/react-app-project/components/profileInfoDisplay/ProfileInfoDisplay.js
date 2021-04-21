@@ -92,6 +92,8 @@ const ProfileInfoDisplay = (props) => {
         return rolesString;
     };
 
+    const socialMediaDisplay = '';
+
 
     return (
         <div className={classes.root}>
@@ -150,9 +152,15 @@ const ProfileInfoDisplay = (props) => {
                         <Typography className={classes.bold}>
                             Social Media:
                         </Typography>
-                        <Typography>
-                            {socialMedia}
-                        </Typography>
+                        {socialMedia.map(sm => {
+                            return (
+                                <Typography>
+                                    <span className='socialMediaName'>{sm.social_media}</span> 
+                                    <br/> 
+                                    <span className='socialMediaLink'>{sm.social_link}</span>
+                                </Typography>
+                            )
+                        })}
                     </Grid>
                     <Grid item xs={12}>
                         <Typography className={classes.bold}>
@@ -227,7 +235,7 @@ const ProfileInfoDisplay = (props) => {
                             <Grid item xs={4} sm={3}>
                                 <Typography>
                                     Bio:
-                                    </Typography>
+                                </Typography>
                             </Grid>
                             <Grid item xs={8} md={9}>
                                 <Typography>
@@ -239,12 +247,18 @@ const ProfileInfoDisplay = (props) => {
                             <Grid item xs={4} sm={3}>
                                 <Typography>
                                     Social Media:
-                                    </Typography>
+                                </Typography>
                             </Grid>
                             <Grid item xs={8} md={9}>
-                                <Typography>
-                                    {socialMedia}
-                                </Typography>
+                                {socialMedia.map(sm => {
+                                    return (
+                                        <Typography>
+                                            <span className='socialMediaName'>{sm.social_media}</span> 
+                                            <br/> 
+                                            <span className='socialMediaLink'>{sm.social_link}</span>
+                                        </Typography>
+                                    )
+                                })}
                             </Grid>
                         </Grid>
                         <Grid container item xs={12}>
