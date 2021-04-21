@@ -338,6 +338,24 @@ const ProfileEditModal = (props) => {
                             </Grid>
                             <Grid item xs={12} sm={6}>
                                 <TextField
+                                    id="email"
+                                    label="Email"
+                                    variant='outlined'
+                                    type="email"
+                                    value={newEmail}
+                                    onChange={event => setNewUserInfo(
+                                        {
+                                            ...newUserInfo,
+                                            newEmail: event.target.value
+                                        }
+                                    )}
+                                    error={emailHelper === '' ? false : true}
+                                    helperText={emailHelper}
+                                    fullWidth
+                                />
+                            </Grid>
+                            <Grid item xs={12} sm={6}>
+                                <TextField
                                     id="bio"
                                     label="Bio"
                                     variant='outlined'
@@ -366,24 +384,6 @@ const ProfileEditModal = (props) => {
                                             newSocialMedia: event.target.value
                                         }
                                     )}
-                                    fullWidth
-                                />
-                            </Grid>
-                            <Grid item xs={12} sm={6}>
-                                <TextField
-                                    id="email"
-                                    label="Email"
-                                    variant='outlined'
-                                    type="email"
-                                    value={newEmail}
-                                    onChange={event => setNewUserInfo(
-                                        {
-                                            ...newUserInfo,
-                                            newEmail: event.target.value
-                                        }
-                                    )}
-                                    error={emailHelper === '' ? false : true}
-                                    helperText={emailHelper}
                                     fullWidth
                                 />
                             </Grid>

@@ -38,7 +38,7 @@ const Profile = (props) => {
     const handleClose = () => {
         setOpen(false);
         setModalType('');
-        setNewProfileImage({});
+        setNewProfileImage({}); 
     };
 
     const [usernameHelper, setUsernameHelper] = React.useState('');
@@ -88,14 +88,7 @@ const Profile = (props) => {
             first_name: newUserInfo.newFirstName,
             last_name: newUserInfo.newLastName,
             bio: newUserInfo.newBio,
-            social_medias: [
-                "facebooke",
-                "twitter"
-            ],
-            social_links: [
-                "facebook.com/someone",
-                "twitter.com/someone"
-            ],
+            socialMedia: newSocialMedia,
             state: newUserInfo.newState,
             city: newUserInfo.newCity,
             street: newUserInfo.newStreet,
