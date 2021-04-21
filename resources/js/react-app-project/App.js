@@ -46,7 +46,6 @@ const App = () => {
         state: null,
         postalCode: null,
         country: null,
-        bio: null,
         roles: [],
         profilePhoto: 'https://thumbs.dreamstime.com/b/default-avatar-photo-placeholder-profile-picture-default-avatar-photo-placeholder-profile-picture-eps-file-easy-to-edit-125707135.jpg'
     });
@@ -83,11 +82,9 @@ const App = () => {
                     state: res.data[1].state,
                     postalCode: res.data[1].postal_code,
                     country: res.data[1].country,
-                    bio: res.data[1].bio,
                     roles: res.data[2],
                     profilePhoto: res.data[0].display_picture ? res.data[0].display_picture : 'https://thumbs.dreamstime.com/b/default-avatar-photo-placeholder-profile-picture-default-avatar-photo-placeholder-profile-picture-eps-file-easy-to-edit-125707135.jpg'
                 });
-                console.log('response', res.data[1])
             })
             .catch(err => {
                 console.log(err);
