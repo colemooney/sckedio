@@ -13,6 +13,7 @@ use App\Models\Designer\Design;
 use App\Models\BuyerQueue;
 use App\Models\DisplayPicture;
 use App\Models\SocialLink;
+use App\Models\DesignRating;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
@@ -45,6 +46,12 @@ class User extends Authenticatable implements MustVerifyEmail
         // 'roles'
     ];
 
+    protected $visible = [
+        'username',
+        'email',
+        'display_picture'
+    ];
+
     // protected $appends = [
     //     'role_names'
     // ];
@@ -67,9 +74,14 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->hasMany(DisplayPicture::class, 'user_id');
     }
 
+    public function design_rating()
+    {
+        return $this->hasMany(DesignRating::class, 'user_id');
+    }
+
     public function social_link()
     {
-        return $this->hasMany(SocialLink::class, 'user_id');
+        return $this->hasMany(SocialLink::class, 'user_id')->select('social_media', 'social_link');
     }
 
     public function user_information()
