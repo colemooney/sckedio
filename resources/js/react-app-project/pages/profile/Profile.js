@@ -38,7 +38,7 @@ const Profile = (props) => {
     const handleClose = () => {
         setOpen(false);
         setModalType('');
-        setNewProfileImage({});
+        setNewProfileImage({}); 
     };
 
     const [usernameHelper, setUsernameHelper] = React.useState('');
@@ -71,6 +71,7 @@ const Profile = (props) => {
             newState: userInfo.state,
             newPostalCode: userInfo.postalCode,
             newCountry: userInfo.country,
+            newBio: userInfo.bio,
             newDesigner: userInfo.roles.includes('designer'),
             newManufacturer: userInfo.roles.includes('manufacturer')
         });
@@ -89,9 +90,19 @@ const Profile = (props) => {
             username: newUserInfo.newUsername,
             email: newUserInfo.newEmail,
             designer: newUserInfo.newDesigner,
-            manufacturer: newUserInfo.newManufacturer
+            manufacturer: newUserInfo.newManufacturer,
+            bio: newUserInfo.newBio,
+            social_medias: [
+                "facebooke",
+                "twitter"
+            ],
+            social_links: [
+                "facebook.com/someone",
+                "twitter.com/someone"
+            ]
 
         };
+        console.log('updateuser', userUpdateInfo);
 
         const isValid = validateInputs();
 

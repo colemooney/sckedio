@@ -231,6 +231,7 @@ const ProfileEditModal = (props) => {
         newState,
         newPostalCode,
         newCountry,
+        newBio,
         newDesigner,
         newManufacturer
     } = props.newUserInfo;
@@ -433,6 +434,22 @@ const ProfileEditModal = (props) => {
                                         {
                                             ...newUserInfo,
                                             newCountry: event.target.value
+                                        }
+                                    )}
+                                    fullWidth
+                                />
+                            </Grid>
+                            <Grid item xs={12}>
+                                <TextField
+                                    id="bio"
+                                    label="Bio"
+                                    variant='outlined'
+                                    type="text"
+                                    value={newBio ? newBio : ''}
+                                    onChange={event => setNewUserInfo(
+                                        {
+                                            ...newUserInfo,
+                                            newBio: event.target.value
                                         }
                                     )}
                                     fullWidth

@@ -70,6 +70,7 @@ const ProfileInfoDisplay = (props) => {
         state,
         postalCode,
         country,
+        bio,
         profilePhoto,
         roles
     } = props.userInfo;
@@ -159,6 +160,14 @@ const ProfileInfoDisplay = (props) => {
                             {country}
                         </Typography>
                     </Grid>
+                    <Grid item xs={12}>
+                        <Typography className={classes.bold}>
+                            Bio:
+                        </Typography>
+                        <Typography>
+                            {bio}
+                        </Typography>
+                    </Grid>
                 </Grid>
             ) : (
                 <Grid container spacing={4}>
@@ -237,6 +246,18 @@ const ProfileInfoDisplay = (props) => {
                             <Grid item xs={8} md={9}>
                                 <Typography>
                                     {country}
+                                </Typography>
+                            </Grid>
+                        </Grid>
+                        <Grid container item xs={12}>
+                            <Grid item xs={4} sm={3}>
+                                <Typography>
+                                    Bio:
+                                    </Typography>
+                            </Grid>
+                            <Grid item xs={8} md={9}>
+                                <Typography>
+                                    {bio}
                                 </Typography>
                             </Grid>
                         </Grid>
