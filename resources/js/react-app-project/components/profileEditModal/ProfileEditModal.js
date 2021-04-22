@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
 import Button from '@material-ui/core/Button';
 import Checkbox from '@material-ui/core/Checkbox';
@@ -226,7 +226,8 @@ const ProfileEditModal = (props) => {
         newFirstName,
         newLastName,
         newBio,
-        newSocialMedia,
+        newSocialMedias,
+        newSocialLinks,
         newEmail,
         newStreet,
         newCity,
@@ -249,6 +250,40 @@ const ProfileEditModal = (props) => {
         setNewProfileImage,
         handleProfilePicUpdate
     } = props;
+
+    // manage the number of available fields for social media
+    // each button click adds a counter to the field array
+    const [socialFields, setSocialFields] = useState([]);
+    const addSocial = () => {
+        if(socialFields.length < 1) {
+            setSocialFields([0]);
+        }
+        else {
+            const newCount = socialFields.length;
+            setSocialFields(socialFields => [...socialFields, newCount]);
+        }
+    };
+
+    // before submitting the form data, the social media info needs to be packaged in the correct format for the backend
+    const packageData = () => {
+        if (socialFields.length > 0) {
+            let social_medias = [];
+            let social_links = [];
+            socialFields.forEach(sm => {
+                const media = document.getElementById(`socialName[${sm}]`);
+                const link = document.getElementById(`socialLink[${sm}]`);
+                social_medias.push(media.value);
+                social_links.push(link.value);
+            });
+            setNewUserInfo({
+                ...newUserInfo,
+                newSocialMedias: social_medias,
+                newSocialLinks: social_links
+            });
+        }
+        
+        handleUpdateUserSubmit();
+    }
 
     return (
         <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
@@ -371,22 +406,6 @@ const ProfileEditModal = (props) => {
                                     fullWidth
                                 />
                             </Grid>
-                            <Grid item xs={12} sm={6}>
-                                <TextField
-                                    id="social-media"
-                                    label="Social Media"
-                                    variant='outlined'
-                                    type="url"
-                                    value={newSocialMedia ? newSocialMedia : ''}
-                                    onChange={event => setNewUserInfo(
-                                        {
-                                            ...newUserInfo,
-                                            newSocialMedia: event.target.value
-                                        }
-                                    )}
-                                    fullWidth
-                                />
-                            </Grid>
                             <Grid item xs={12}>
                                 <TextField
                                     id="street-address"
@@ -475,6 +494,37 @@ const ProfileEditModal = (props) => {
                                 />
                             </Grid>
                             <Grid item xs={12}>
+                                <button onClick={() => addSocial()}>Add Social Media</button>
+                            </Grid>
+                            {socialFields.map(sm => {
+                                const name = `socialName[${sm}]`;
+                                const link = `socialLink[${sm}]`;
+                                return (
+                                    <section id="SocialFields">
+                                        <Grid item xs={12}>
+                                            <FormGroup row>
+                                                <TextField
+                                                    id={name}
+                                                    label="Platform"
+                                                    variant='outlined'
+                                                    type="text"
+                                                    placeholder="Facebook"
+                                                    fullWidth
+                                                />
+                                                <TextField
+                                                    id={link}
+                                                    label="Link"
+                                                    variant='outlined'
+                                                    type="text"
+                                                    placeholder="facebook.com/myprofile"
+                                                    fullWidth
+                                                />
+                                            </FormGroup>
+                                        </Grid>
+                                </section>
+                                );
+                            })}
+                            <Grid item xs={12}>
                                 <FormGroup row>
                                     <FormControlLabel
                                         control={<Checkbox
@@ -523,7 +573,7 @@ const ProfileEditModal = (props) => {
                         </Button>
                         <Button
                             onClick={() => {
-                                handleUpdateUserSubmit();
+                                packageData();
                             }}
                             color="primary"
                         >
