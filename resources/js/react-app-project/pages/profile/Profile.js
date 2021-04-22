@@ -50,7 +50,9 @@ const Profile = (props) => {
         newFirstName: null,
         newLastName: null,
         newBio: null,
-        newSocialMedia: null,
+        socialMedia: null,
+        newSocialMedias: null,
+        newSocialLinks: null,
         newEmail: null,
         newStreet: null,
         newCity: null,
@@ -69,7 +71,8 @@ const Profile = (props) => {
             newFirstName: userInfo.firstName,
             newLastName: userInfo.lastName,
             newBio: userInfo.bio,
-            newSocialMedia: userInfo.socialMedia,
+            newSocialMedias: userInfo.socialMedias,
+            newSocialLinks: userInfo.socialLinks,
             newStreet: userInfo.street,
             newCity: userInfo.city,
             newState: userInfo.state,
@@ -78,8 +81,6 @@ const Profile = (props) => {
             newDesigner: userInfo.roles.includes('designer'),
             newManufacturer: userInfo.roles.includes('manufacturer')
         });
-
-
     }, [userInfo]);
 
 
@@ -88,7 +89,8 @@ const Profile = (props) => {
             first_name: newUserInfo.newFirstName,
             last_name: newUserInfo.newLastName,
             bio: newUserInfo.newBio,
-            socialMedia: newSocialMedia,
+            social_medias: newUserInfo.newSocialMedias,
+            social_link: newUserInfo.newSocialLinks,
             state: newUserInfo.newState,
             city: newUserInfo.newCity,
             street: newUserInfo.newStreet,
@@ -100,7 +102,7 @@ const Profile = (props) => {
             manufacturer: newUserInfo.newManufacturer
 
         };
-
+        console.log('handle', userUpdateInfo);
 
         const isValid = validateInputs();
 

@@ -92,8 +92,6 @@ const ProfileInfoDisplay = (props) => {
         return rolesString;
     };
 
-    const socialMediaDisplay = '';
-
 
     return (
         <div className={classes.root}>
@@ -252,7 +250,7 @@ const ProfileInfoDisplay = (props) => {
                             <Grid item xs={8} md={9}>
                                 {socialMedia.map(sm => {
                                     return (
-                                        <Typography>
+                                        <Typography key={sm.social_media}>
                                             <span className='socialMediaName'>{sm.social_media}</span> 
                                             <br/> 
                                             <span className='socialMediaLink'>{sm.social_link}</span>

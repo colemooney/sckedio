@@ -79,6 +79,8 @@ const App = () => {
                     lastName: res.data[1].last_name,
                     bio: res.data[1].bio,
                     socialMedia: res.data.social_links,
+                    socialMedias: res.data.social_links,
+                    socialLinks: res.data.social_links,
                     street: res.data[1].street,
                     city: res.data[1].city,
                     state: res.data[1].state,
