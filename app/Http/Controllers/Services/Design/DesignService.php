@@ -162,7 +162,6 @@ class DesignService
         return json_decode($designs, true);
     }
 
-
     public function handleShow($id)
     {
         $designs = DB::table('designs')
@@ -292,6 +291,24 @@ class DesignService
         return response()->json([
             'message' => 'Successful!'
         ], 200);
+    }
+
+
+    public function handleDelete($id)
+    {
+        $userDesign = auth()->user()->design->where('id', $id)->first();
+        
+        if($userDesign)
+        {
+            $userDesign->delete();
+            return response()->json([
+                'message' => 'Successfully delete design.'
+            ], 202);
+        }
+        
+        return response()->json([
+            'message' => 'No design associated with the current user.'
+        ], 404);
     }
 
     protected function storePublicFiles(object $request, object $authenticatedUser, object $design, string $ideaName)

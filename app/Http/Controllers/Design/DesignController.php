@@ -31,6 +31,17 @@ class DesignController extends Controller
         return $status;
     }
 
+    public function edit($id)
+    {
+
+    }
+
+    public function destroy($id)
+    {
+        $status = $this->designService->handleDelete($id);
+        return $status;
+    }
+
     public function list()
     {
         $status = $this->designService->handleList();

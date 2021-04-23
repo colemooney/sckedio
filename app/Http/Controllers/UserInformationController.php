@@ -18,7 +18,8 @@ use App\Http\Requests\UserRequest\UpdateRequest;
 
 class UserInformationController extends Controller
 {
-    public function show(Request $request) {
+    public function show(Request $request) 
+    {
         $userId = Auth::id();
         $userInformation = User::find($userId)->user_information;
 
@@ -31,7 +32,8 @@ class UserInformationController extends Controller
             $userInformation->display_picture = "";
         }
 
-        if(empty($userInformation)){
+        if(empty($userInformation))
+        {
             return response()->json([
                 'message' => 'User Information not found.'
             ], 404);

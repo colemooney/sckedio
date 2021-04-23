@@ -100,6 +100,7 @@ Route::group([
             Route::post('create', [DesignController::class, 'create']);
             Route::post('upload/file/{id}', [DesignController::class, 'uploadFiles']);
             Route::put('update/{id}', [DesignController::class, 'update']);
+            Route::delete('destroy/{id}', [DesignController::class, 'destroy']);
         });
     });
 });
